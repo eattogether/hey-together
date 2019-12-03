@@ -51,3 +51,23 @@ bootJar {
         into 'static/docs'
     }
 }
+
+sourceSets {
+    acceptanceTest {
+        java.srcDir file('src/acceptanceTest/java')
+        resources.srcDir file('src/acceptanceTest/resources')
+        compileClasspath += main.output + test.output + configurations.testRuntime
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
+task acceptanceTest(type: Test) {
+    description = 'Runs the acceptance tests'
+    group = 'verification'
+    testClassesDirs = sourceSets.acceptanceTest.output
+    classpath = sourceSets.acceptanceTest.runtimeClasspath
+}
+
+check {
+    dependsOn(acceptanceTest)
+}
