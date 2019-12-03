@@ -14,6 +14,7 @@ configurations {
     runtimeClasspath {
         extendsFrom developmentOnly
     }
+    acceptanceTestImplementation
 }
 
 repositories {
@@ -25,11 +26,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
     testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
+    acceptanceTestImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+    acceptanceTestImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
 ext {
