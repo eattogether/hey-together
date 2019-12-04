@@ -1,0 +1,3 @@
+= Document Title
+
+include::{snippets}/index/curl-request.adoc[]
