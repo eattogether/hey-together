@@ -1,10 +1,12 @@
-package com.eattogether.heytogether.web.controller;
+package com.eattogether.heytogether.controller;
 
 import com.eattogether.heytogether.controller.dto.LoginDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
@@ -24,6 +27,8 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.api.com")
 public class UserControllerTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserControllerTest.class);
 
     private WebTestClient webTestClient;
 
@@ -44,11 +49,15 @@ public class UserControllerTest {
                 .body(Mono.just(new LoginDto("mamookja", "1234")), LoginDto.class)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody().consumeWith(
+                .expectBody()
+                .consumeWith(
+                        entityExchangeResult -> logger.debug("cookie :{}", entityExchangeResult.getResponseCookies().toString())
+                )
+                .consumeWith(
                         document("login/post",
-                        requestFields(
-                                fieldWithPath("userId").description("로그인 할 Id"),
-                                fieldWithPath("password").description("해당 ID의 비밀번호")))
+                                requestFields(
+                                        fieldWithPath("userId").description("로그인 할 Id"),
+                                        fieldWithPath("password").description("해당 ID의 비밀번호")))
                 );
     }
 }

@@ -25,20 +25,27 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'com.auth0:java-jwt:3.8.3'
+    runtimeOnly 'mysql:mysql-connector-java'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation 'com.h2database:h2'
 
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     acceptanceTestImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+    acceptanceTestImplementation 'com.auth0:java-jwt:3.8.3'
     acceptanceTestImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    acceptanceTestImplementation 'com.h2database:h2'
 }
 
 ext {
