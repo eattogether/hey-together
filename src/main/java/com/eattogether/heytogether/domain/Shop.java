@@ -19,7 +19,7 @@ public class Shop {
     @Column
     private int minimumOrderPrice;
 
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.MERGE)
     @JsonManagedReference
     private List<Menu> menus = new ArrayList<>();
 
