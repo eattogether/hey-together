@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.controller;
+package com.eattogether.heytogether.web.controller;
 
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.service.MenuService;
