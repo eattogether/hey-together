@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.web.controller;
 
-import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.ArticleService;
+import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
