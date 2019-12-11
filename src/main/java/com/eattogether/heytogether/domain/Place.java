@@ -1,5 +1,6 @@
 package com.eattogether.heytogether.domain;
 
+import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -32,5 +33,31 @@ public class Place {
 
     public double getLatitude() {
         return latitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Place)) {
+            return false;
+        }
+        final Place place = (Place) o;
+        return Objects.equals(getId(), place.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                '}';
     }
 }

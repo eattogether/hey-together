@@ -2,6 +2,7 @@ package com.eattogether.heytogether.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -54,5 +55,33 @@ public class Shop {
 
     public List<Menu> getMenus() {
         return menus;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Shop)) {
+            return false;
+        }
+        final Shop shop = (Shop) o;
+        return Objects.equals(getId(), shop.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "id=" + id +
+                ", deliveryTip=" + deliveryTip +
+                ", minimumOrderPrice=" + minimumOrderPrice +
+                ", menus=" + menus +
+                ", place=" + place +
+                '}';
     }
 }
