@@ -2,6 +2,7 @@ package com.eattogether.heytogether.service;
 
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.MenuRepository;
+import com.eattogether.heytogether.service.assembler.MenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +20,6 @@ public class MenuService {
 
     public void save(Long id, MenuCreateDto menuCreateDto) {
         Shop shop = shopService.findBy(id);
-        menuRepository.save(menuCreateDto.toEntity(shop));
+        menuRepository.save(MenuAssembler.toEntity(menuCreateDto, shop));
     }
 }

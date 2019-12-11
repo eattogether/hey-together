@@ -2,6 +2,7 @@ package com.eattogether.heytogether.service;
 
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ShopRepository;
+import com.eattogether.heytogether.service.assembler.ShopAssembler;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.exception.ShopNotFoundException;
 
@@ -18,7 +19,7 @@ public class ShopService {
     }
 
     public void save(ShopCreateDto shopCreateDto) {
-        shopRepository.save(shopCreateDto.toEntity());
+        shopRepository.save(ShopAssembler.toEntity(shopCreateDto));
     }
 
     public Shop findBy(Long id) {

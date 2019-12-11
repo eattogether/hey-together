@@ -2,7 +2,6 @@ package com.eattogether.heytogether.service.dto;
 
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
-import com.eattogether.heytogether.domain.Shop;
 
 public class ShopCreateDto {
     private Money deliveryTip;
@@ -30,9 +29,5 @@ public class ShopCreateDto {
 
     public Place getPlace() {
         return place;
-    }
-
-    public Shop toEntity() {
-        return new Shop(deliveryTip, minimumOrderPrice, place);
     }
 }
