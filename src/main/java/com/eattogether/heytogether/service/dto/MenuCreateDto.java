@@ -1,16 +1,17 @@
 package com.eattogether.heytogether.service.dto;
 
 import com.eattogether.heytogether.domain.Menu;
+import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Shop;
 
 public class MenuCreateDto {
     private String name;
-    private int price;
+    private Money price;
 
     public MenuCreateDto() {
     }
 
-    public MenuCreateDto(String name, int price) {
+    public MenuCreateDto(String name, Money price) {
         this.name = name;
         this.price = price;
     }
@@ -23,11 +24,11 @@ public class MenuCreateDto {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Money getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Money price) {
         this.price = price;
     }
 

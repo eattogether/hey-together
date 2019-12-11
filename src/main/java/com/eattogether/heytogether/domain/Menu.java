@@ -14,9 +14,9 @@ public class Menu {
     @Column
     private String name;
 
-    // TODO: 2019-12-09 Embeded_Money
-    @Column
-    private int price;
+    @Embedded
+    @AttributeOverrides(@AttributeOverride(name = "value", column = @Column(name = "price")))
+    private Money price;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
@@ -26,7 +26,7 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String name, int price, Shop shop) {
+    public Menu(String name, Money price, Shop shop) {
         this.name = name;
         this.price = price;
         this.shop = shop;
@@ -36,31 +36,15 @@ public class Menu {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPrice() {
+    public Money getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Shop getShop() {
         return shop;
-    }
-
-    public void setShop(Shop shop) {
-        this.shop = shop;
     }
 }

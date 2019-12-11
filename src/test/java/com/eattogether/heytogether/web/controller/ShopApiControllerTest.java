@@ -1,5 +1,6 @@
 package com.eattogether.heytogether.web.controller;
 
+import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
@@ -22,7 +23,8 @@ class ShopApiControllerTest {
     @Test
     @DisplayName("가게 생성")
     void saveShop() {
-        ShopCreateDto shopCreateDto = new ShopCreateDto(2000, 14000, new Place(1.1, 2.2));
+        ShopCreateDto shopCreateDto = new ShopCreateDto(new Money(2000), new Money(14000),
+                new Place(1.1, 2.2));
         webTestClient.post().uri("/api/shops")
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(shopCreateDto), ShopCreateDto.class)
@@ -36,8 +38,8 @@ class ShopApiControllerTest {
                 .exchange().expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(2)
-                .jsonPath("$.minimumOrderPrice").isEqualTo(15000)
-                .jsonPath("$.deliveryTip").isEqualTo(3000)
+                .jsonPath("$.minimumOrderPrice").isNotEmpty()
+                .jsonPath("$.deliveryTip").isNotEmpty()
                 .jsonPath("$.menus").isEmpty()
                 .jsonPath("$.place").isNotEmpty();
     }
@@ -45,7 +47,7 @@ class ShopApiControllerTest {
     @Test
     @DisplayName("메뉴 등록")
     void addMenu() {
-        MenuCreateDto menuCreateDto = new MenuCreateDto("bread", 1500);
+        MenuCreateDto menuCreateDto = new MenuCreateDto("bread", new Money(1500));
 
         webTestClient.post().uri("/api/shops/1/menus")
                 .accept(MediaType.APPLICATION_JSON)
