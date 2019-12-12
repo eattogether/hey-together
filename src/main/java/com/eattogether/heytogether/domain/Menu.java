@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 // 특정 가게의 특정 메뉴
 @Entity
 public class Menu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

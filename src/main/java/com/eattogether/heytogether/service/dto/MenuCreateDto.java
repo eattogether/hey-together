@@ -3,6 +3,7 @@ package com.eattogether.heytogether.service.dto;
 import com.eattogether.heytogether.domain.Money;
 
 public class MenuCreateDto {
+
     private String name;
     private Money price;
 

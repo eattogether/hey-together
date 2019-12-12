@@ -6,9 +6,12 @@ import com.eattogether.heytogether.service.assembler.MenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class MenuService {
+
     private MenuRepository menuRepository;
 
     private ShopService shopService;

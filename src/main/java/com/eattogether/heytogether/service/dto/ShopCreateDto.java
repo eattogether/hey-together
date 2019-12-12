@@ -4,6 +4,7 @@ import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
 
 public class ShopCreateDto {
+
     private Money deliveryTip;
 
     private Money minimumOrderPrice;
