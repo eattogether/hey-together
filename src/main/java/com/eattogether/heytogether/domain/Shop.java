@@ -26,7 +26,7 @@ public class Shop {
     @JsonManagedReference
     private List<Menu> menus = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Embedded
     private Place place;
 
     public Shop() {

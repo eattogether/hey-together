@@ -1,19 +1,13 @@
 package com.eattogether.heytogether.domain;
 
 import java.util.Objects;
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 
-@Entity
+@Embeddable
 public class Place {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column
     private double longitude;
 
-    @Column
     private double latitude;
 
     public Place() {
@@ -22,10 +16,6 @@ public class Place {
     public Place(double longitude, double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public double getLongitude() {
@@ -45,19 +35,19 @@ public class Place {
             return false;
         }
         final Place place = (Place) o;
-        return Objects.equals(getId(), place.getId());
+        return Double.compare(place.getLongitude(), getLongitude()) == 0 &&
+                Double.compare(place.getLatitude(), getLatitude()) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getLongitude(), getLatitude());
     }
 
     @Override
     public String toString() {
         return "Place{" +
-                "id=" + id +
-                ", longitude=" + longitude +
+                "longitude=" + longitude +
                 ", latitude=" + latitude +
                 '}';
     }

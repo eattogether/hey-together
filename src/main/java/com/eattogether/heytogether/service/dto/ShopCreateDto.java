@@ -6,9 +6,7 @@ import com.eattogether.heytogether.domain.Place;
 public class ShopCreateDto {
 
     private Money deliveryTip;
-
     private Money minimumOrderPrice;
-
     private Place place;
 
     public ShopCreateDto() {
