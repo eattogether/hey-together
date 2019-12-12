@@ -21,8 +21,8 @@ public class MenuService {
         this.shopService = shopService;
     }
 
-    public void save(Long id, MenuCreateDto menuCreateDto) {
-        Shop shop = shopService.findEntityBy(id);
+    public void save(Long shopId, MenuCreateDto menuCreateDto) {
+        Shop shop = shopService.findEntityBy(shopId);
         menuRepository.save(MenuAssembler.toEntity(menuCreateDto, shop));
     }
 }

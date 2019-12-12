@@ -23,7 +23,7 @@ class ShopApiAcceptanceTest {
 
     @Test
     @DisplayName("가게 등록 성공")
-    void saveShop() {
+    void save_shop() {
         ShopCreateDto shopCreateDto = new ShopCreateDto(new Money(2000), new Money(14000),
                 new Place(1.1, 2.2));
         webTestClient.post().uri("/api/shops")
@@ -34,7 +34,7 @@ class ShopApiAcceptanceTest {
 
     @Test
     @DisplayName("가게 조회 요청 시 해당 가게의 정보 반환")
-    void readShop() {
+    void read_shop() {
         webTestClient.get().uri("/api/shops/2")
                 .exchange().expectStatus().isOk()
                 .expectBody()
@@ -47,7 +47,7 @@ class ShopApiAcceptanceTest {
 
     @Test
     @DisplayName("메뉴 등록 성공")
-    void addMenu() {
+    void add_menu() {
         MenuCreateDto menuCreateDto = new MenuCreateDto("bread", new Money(1500));
 
         webTestClient.post().uri("/api/shops/1/menus")
