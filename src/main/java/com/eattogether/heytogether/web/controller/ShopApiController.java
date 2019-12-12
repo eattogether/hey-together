@@ -1,10 +1,10 @@
 package com.eattogether.heytogether.web.controller;
 
-import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.service.MenuService;
 import com.eattogether.heytogether.service.ShopService;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
+import com.eattogether.heytogether.service.dto.ShopInfoDto;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +27,8 @@ public class ShopApiController {
     }
 
     @GetMapping("/api/shops/{id}")
-    public ResponseEntity<Shop> readShop(@PathVariable Long id) {
-        return ResponseEntity.ok(shopService.findBy(id));
+    public ResponseEntity<ShopInfoDto> readShop(@PathVariable Long id) {
+        return ResponseEntity.ok(shopService.findDtoBy(id));
     }
 
     @PostMapping("/api/shops/{id}/menus")

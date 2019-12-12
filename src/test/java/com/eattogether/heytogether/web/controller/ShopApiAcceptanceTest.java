@@ -39,9 +39,9 @@ class ShopApiAcceptanceTest {
                 .exchange().expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(2)
-                .jsonPath("$.minimumOrderPrice").isNotEmpty()
                 .jsonPath("$.deliveryTip").isNotEmpty()
-                .jsonPath("$.menus").isEmpty()
+                .jsonPath("$.minimumOrderPrice").isNotEmpty()
+                .jsonPath("$.menuInfos").isEmpty()
                 .jsonPath("$.place").isNotEmpty();
     }
 

@@ -22,7 +22,7 @@ public class MenuService {
     }
 
     public void save(Long id, MenuCreateDto menuCreateDto) {
-        Shop shop = shopService.findBy(id);
+        Shop shop = shopService.findEntityBy(id);
         menuRepository.save(MenuAssembler.toEntity(menuCreateDto, shop));
     }
 }
