@@ -3,8 +3,6 @@ package com.eattogether.heytogether.domain;
 import java.util.Objects;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 // 특정 가게의 특정 메뉴
 @Entity
 public class Menu {
@@ -22,7 +20,6 @@ public class Menu {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
-    @JsonBackReference
     private Shop shop;
 
     public Menu() {

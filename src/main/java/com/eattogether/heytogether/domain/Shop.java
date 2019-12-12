@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Shop {
 
@@ -23,7 +21,6 @@ public class Shop {
     private Money minimumOrderPrice;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Menu> menus = new ArrayList<>();
 
     @Embedded
