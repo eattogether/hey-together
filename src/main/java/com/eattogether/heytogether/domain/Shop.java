@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Shop {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Embedded
@@ -22,7 +22,7 @@ public class Shop {
     @AttributeOverrides(@AttributeOverride(name = "value", column = @Column(name = "minimumOrderPrice")))
     private Money minimumOrderPrice;
 
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Menu> menus = new ArrayList<>();
 

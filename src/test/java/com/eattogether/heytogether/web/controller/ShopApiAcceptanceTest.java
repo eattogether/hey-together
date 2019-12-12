@@ -16,13 +16,13 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-class ShopApiControllerTest {
+class ShopApiAcceptanceTest {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
-    @DisplayName("가게 생성")
+    @DisplayName("가게 등록 성공")
     void saveShop() {
         ShopCreateDto shopCreateDto = new ShopCreateDto(new Money(2000), new Money(14000),
                 new Place(1.1, 2.2));
@@ -33,7 +33,7 @@ class ShopApiControllerTest {
     }
 
     @Test
-    @DisplayName("가게 조회")
+    @DisplayName("가게 조회 요청 시 해당 가게의 정보 반환")
     void readShop() {
         webTestClient.get().uri("/api/shops/2")
                 .exchange().expectStatus().isOk()
@@ -46,7 +46,7 @@ class ShopApiControllerTest {
     }
 
     @Test
-    @DisplayName("메뉴 등록")
+    @DisplayName("메뉴 등록 성공")
     void addMenu() {
         MenuCreateDto menuCreateDto = new MenuCreateDto("bread", new Money(1500));
 
