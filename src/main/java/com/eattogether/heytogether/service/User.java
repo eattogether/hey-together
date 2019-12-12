@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.domain;
+package com.eattogether.heytogether.service;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,15 +9,18 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private final String userId;
+    private final String password;
 
-    private String userId;
-    private String password;
-
-    public User(String userId, String password) {
+    public User(final String userId, final String password) {
         this.userId = userId;
         this.password = password;
+    }
+
+    public boolean checkPassword(final String password) {
+        return this.password.equals(password);
     }
 
     public Long getId() {
@@ -28,7 +31,4 @@ public class User {
         return userId;
     }
 
-    public String getPassword() {
-        return password;
-    }
 }
