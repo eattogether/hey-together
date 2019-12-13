@@ -2,6 +2,8 @@ package com.eattogether.heytogether.common;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eattogether.heytogether.service.dto.UserDto;
 import com.google.gson.Gson;
@@ -26,7 +28,7 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public static void validate(String token) {
+    public static void validate(String token) throws SignatureVerificationException, JWTDecodeException {
         String payload = new String(Base64.decodeBase64URLSafe(JWT.decode(token).getPayload()));
         Gson gson = new Gson();
         Map map = gson.fromJson(payload, Map.class);
