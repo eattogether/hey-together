@@ -32,8 +32,8 @@ public class JwtUtil {
         Map map = gson.fromJson(payload, Map.class);
 
         String time = map.get(JWT_SECRET_KEY).toString();
-        Algorithm algorithm1 = Algorithm.HMAC256(time);
+        Algorithm jwtAlgorithm = Algorithm.HMAC256(time);
         DecodedJWT decode = JWT.decode(token);
-        algorithm1.verify(decode);
+        jwtAlgorithm.verify(decode);
     }
 }
