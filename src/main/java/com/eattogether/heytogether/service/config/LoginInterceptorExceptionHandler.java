@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.config;
+package com.eattogether.heytogether.service.config;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;

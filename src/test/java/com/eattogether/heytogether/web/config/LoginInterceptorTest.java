@@ -1,6 +1,7 @@
-package com.eattogether.heytogether.config;
+package com.eattogether.heytogether.web.config;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.eattogether.heytogether.service.config.LoginInterceptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

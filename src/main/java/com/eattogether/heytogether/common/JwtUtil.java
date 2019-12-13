@@ -3,7 +3,7 @@ package com.eattogether.heytogether.common;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.eattogether.heytogether.controller.dto.UserDto;
+import com.eattogether.heytogether.service.dto.UserDto;
 import com.google.gson.Gson;
 import org.apache.tomcat.util.codec.binary.Base64;
 

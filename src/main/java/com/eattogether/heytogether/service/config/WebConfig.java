@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.config;
+package com.eattogether.heytogether.service.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

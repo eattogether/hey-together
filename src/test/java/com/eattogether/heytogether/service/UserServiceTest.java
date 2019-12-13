@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.service;
 
-import com.eattogether.heytogether.controller.dto.LoginDto;
-import com.eattogether.heytogether.controller.dto.UserDto;
+import com.eattogether.heytogether.service.dto.LoginDto;
+import com.eattogether.heytogether.service.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

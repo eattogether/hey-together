@@ -1,9 +1,9 @@
-package com.eattogether.heytogether.controller;
+package com.eattogether.heytogether.web.controller;
 
 import com.eattogether.heytogether.common.JwtUtil;
-import com.eattogether.heytogether.controller.dto.LoginDto;
-import com.eattogether.heytogether.controller.dto.UserDto;
 import com.eattogether.heytogether.service.UserService;
+import com.eattogether.heytogether.service.dto.LoginDto;
+import com.eattogether.heytogether.service.dto.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

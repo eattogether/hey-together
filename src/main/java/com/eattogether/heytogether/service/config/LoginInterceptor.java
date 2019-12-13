@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.config;
+package com.eattogether.heytogether.service.config;
 
 import com.eattogether.heytogether.common.ControllerCookieHelper;
 import com.eattogether.heytogether.common.JwtUtil;

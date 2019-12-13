@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.controller.dto;
+package com.eattogether.heytogether.service.dto;
 
 public class UserDto {
 

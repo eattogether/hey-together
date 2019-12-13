@@ -2,7 +2,7 @@ package com.eattogether.heytogether.controller;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.eattogether.heytogether.common.JwtUtil;
-import com.eattogether.heytogether.controller.dto.UserDto;
+import com.eattogether.heytogether.service.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

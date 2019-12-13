@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.controller;
 
-import com.eattogether.heytogether.controller.dto.LoginDto;
+import com.eattogether.heytogether.service.dto.LoginDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +8,14 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles(profiles = "test")
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest {
