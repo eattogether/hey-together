@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class LoginInterceptorExceptionHandler {
 
     @ExceptionHandler({SignatureVerificationException.class, ClassNotFoundException.class, JWTDecodeException.class})
-    public ResponseEntity<Object> temp() {
+    public ResponseEntity<Object> handleLoginInterceptorException() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Location", "/temp");
         return new ResponseEntity<>(httpHeaders, HttpStatus.FOUND);
