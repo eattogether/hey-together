@@ -1,7 +1,9 @@
 package com.eattogether.heytogether.service;
 
+import com.eattogether.heytogether.domain.repository.UserRepository;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import com.eattogether.heytogether.service.dto.UserDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,18 +19,28 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(SpringExtension.class)
 class UserServiceTest {
 
+    private final static String userName = "mamook";
+    private final static String userPassword = "1234";
     @Mock
     private UserRepository userRepository;
+
+    private User user;
+    private LoginDto loginDto;
+
+    @BeforeEach
+    void setUp() {
+        user = new User(userName, userPassword);
+    }
 
     @Test
     @DisplayName("로그인 성공 테스트")
     void loginTest() {
-        given(userRepository.findByUserId("mamook")).willReturn(Optional.of(new User("mamook", "1234")));
+        given(userRepository.findByUserId(userName)).willReturn(Optional.of(user));
         UserService userService = new UserService(userRepository);
 
-        UserDto userDto = userService.loginUser(new LoginDto("mamook", "1234"));
+        UserDto userDto = userService.loginUser(loginDto);
 
-        assertThat(userDto.getUserId()).isEqualTo("mamook");
+        assertThat(userDto.getUserId()).isEqualTo(userName);
     }
 
     @Test
@@ -36,16 +48,16 @@ class UserServiceTest {
     void loginTest2() {
         UserService userService = new UserService(userRepository);
 
-        assertThrows(IllegalArgumentException.class, () -> userService.loginUser(new LoginDto("mamook", "1234")));
+        assertThrows(IllegalArgumentException.class, () -> userService.loginUser(loginDto));
     }
 
     @Test
     @DisplayName("로그인 실패 테스트 비밀번호가 틀린 경우")
     void loginTest3() {
-        given(userRepository.findByUserId("mamook")).willReturn(Optional.of(new User("mamook", "1234")));
+        given(userRepository.findByUserId(userName)).willReturn(Optional.of(user));
         UserService userService = new UserService(userRepository);
 
-        assertThrows(IllegalArgumentException.class, () -> userService.loginUser(new LoginDto("mamook", "12345")));
+        assertThrows(IllegalArgumentException.class, () -> userService.loginUser(new LoginDto(userName, "12345")));
     }
 
 }
