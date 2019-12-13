@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.controller;
+package com.eattogether.heytogether.common;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class JwtUtil {
+
     private static final String JWT_SECRET_KEY = "time";
 
     public static String createToken(UserDto userDto) {
@@ -26,8 +27,7 @@ public class JwtUtil {
     }
 
     public static void validate(String token) {
-        String payload = new String(Base64.decodeBase64URLSafe(JWT.decode(token)
-                .getPayload()));
+        String payload = new String(Base64.decodeBase64URLSafe(JWT.decode(token).getPayload()));
         Gson gson = new Gson();
         Map map = gson.fromJson(payload, Map.class);
 
