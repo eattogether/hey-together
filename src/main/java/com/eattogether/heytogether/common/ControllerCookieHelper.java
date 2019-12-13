@@ -11,11 +11,18 @@ public class ControllerCookieHelper {
     private static final int DEFAULT_COOKIE_EXPIRY_TIME = 7 * 24 * 60 * 60;
 
     public static Cookie getCookie(final HttpServletRequest request, final String cookieName) {
-        Objects.requireNonNull(request.getCookies());
+        validateCookies(request);
+
         return Arrays.stream(request.getCookies())
                 .filter(cookie -> cookie.getName().equals(cookieName))
                 .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(CookieNotFoundException::new);
+    }
+
+    private static void validateCookies(final HttpServletRequest request) {
+        if (Objects.isNull(request.getCookies())) {
+            throw new CookieNotFoundException();
+        }
     }
 
     public static Cookie createDefaultCookie(final String name, final String value) {
