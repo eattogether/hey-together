@@ -1,3 +1,16 @@
-= Document Title
+= Ma! Gachi-MoocZZa
+뚱이, 에이든, 티버, 코맥, 션
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:highlightjs-theme: github
+:toc: left
+:toclevels: 3
+:sectlinks:
+:sectnums:
 
-include::{snippets}/index/curl-request.adoc[]
+== Create Article
+=== Request Structure
+include::{snippets}/articles/post/request-fields.adoc[]
+=== Example request
+include::{snippets}/articles/post/curl-request.adoc[]
