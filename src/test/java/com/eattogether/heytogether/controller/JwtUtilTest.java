@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JwtUtilTest {
-    private final static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGltZSI6IjE1MTYyMzkwMjIifQ.LgwOkByjVf7hwCXe9iwaH1jWpjmbVn50aJCtqNlbxec";
+    private final static String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOiIyMTE5LTEyLTEzVDE5OjA0OjE4LjUwMSIsImlzcyI6Im1hbW9vayIsInRpbWUiOiIyMDE5LTEyLTEzVDE5OjA0OjE4LjUwMSJ9.H685WnceIGgSx4WjHlv6V_i1p63ORLaU0Yt8R7rg_Uc";
 
     @Test
     @DisplayName("토큰 정상 생성")
@@ -21,12 +21,12 @@ class JwtUtilTest {
     @Test
     @DisplayName("토큰 유효성 정상 검사")
     void tokenValidation() {
-        assertDoesNotThrow(() -> JwtUtil.validate(token));
+        assertDoesNotThrow(() -> JwtUtil.validate(JWT_TOKEN));
     }
 
     @Test
     @DisplayName("토큰 유효성 검사 오류")
     void tokenValidation2() {
-        assertThrows(SignatureVerificationException.class, () -> JwtUtil.validate(token + "a"));
+        assertThrows(SignatureVerificationException.class, () -> JwtUtil.validate(JWT_TOKEN + "a"));
     }
 }

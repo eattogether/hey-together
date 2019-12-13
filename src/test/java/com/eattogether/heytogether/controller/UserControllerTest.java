@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest {
 
-    private final static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGltZSI6IjE1MTYyMzkwMjIifQ.LgwOkByjVf7hwCXe9iwaH1jWpjmbVn50aJCtqNlbxec";
+    private final static String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOiIyMTE5LTEyLTEzVDE5OjA0OjE4LjUwMSIsImlzcyI6Im1hbW9vayIsInRpbWUiOiIyMDE5LTEyLTEzVDE5OjA0OjE4LjUwMSJ9.H685WnceIGgSx4WjHlv6V_i1p63ORLaU0Yt8R7rg_Uc";
 
     @Autowired
     private WebTestClient webTestClient;
@@ -46,7 +46,7 @@ class UserControllerTest {
     void logout_is_ok() {
         webTestClient.method(HttpMethod.GET)
                 .uri("/logout")
-                .cookie(JWT_COOKIE_NAME, token)
+                .cookie(JWT_COOKIE_NAME, JWT_TOKEN)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
