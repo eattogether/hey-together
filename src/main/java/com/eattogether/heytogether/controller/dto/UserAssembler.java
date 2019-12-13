@@ -1,6 +1,6 @@
-package com.eattogether.heytogether.service;
+package com.eattogether.heytogether.controller.dto;
 
-import com.eattogether.heytogether.controller.dto.UserDto;
+import com.eattogether.heytogether.service.User;
 
 public class UserAssembler {
     public static UserDto toDto(User user) {

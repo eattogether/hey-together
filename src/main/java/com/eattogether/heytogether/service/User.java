@@ -11,8 +11,11 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private final String userId;
-    private final String password;
+    private String userId;
+    private String password;
+
+    public User() {
+    }
 
     public User(final String userId, final String password) {
         this.userId = userId;

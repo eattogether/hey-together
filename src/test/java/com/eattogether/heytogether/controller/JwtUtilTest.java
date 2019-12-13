@@ -1,6 +1,7 @@
 package com.eattogether.heytogether.controller;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.eattogether.heytogether.common.JwtUtil;
 import com.eattogether.heytogether.controller.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JwtUtilTest {
-    private final static String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtYW1vb2siLCJ0aW1lIjoiMjAxOS0xMi0xMVQxNjozMDozMC44NDAiLCJleHAiOjE1NzYwNzY0MDB9.pFDp6Cc5Nwkva8dIEI5dEONnCt4WoxnYX7Oco2OftSg";
+    private final static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGltZSI6IjE1MTYyMzkwMjIifQ.LgwOkByjVf7hwCXe9iwaH1jWpjmbVn50aJCtqNlbxec";
 
     @Test
     @DisplayName("토큰 정상 생성")
@@ -18,7 +19,7 @@ class JwtUtilTest {
     }
 
     @Test
-    @DisplayName("토큰 유효성 정상 검")
+    @DisplayName("토큰 유효성 정상 검사")
     void name1() {
         assertDoesNotThrow(() -> JwtUtil.validate(token));
     }
