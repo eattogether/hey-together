@@ -20,13 +20,13 @@ class JwtUtilTest {
 
     @Test
     @DisplayName("토큰 유효성 정상 검사")
-    void name1() {
+    void tokenValidation() {
         assertDoesNotThrow(() -> JwtUtil.validate(token));
     }
 
     @Test
     @DisplayName("토큰 유효성 검사 오류")
-    void name() {
+    void tokenValidation2() {
         assertThrows(SignatureVerificationException.class, () -> JwtUtil.validate(token + "a"));
     }
 }

@@ -1,7 +1,6 @@
 package com.eattogether.heytogether.web.config;
 
 import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.eattogether.heytogether.service.config.LoginInterceptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,7 @@ class LoginInterceptorTest {
 
     @Test
     @DisplayName("토큰을 가지고 있는 경우")
-    void name() throws Exception {
+    void requestTokenValidation() throws Exception {
         httpServletRequest.setCookies(new Cookie(JWT_COOKIE_NAME, jwtValue));
         LoginInterceptor loginInterceptor = new LoginInterceptor();
 
@@ -45,14 +44,14 @@ class LoginInterceptorTest {
 
     @Test
     @DisplayName("쿠키가 없는 경우")
-    void name2() throws Exception {
+    void requestHasNotToken() throws Exception {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
         assertThrows(NullPointerException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
     }
 
     @Test
     @DisplayName("토큰이 잘못된 경우")
-    void name3() throws Exception {
+    void requestTokenValidation2() throws Exception {
         httpServletRequest.setCookies(new Cookie(JWT_COOKIE_NAME, jwtValue + "a"));
         LoginInterceptor loginInterceptor = new LoginInterceptor();
         assertThrows(SignatureVerificationException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
