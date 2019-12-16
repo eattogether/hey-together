@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.web.config;
 
-import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.eattogether.heytogether.common.JwtTokenException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,9 +10,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.servlet.http.Cookie;
-
-import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
+import static com.eattogether.common.Constant.JWT_TOKEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,39 +19,30 @@ class LoginInterceptorTest {
 
     private MockHttpServletRequest httpServletRequest;
     private MockHttpServletResponse httpServletResponse;
-
+    private LoginInterceptor loginInterceptor;
     @Mock
     private Object mockHandler;
-
-    private String jwtValue = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGltZSI6IjE1MTYyMzkwMjIifQ.LgwOkByjVf7hwCXe9iwaH1jWpjmbVn50aJCtqNlbxec";
 
     @BeforeEach
     void setUp() {
         httpServletRequest = new MockHttpServletRequest();
         httpServletResponse = new MockHttpServletResponse();
+        loginInterceptor = new LoginInterceptor();
     }
 
     @Test
     @DisplayName("토큰을 가지고 있는 경우")
     void requestTokenValidation() throws Exception {
-        httpServletRequest.setCookies(new Cookie(JWT_COOKIE_NAME, jwtValue));
-        LoginInterceptor loginInterceptor = new LoginInterceptor();
+        httpServletRequest.addHeader("Authorization", "Bearer " + JWT_TOKEN);
 
         assertThat(loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler)).isTrue();
     }
 
     @Test
-    @DisplayName("쿠키가 없는 경우")
-    void requestHasNotToken() throws Exception {
-        LoginInterceptor loginInterceptor = new LoginInterceptor();
-        assertThrows(NullPointerException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
-    }
-
-    @Test
-    @DisplayName("토큰이 잘못된 경우")
+    @DisplayName("토큰이 변조된 경우")
     void requestTokenValidation2() throws Exception {
-        httpServletRequest.setCookies(new Cookie(JWT_COOKIE_NAME, jwtValue + "a"));
-        LoginInterceptor loginInterceptor = new LoginInterceptor();
-        assertThrows(SignatureVerificationException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
+        httpServletRequest.addHeader("Authorization", "Bearer " + JWT_TOKEN + "a");
+
+        assertThrows(JwtTokenException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
     }
 }

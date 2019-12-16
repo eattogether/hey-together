@@ -1,21 +1,22 @@
 package com.eattogether.heytogether.controller;
 
-import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.eattogether.heytogether.common.JwtTokenException;
 import com.eattogether.heytogether.common.JwtUtil;
 import com.eattogether.heytogether.service.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.eattogether.common.Constant.JWT_TOKEN;
+import static com.eattogether.common.Constant.USER_NAME;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JwtUtilTest {
-    private final static String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOiIyMTE5LTEyLTEzVDE5OjA0OjE4LjUwMSIsImlzcyI6Im1hbW9vayIsInRpbWUiOiIyMDE5LTEyLTEzVDE5OjA0OjE4LjUwMSJ9.H685WnceIGgSx4WjHlv6V_i1p63ORLaU0Yt8R7rg_Uc";
 
     @Test
     @DisplayName("토큰 정상 생성")
     void createToken() {
-        assertDoesNotThrow(() -> JwtUtil.createToken(new UserDto(1L, "mamook")));
+        assertDoesNotThrow(() -> JwtUtil.createToken(new UserDto(1L, USER_NAME)));
     }
 
     @Test
@@ -27,6 +28,6 @@ class JwtUtilTest {
     @Test
     @DisplayName("토큰 유효성 검사 오류")
     void tokenValidation2() {
-        assertThrows(SignatureVerificationException.class, () -> JwtUtil.validate(JWT_TOKEN + "a"));
+        assertThrows(JwtTokenException.class, () -> JwtUtil.validate(JWT_TOKEN + "a"));
     }
 }

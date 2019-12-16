@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import static com.eattogether.common.Constant.*;
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,8 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureWebTestClient
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest {
-
-    private final static String JWT_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOiIyMTE5LTEyLTEzVDE5OjA0OjE4LjUwMSIsImlzcyI6Im1hbW9vayIsInRpbWUiOiIyMDE5LTEyLTEzVDE5OjA0OjE4LjUwMSJ9.H685WnceIGgSx4WjHlv6V_i1p63ORLaU0Yt8R7rg_Uc";
 
     @Autowired
     private WebTestClient webTestClient;
@@ -31,7 +30,7 @@ class UserControllerTest {
         webTestClient.method(HttpMethod.POST)
                 .uri("/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(Mono.just(new LoginDto("mamook", "1234")), LoginDto.class)
+                .body(Mono.just(new LoginDto(USER_NAME, USER_PASSWORD)), LoginDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
