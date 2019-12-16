@@ -12,8 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
-import static com.eattogether.common.Constant.USER_NAME;
-import static com.eattogether.common.Constant.USER_PASSWORD;
+import static com.eattogether.TestConstant.USER_NAME;
+import static com.eattogether.TestConstant.USER_PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;

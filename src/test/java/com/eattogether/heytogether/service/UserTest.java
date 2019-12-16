@@ -3,8 +3,8 @@ package com.eattogether.heytogether.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.eattogether.common.Constant.USER_NAME;
-import static com.eattogether.common.Constant.USER_PASSWORD;
+import static com.eattogether.TestConstant.USER_NAME;
+import static com.eattogether.TestConstant.USER_PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class UserTest {

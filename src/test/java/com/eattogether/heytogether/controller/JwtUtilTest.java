@@ -6,8 +6,8 @@ import com.eattogether.heytogether.service.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.eattogether.common.Constant.JWT_TOKEN;
-import static com.eattogether.common.Constant.USER_NAME;
+import static com.eattogether.TestConstant.JWT_TOKEN;
+import static com.eattogether.TestConstant.USER_NAME;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

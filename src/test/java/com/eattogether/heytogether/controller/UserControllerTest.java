@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.eattogether.common.Constant.*;
+import static com.eattogether.TestConstant.*;
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
 import static org.assertj.core.api.Assertions.assertThat;
 
