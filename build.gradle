@@ -22,21 +22,22 @@ repositories {
 }
 
 dependencies {
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2'
+    
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
-    testImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
-    acceptanceTestImplementation 'mysql:mysql-connector-java'
     acceptanceTestImplementation 'com.h2database:h2'
+    acceptanceTestImplementation 'mysql:mysql-connector-java'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     acceptanceTestImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
