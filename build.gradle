@@ -44,6 +44,7 @@ dependencies {
     acceptanceTestImplementation 'com.h2database:h2'
     acceptanceTestImplementation 'mysql:mysql-connector-java'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-web'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     acceptanceTestImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
     acceptanceTestImplementation('org.springframework.boot:spring-boot-starter-test') {

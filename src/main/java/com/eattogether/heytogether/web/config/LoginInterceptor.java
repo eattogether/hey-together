@@ -6,6 +6,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -14,8 +16,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     public static final String JWT_TOKEN_HEADER = "Authorization";
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         String jwtTokenHeader = request.getHeader(JWT_TOKEN_HEADER);
+        if (Objects.isNull(jwtTokenHeader)) {
+            response.sendRedirect("/");
+            return false;
+        }
         JwtUtil.validate(getJwtToken(jwtTokenHeader));
 
         return true;
