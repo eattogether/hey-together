@@ -1,7 +1,5 @@
 package com.eattogether.heytogether.service;
 
-import java.util.Optional;
-
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.domain.Shop;
@@ -15,9 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

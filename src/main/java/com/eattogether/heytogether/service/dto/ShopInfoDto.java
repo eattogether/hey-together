@@ -1,9 +1,9 @@
 package com.eattogether.heytogether.service.dto;
 
-import java.util.List;
-
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
+
+import java.util.List;
 
 public class ShopInfoDto {
 

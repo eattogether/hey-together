@@ -1,16 +1,15 @@
 package com.eattogether.heytogether.service;
 
-import java.util.function.Supplier;
-
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ShopRepository;
 import com.eattogether.heytogether.service.assembler.ShopAssembler;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.exception.ShopNotFoundException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Supplier;
 
 @Service
 @Transactional

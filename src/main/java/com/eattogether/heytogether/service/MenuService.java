@@ -4,7 +4,6 @@ import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.MenuRepository;
 import com.eattogether.heytogether.service.assembler.MenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
