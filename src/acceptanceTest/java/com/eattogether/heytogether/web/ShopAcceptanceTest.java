@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.web.controller;
+package com.eattogether.heytogether.web;
 
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
@@ -16,7 +16,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-class ShopApiAcceptanceTest {
+class ShopAcceptanceTest {
 
     @Autowired
     private WebTestClient webTestClient;

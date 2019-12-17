@@ -7,7 +7,7 @@ import com.eattogether.heytogether.domain.repository.ShopRepository;
 import com.eattogether.heytogether.service.assembler.ShopAssembler;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
-import com.eattogether.heytogether.service.exception.ShopNotFoundException;
+import com.eattogether.heytogether.service.exception.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +37,7 @@ public class ShopService {
                 .orElseThrow(shopNotFoundExceptionWith(id));
     }
 
-    private Supplier<ShopNotFoundException> shopNotFoundExceptionWith(Long id) {
-        return () -> new ShopNotFoundException("id가 " + id + "인 가게를 조회할 수 없습니다.");
+    private Supplier<EntityNotFoundException> shopNotFoundExceptionWith(Long id) {
+        return () -> new EntityNotFoundException("id가 " + id + "인 가게를 조회할 수 없습니다.");
     }
 }
