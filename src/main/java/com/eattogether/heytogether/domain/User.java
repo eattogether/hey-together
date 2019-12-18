@@ -1,9 +1,6 @@
 package com.eattogether.heytogether.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -13,6 +10,9 @@ public class User {
     private Long id;
     private String userId;
     private String password;
+
+    @Embedded
+    private Point point = Point.DEFAULT_POINT;
 
     public User() {
     }
