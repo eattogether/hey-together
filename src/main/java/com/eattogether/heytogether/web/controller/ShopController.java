@@ -5,16 +5,17 @@ import com.eattogether.heytogether.service.ShopService;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class ShopApiController {
+public class ShopController {
 
     private ShopService shopService;
     private MenuService menuService;
 
-    public ShopApiController(ShopService shopService, MenuService menuService) {
+    public ShopController(ShopService shopService, MenuService menuService) {
         this.shopService = shopService;
         this.menuService = menuService;
     }

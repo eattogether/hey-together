@@ -3,48 +3,40 @@ package com.eattogether.heytogether.domain;
 import java.util.Objects;
 import javax.persistence.*;
 
-// 특정 가게의 특정 메뉴
 @Entity
-public class Menu {
+@Table(name = "\"order\"")
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "menu_name")
-    private String name;
-
-    @Embedded
-    @AttributeOverrides(@AttributeOverride(name = "value", column = @Column(name = "price")))
-    private Money price;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    public Menu() {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "article_id")
+    private Article article;
+
+    public Order() {
     }
 
-    public Menu(String name, Money price, Shop shop) {
-        this.name = name;
-        this.price = price;
+    public Order(Shop shop, Article article) {
         this.shop = shop;
+        this.article = article;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Money getPrice() {
-        return price;
-    }
-
     public Shop getShop() {
         return shop;
+    }
+
+    public Article getArticle() {
+        return article;
     }
 
     @Override
@@ -52,11 +44,11 @@ public class Menu {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Menu)) {
+        if (!(o instanceof Order)) {
             return false;
         }
-        final Menu menu = (Menu) o;
-        return Objects.equals(getId(), menu.getId());
+        final Order order = (Order) o;
+        return Objects.equals(getId(), order.getId());
     }
 
     @Override
@@ -66,11 +58,10 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu{" +
+        return "Order{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
                 ", shop=" + shop +
+                ", article=" + article +
                 '}';
     }
 }

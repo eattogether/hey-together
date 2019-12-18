@@ -1,5 +1,7 @@
 package com.eattogether.heytogether.service;
 
+import java.util.Optional;
+
 import com.eattogether.heytogether.domain.repository.UserRepository;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import com.eattogether.heytogether.service.dto.UserDto;
@@ -8,9 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.eattogether.TestConstant.USER_NAME;
 import static com.eattogether.TestConstant.USER_PASSWORD;
