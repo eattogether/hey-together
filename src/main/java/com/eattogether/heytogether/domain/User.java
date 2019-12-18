@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.service;
+package com.eattogether.heytogether.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

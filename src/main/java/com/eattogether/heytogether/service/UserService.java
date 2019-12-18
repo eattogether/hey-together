@@ -1,10 +1,10 @@
 package com.eattogether.heytogether.service;
 
+import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.domain.repository.UserRepository;
 import com.eattogether.heytogether.service.assembler.UserAssembler;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import com.eattogether.heytogether.service.dto.UserDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
