@@ -39,7 +39,9 @@
                 <v-row align="center">
                     <v-col>
                         <v-card class="mx-auto mb-5" max-width="90%" outlined>
-                            <v-select :items="categories" label="음식 카테고리" outlined></v-select>
+                            <router-link to="/write" exact>
+                                <v-btn large width="100%" color="primary" dark>같이 묵자 등록하기</v-btn>
+                            </router-link>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -63,16 +65,6 @@
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
-                        </v-card>
-                    </v-col>
-                </v-row>
-
-                <v-row align="center">
-                    <v-col>
-                        <v-card class="mx-auto mb-5" max-width="90%" outlined>
-                            <router-link to="/write" exact>
-                                <v-btn large width="100%" color="primary" dark>같이 묵자 등록하기</v-btn>
-                            </router-link>
                         </v-card>
                     </v-col>
                 </v-row>
