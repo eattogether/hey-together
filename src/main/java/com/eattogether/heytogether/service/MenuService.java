@@ -1,5 +1,8 @@
 package com.eattogether.heytogether.service;
 
+import javax.persistence.EntityNotFoundException;
+
+import com.eattogether.heytogether.domain.Menu;
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.MenuRepository;
 import com.eattogether.heytogether.service.assembler.MenuAssembler;
@@ -24,5 +27,10 @@ public class MenuService {
     public void save(Long shopId, MenuCreateDto menuCreateDto) {
         Shop shop = shopService.findEntityBy(shopId);
         menuRepository.save(MenuAssembler.toEntity(menuCreateDto, shop));
+    }
+
+    public Menu findById(Long menuId) {
+        return menuRepository.findById(menuId)
+                .orElseThrow(() -> new EntityNotFoundException("id가 " + menuId + "인 메뉴를 조회할 수 없습니다."));
     }
 }

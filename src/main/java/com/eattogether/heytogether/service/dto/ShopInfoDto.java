@@ -1,7 +1,5 @@
 package com.eattogether.heytogether.service.dto;
 
-import java.util.List;
-
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
 
@@ -10,17 +8,15 @@ public class ShopInfoDto {
     private Long id;
     private Money deliveryTip;
     private Money minimumOrderPrice;
-    private List<MenuInfoDto> menuInfos;
     private Place place;
 
     public ShopInfoDto() {
     }
 
-    public ShopInfoDto(Long id, Money deliveryTip, Money minimumOrderPrice, List<MenuInfoDto> menuInfos, Place place) {
+    public ShopInfoDto(Long id, Money deliveryTip, Money minimumOrderPrice, Place place) {
         this.id = id;
         this.deliveryTip = deliveryTip;
         this.minimumOrderPrice = minimumOrderPrice;
-        this.menuInfos = menuInfos;
         this.place = place;
     }
 
@@ -34,10 +30,6 @@ public class ShopInfoDto {
 
     public Money getMinimumOrderPrice() {
         return minimumOrderPrice;
-    }
-
-    public List<MenuInfoDto> getMenuInfos() {
-        return menuInfos;
     }
 
     public Place getPlace() {

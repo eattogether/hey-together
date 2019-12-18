@@ -13,6 +13,6 @@ public class ShopAssembler {
 
     public static ShopInfoDto toDto(Shop shop) {
         return new ShopInfoDto(shop.getId(), shop.getDeliveryTip(),
-                shop.getMinimumOrderPrice(), MenuAssembler.toDto(shop.getMenus()), shop.getPlace());
+                shop.getMinimumOrderPrice(), shop.getPlace());
     }
 }

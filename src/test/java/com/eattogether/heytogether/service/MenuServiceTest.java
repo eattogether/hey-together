@@ -1,9 +1,10 @@
 package com.eattogether.heytogether.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.repository.MenuRepository;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
-import com.eattogether.heytogether.service.exception.ShopNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,8 +44,8 @@ class MenuServiceTest {
     @DisplayName("존재하지 않는 가게의 id에 메뉴 추가 시 예외 발생")
     void save_menu_with_shopNotFoundException() {
         MenuCreateDto menuCreateDto = new MenuCreateDto("pizza", new Money(23000));
-        given(shopService.findEntityBy(-1L)).willThrow(ShopNotFoundException.class);
+        given(shopService.findEntityBy(-1L)).willThrow(EntityNotFoundException.class);
 
-        assertThrows(ShopNotFoundException.class, () -> menuService.save(-1L, menuCreateDto));
+        assertThrows(EntityNotFoundException.class, () -> menuService.save(-1L, menuCreateDto));
     }
 }

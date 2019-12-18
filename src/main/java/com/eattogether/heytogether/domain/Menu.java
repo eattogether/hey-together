@@ -11,7 +11,7 @@ public class Menu {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(name = "menu_name")
     private String name;
 
     @Embedded
