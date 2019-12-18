@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.eattogether.TestConstant.USER_NAME;
 import static com.eattogether.TestConstant.USER_PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
 
@@ -31,4 +32,29 @@ class UserTest {
         assertThat(user.checkPassword("234")).isFalse();
     }
 
+    @Test
+    @DisplayName("포인트 충전 성공 테스트")
+    void checkPoint() {
+        User user = new User(USER_NAME, USER_PASSWORD);
+        user.accumulate(20_000);
+
+        assertThat(user.getPoint()).isEqualTo(20_000);
+    }
+
+    @Test
+    @DisplayName("포인트 사용 성공 테스트")
+    void checkPoint2() {
+        User user = new User(USER_NAME, USER_PASSWORD);
+        user.accumulate(20_000);
+        user.join(10_000);
+
+        assertThat(user.getPoint()).isEqualTo(10_000);
+    }
+
+    @Test
+    @DisplayName("포인트 사용 실패 테스트 잔액 부족")
+    void checkPoint3() {
+        User user = new User(USER_NAME, USER_PASSWORD);
+        assertThrows(IllegalArgumentException.class, () -> user.join(10_000));
+    }
 }

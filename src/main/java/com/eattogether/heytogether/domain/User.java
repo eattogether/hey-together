@@ -34,4 +34,15 @@ public class User {
         return userId;
     }
 
+    public void join(final int point) {
+        this.point = this.point.use(point);
+    }
+
+    public void accumulate(final int point) {
+        this.point = this.point.accumulate(point);
+    }
+
+    public int getPoint() {
+        return point.getPoint();
+    }
 }
