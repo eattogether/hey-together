@@ -1,6 +1,5 @@
 package com.eattogether.heytogether.service;
 
-import java.util.Collections;
 import javax.persistence.EntityNotFoundException;
 
 import com.eattogether.heytogether.domain.Article;
@@ -9,7 +8,7 @@ import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ArticleRepository;
 import com.eattogether.heytogether.service.assembler.ArticleAssembler;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
-import com.eattogether.heytogether.service.dto.ArticleDetailInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleInfoDto;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ public class ArticleService {
         this.orderService = orderService;
     }
 
-    public ArticleDetailInfoDto saveArticle(ArticleCreateDto articleCreateDto) {
+    public ArticleInfoDto saveArticle(ArticleCreateDto articleCreateDto) {
         Article article = articleRepository.save(ArticleAssembler.toEntity(articleCreateDto));
 
         Shop shop = shopService.findEntityBy(articleCreateDto.getShopId());
@@ -39,13 +38,13 @@ public class ArticleService {
 
         articleCreateDto.getItems().forEach(itemCreateDto -> itemService.save(itemCreateDto, order));
 
-        return ArticleAssembler.toDto(article, Collections.singletonList(order));
+        return ArticleAssembler.toDto(article);
     }
 
-    public ArticleDetailInfoDto findById(Long articleId) {
+    public ArticleInfoDto findById(Long articleId) {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new EntityNotFoundException("id가 " + articleId + "인 메뉴를 조회할 수 없습니다."));
 
-        return ArticleAssembler.toDto(article, orderService.findByArticleId(articleId));
+        return ArticleAssembler.toDto(article);
     }
 }

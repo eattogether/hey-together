@@ -50,7 +50,6 @@ class ArticleAcceptanceTest {
                 .jsonPath("$.id").isEqualTo(1)
                 .jsonPath("$.title").isEqualTo("같이묵자")
                 .jsonPath("$.deadLine").isNotEmpty()
-                .jsonPath("$.place").isNotEmpty()
-                .jsonPath("$.orderInfoDtos").isArray();
+                .jsonPath("$.place").isNotEmpty();
     }
 }

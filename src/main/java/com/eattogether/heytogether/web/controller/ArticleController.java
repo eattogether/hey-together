@@ -2,7 +2,7 @@ package com.eattogether.heytogether.web.controller;
 
 import com.eattogether.heytogether.service.ArticleService;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
-import com.eattogether.heytogether.service.dto.ArticleDetailInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleInfoDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class ArticleController {
     }
 
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleDetailInfoDto> readArticle(@PathVariable Long id) {
+    public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
         return ResponseEntity.ok(articleService.findById(id));
     }
 }
