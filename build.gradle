@@ -3,10 +3,13 @@ plugins {
     id "org.asciidoctor.convert" version "1.5.9.2"
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'com.palantir.docker' version '0.22.1'
 }
+
 group = 'com.eattogether'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
+
 configurations {
     developmentOnly
     runtimeClasspath {
@@ -14,22 +17,33 @@ configurations {
     }
     acceptanceTestImplementation
 }
+
 repositories {
     mavenCentral()
 }
+
 dependencies {
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
     runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.auth0:java-jwt:3.8.3'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
     acceptanceTestImplementation 'com.h2database:h2'
     acceptanceTestImplementation 'mysql:mysql-connector-java'
+    acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-web'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-webflux'
     acceptanceTestImplementation 'org.springframework.restdocs:spring-restdocs-webtestclient'
