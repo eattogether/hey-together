@@ -1,5 +1,6 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Point;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

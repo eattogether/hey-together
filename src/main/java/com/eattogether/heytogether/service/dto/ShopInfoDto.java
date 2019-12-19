@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.service.dto;
 
-import com.eattogether.heytogether.domain.Money;
-import com.eattogether.heytogether.domain.Place;
+import com.eattogether.heytogether.domain.vo.Money;
+import com.eattogether.heytogether.domain.vo.Place;
 
 public class ShopInfoDto {
 

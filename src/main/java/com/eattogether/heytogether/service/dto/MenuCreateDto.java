@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.service.dto;
 
-import com.eattogether.heytogether.domain.Money;
+import com.eattogether.heytogether.domain.vo.Money;
 
 public class MenuCreateDto {
 

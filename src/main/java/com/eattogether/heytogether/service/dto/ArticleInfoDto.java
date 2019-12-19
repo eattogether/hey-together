@@ -1,8 +1,8 @@
 package com.eattogether.heytogether.service.dto;
 
-import java.time.LocalDateTime;
+import com.eattogether.heytogether.domain.vo.Place;
 
-import com.eattogether.heytogether.domain.Place;
+import java.time.LocalDateTime;
 
 public class ArticleInfoDto {
 

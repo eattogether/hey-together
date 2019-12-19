@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.domain;
+package com.eattogether.heytogether.domain.vo;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;

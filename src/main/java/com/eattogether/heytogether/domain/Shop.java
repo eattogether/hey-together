@@ -1,7 +1,10 @@
 package com.eattogether.heytogether.domain;
 
-import java.util.Objects;
+import com.eattogether.heytogether.domain.vo.Money;
+import com.eattogether.heytogether.domain.vo.Place;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Shop {
