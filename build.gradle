@@ -77,15 +77,15 @@ sourceSets {
         runtimeClasspath += output + compileClasspath
     }
 }
-task acceptanceTest(type: Test) {
-    description = 'Runs the acceptance tests'
-    group = 'verification'
-    testClassesDirs = sourceSets.acceptanceTest.output
-    classpath = sourceSets.acceptanceTest.runtimeClasspath
-}
-check {
-    dependsOn(acceptanceTest)
-}
+//task acceptanceTest(type: Test) {
+//    description = 'Runs the acceptance tests'
+//    group = 'verification'
+//    testClassesDirs = sourceSets.acceptanceTest.output
+//    classpath = sourceSets.acceptanceTest.runtimeClasspath
+//}
+//check {
+//    dependsOn(acceptanceTest)
+//}
 
 apply plugin: 'com.moowork.node'
 
