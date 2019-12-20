@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.domain;
 
-import java.util.Objects;
 import javax.persistence.*;
+import java.util.Objects;
 
 // 특정 가게의 특정 메뉴
 @Entity
@@ -39,8 +39,8 @@ public class Menu {
         return name;
     }
 
-    public Money getPrice() {
-        return price;
+    public Money getPrice(int count) {
+        return price.multiply(count);
     }
 
     public Shop getShop() {

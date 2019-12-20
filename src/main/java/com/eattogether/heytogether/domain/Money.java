@@ -1,8 +1,8 @@
 package com.eattogether.heytogether.domain;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Embeddable
 public class Money {
@@ -15,6 +15,10 @@ public class Money {
 
     public Money(int value) {
         this.value = value;
+    }
+
+    public Money multiply(int count) {
+        return new Money(value * count);
     }
 
     public int getValue() {
