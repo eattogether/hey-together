@@ -1,9 +1,7 @@
 package com.eattogether.heytogether.domain;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
 public class Shop {
@@ -19,9 +17,6 @@ public class Shop {
     @Embedded
     @AttributeOverrides(@AttributeOverride(name = "value", column = @Column(name = "minimumOrderPrice")))
     private Money minimumOrderPrice;
-
-    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
-    private List<Menu> menus = new ArrayList<>();
 
     @Embedded
     private Place place;
@@ -51,10 +46,6 @@ public class Shop {
         return minimumOrderPrice;
     }
 
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,7 +69,6 @@ public class Shop {
                 "id=" + id +
                 ", deliveryTip=" + deliveryTip +
                 ", minimumOrderPrice=" + minimumOrderPrice +
-                ", menus=" + menus +
                 ", place=" + place +
                 '}';
     }

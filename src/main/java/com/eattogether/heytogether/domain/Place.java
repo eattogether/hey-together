@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.domain;
 
-import javax.persistence.Embeddable;
 import java.util.Objects;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class Place {

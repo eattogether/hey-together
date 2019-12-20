@@ -1,22 +1,23 @@
 package com.eattogether.heytogether.service;
 
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+
 import com.eattogether.heytogether.domain.Money;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ShopRepository;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
-import com.eattogether.heytogether.service.exception.ShopNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,7 +69,7 @@ class ShopServiceTest {
     void find_entity_by_throw_shopNotFoundExceptionWith() {
         given(shopRepository.findById(1L)).willReturn(Optional.empty());
 
-        assertThrows(ShopNotFoundException.class, () -> shopService.findEntityBy(1L));
+        assertThrows(EntityNotFoundException.class, () -> shopService.findEntityBy(1L));
     }
 
     @Test
@@ -76,6 +77,6 @@ class ShopServiceTest {
     void find_dto_by_throw_shopNotFoundExceptionWith() {
         given(shopRepository.findById(1L)).willReturn(Optional.empty());
 
-        assertThrows(ShopNotFoundException.class, () -> shopService.findDtoBy(1L));
+        assertThrows(EntityNotFoundException.class, () -> shopService.findDtoBy(1L));
     }
 }

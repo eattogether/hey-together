@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.service.assembler;
 
-import com.eattogether.heytogether.service.User;
+import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.service.dto.UserDto;
 
 public class UserAssembler {
