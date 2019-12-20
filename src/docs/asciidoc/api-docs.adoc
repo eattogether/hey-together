@@ -9,8 +9,9 @@
 :sectlinks:
 :sectnums:
 
-== Create Article
+== Read Orders by Article
 === Request Structure
-include::{snippets}/articles/post/request-fields.adoc[]
+include::{snippets}/articles-orders/get/response-fields.adoc\[]
+include::{snippets}/articles-orders/get/http-response.adoc\[]
 === Example request
-include::{snippets}/articles/post/curl-request.adoc[]
+include::{snippets}/articles-orders/get/curl-request.adoc[]
