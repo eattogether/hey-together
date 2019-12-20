@@ -1,18 +1,19 @@
 package com.eattogether.heytogether.web.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.eattogether.heytogether.common.JwtUtil;
 import com.eattogether.heytogether.service.UserService;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import com.eattogether.heytogether.service.dto.UserDto;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import static com.eattogether.heytogether.common.ControllerCookieHelper.*;
 
