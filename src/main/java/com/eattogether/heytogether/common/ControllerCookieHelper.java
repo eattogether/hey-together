@@ -1,9 +1,9 @@
 package com.eattogether.heytogether.common;
 
-import java.util.Arrays;
-import java.util.Objects;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ControllerCookieHelper {
 

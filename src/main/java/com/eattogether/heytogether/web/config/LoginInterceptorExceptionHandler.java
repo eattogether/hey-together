@@ -1,7 +1,6 @@
 package com.eattogether.heytogether.web.config;
 
 import com.eattogether.heytogether.common.JwtTokenException;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
