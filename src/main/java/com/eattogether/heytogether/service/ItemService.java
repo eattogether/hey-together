@@ -7,9 +7,10 @@ import com.eattogether.heytogether.domain.Order;
 import com.eattogether.heytogether.domain.repository.ItemRepository;
 import com.eattogether.heytogether.service.assembler.ItemAssembler;
 import com.eattogether.heytogether.service.dto.ItemCreateDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -27,5 +28,9 @@ public class ItemService {
     public Item save(ItemCreateDto itemCreateDto, Order order) {
         Menu menu = menuService.findById(itemCreateDto.getMenuId());
         return itemRepository.save(ItemAssembler.toEntity(itemCreateDto, menu, order));
+    }
+
+    public List<Item> findByOrderId(Long orderId) {
+        return itemRepository.findAllByOrderId(orderId);
     }
 }

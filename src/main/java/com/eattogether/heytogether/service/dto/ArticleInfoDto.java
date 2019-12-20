@@ -1,8 +1,8 @@
 package com.eattogether.heytogether.service.dto;
 
-import java.time.LocalDateTime;
-
 import com.eattogether.heytogether.domain.Place;
+
+import java.time.LocalDateTime;
 
 public class ArticleInfoDto {
 
@@ -10,6 +10,9 @@ public class ArticleInfoDto {
     private String title;
     private LocalDateTime deadLine;
     private Place place;
+
+    public ArticleInfoDto() {
+    }
 
     public ArticleInfoDto(Long id, String title, LocalDateTime deadLine, Place place) {
         this.id = id;
