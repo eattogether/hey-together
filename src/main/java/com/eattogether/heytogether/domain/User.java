@@ -35,18 +35,19 @@ public class User {
         return this.password.equals(password);
     }
 
+    public void participate(final int totalPrice) {
+        if (point < totalPrice) {
+            throw new IllegalArgumentException();
+        }
+
+        point -= totalPrice;
+    }
+
     public Long getId() {
         return id;
     }
 
     public String getUserId() {
         return userId;
-    }
-
-    public void participate(final int totalPrice) {
-        if (point < totalPrice) {
-            throw new IllegalArgumentException();
-        }
-        point -= totalPrice;
     }
 }
