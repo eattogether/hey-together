@@ -45,7 +45,7 @@ class UserControllerTest {
     void logout_is_ok() {
         webTestClient.method(HttpMethod.GET)
                 .uri("/logout")
-                .header("Authorization", "bearer " + JWT_TOKEN)
+                .header(JWT_HTTP_HEADER, JWT_HTTP + JWT_TOKEN)
                 .cookie(JWT_COOKIE_NAME, JWT_TOKEN)
                 .exchange()
                 .expectStatus().isOk()

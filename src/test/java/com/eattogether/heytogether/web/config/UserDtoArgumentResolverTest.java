@@ -14,8 +14,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
-import static com.eattogether.TestConstant.JWT_TOKEN;
-import static com.eattogether.TestConstant.USER_NAME;
+import static com.eattogether.TestConstant.*;
 import static com.eattogether.heytogether.web.config.LoginInterceptor.JWT_TOKEN_HEADER;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -49,7 +48,7 @@ class UserDtoArgumentResolverTest {
         UserDtoArgumentResolver userDtoArgumentResolver = new UserDtoArgumentResolver();
         MethodParameter methodParameter = getMethodParameter();
         given(webRequest.getNativeRequest()).willReturn(httpServletRequest);
-        given(httpServletRequest.getHeader(JWT_TOKEN_HEADER)).willReturn("bearer " + JWT_TOKEN);
+        given(httpServletRequest.getHeader(JWT_TOKEN_HEADER)).willReturn(JWT_HTTP + JWT_TOKEN);
 
         UserDto userDto = (UserDto) userDtoArgumentResolver.resolveArgument(methodParameter, modelAndViewContainer, webRequest, webDataBinderFactory);
         assertThat(userDto.getUserId()).isEqualTo(USER_NAME);
