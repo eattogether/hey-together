@@ -11,8 +11,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
-    private static final String HEADER_SPLITTER = " ";
     public static final String JWT_TOKEN_HEADER = "Authorization";
+    private static final String HEADER_SPLITTER = " ";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

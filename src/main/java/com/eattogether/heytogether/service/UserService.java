@@ -31,4 +31,8 @@ public class UserService {
     private boolean isNotSamePassword(final LoginDto loginDto, final User user) {
         return !user.checkPassword(loginDto.getPassword());
     }
+
+    public User findUserBy(final UserDto userDto) {
+        return userRepository.findByUserId(userDto.getUserId()).orElseThrow(IllegalArgumentException::new);
+    }
 }

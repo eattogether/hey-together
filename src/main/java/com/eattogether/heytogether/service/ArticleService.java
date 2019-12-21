@@ -3,10 +3,13 @@ package com.eattogether.heytogether.service;
 import com.eattogether.heytogether.domain.Article;
 import com.eattogether.heytogether.domain.Order;
 import com.eattogether.heytogether.domain.Shop;
+import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.domain.repository.ArticleRepository;
 import com.eattogether.heytogether.service.assembler.ArticleAssembler;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleParticipateDto;
+import com.eattogether.heytogether.service.dto.UserDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,8 @@ public class ArticleService {
     private ShopService shopService;
     private OrderItemService orderItemService;
     private OrderService orderService;
+
+    private UserService userService;
 
     public ArticleService(ArticleRepository articleRepository, ShopService shopService, OrderItemService orderItemService, OrderService orderService) {
         this.articleRepository = articleRepository;
@@ -44,5 +49,16 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("id가 " + articleId + "인 메뉴를 조회할 수 없습니다."));
 
         return ArticleAssembler.toDto(article);
+    }
+
+    public void participate(final Long id, final UserDto userDto, final ArticleParticipateDto articleParticipateDro) {
+        Article article = articleRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Shop shop = shopService.findEntityBy(articleParticipateDro.getShopId());
+
+        Order order = orderService.save(shop, article);
+        articleParticipateDro.getItems().forEach(itemCreateDto -> orderItemService.save(itemCreateDto, order));
+
+        User user = userService.findUserBy(userDto);
+        user.participate(articleParticipateDro.getTotalPrice());
     }
 }

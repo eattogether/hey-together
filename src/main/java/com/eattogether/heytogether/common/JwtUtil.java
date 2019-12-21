@@ -1,14 +1,14 @@
 package com.eattogether.heytogether.common;
 
-import java.time.LocalDateTime;
-import java.util.Map;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eattogether.heytogether.service.dto.UserDto;
 import com.google.gson.Gson;
 import org.apache.tomcat.util.codec.binary.Base64;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 public class JwtUtil {
 
@@ -22,14 +22,9 @@ public class JwtUtil {
 
         return JWT.create()
                 .withIssuer(userDto.getUserId())
-                .withClaim(EXPIRE, nowTime.plusYears(EXPIRE_DATE).toString())
+                .withClaim(EXPIRE, nowTime.plusDays(EXPIRE_DATE).toString())
                 .withClaim(JWT_SECRET_KEY, nowTime.toString())
                 .sign(algorithm);
-    }
-
-    public static void main(String[] args) {
-        String as = JwtUtil.createToken(new UserDto(1L, "as"));
-        System.out.println("as = " + as);
     }
 
     public static void validate(String token) throws JwtTokenException {
@@ -64,5 +59,10 @@ public class JwtUtil {
         Algorithm jwtAlgorithm = Algorithm.HMAC256(secretKey);
         DecodedJWT decode = JWT.decode(token);
         jwtAlgorithm.verify(decode);
+    }
+
+    public static String getValue(final String jwtToken, final String iss) {
+        Map<String, String> parsedPayload = parsePayload(jwtToken);
+        return parsedPayload.get(iss);
     }
 }

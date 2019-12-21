@@ -3,8 +3,6 @@ package com.eattogether.heytogether.controller;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import static com.eattogether.TestConstant.*;
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
@@ -46,6 +45,7 @@ class UserControllerTest {
     void logout_is_ok() {
         webTestClient.method(HttpMethod.GET)
                 .uri("/logout")
+                .header("Authorization", "bearer " + JWT_TOKEN)
                 .cookie(JWT_COOKIE_NAME, JWT_TOKEN)
                 .exchange()
                 .expectStatus().isOk()
