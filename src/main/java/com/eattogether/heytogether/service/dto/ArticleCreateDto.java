@@ -6,14 +6,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleCreateDto {
+
     private String title;
-
     private LocalDateTime deadLine;
-
     private Long shopId;
-
     private Place place;
-
     private List<ItemCreateDto> items;
 
     public ArticleCreateDto() {

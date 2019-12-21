@@ -17,9 +17,7 @@ public class Article {
     private Long id;
 
     private String title;
-
     private LocalDateTime deadLine;
-
     private Place place;
 
     public Article() {

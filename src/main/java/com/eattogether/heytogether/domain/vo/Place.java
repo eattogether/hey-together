@@ -7,7 +7,6 @@ import javax.persistence.Embeddable;
 public class Place {
 
     private double longitude;
-
     private double latitude;
 
     public Place() {

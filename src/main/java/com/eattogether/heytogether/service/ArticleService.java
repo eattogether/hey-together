@@ -17,7 +17,6 @@ import javax.persistence.EntityNotFoundException;
 public class ArticleService {
 
     private ArticleRepository articleRepository;
-
     private ShopService shopService;
     private OrderItemService orderItemService;
     private OrderService orderService;

@@ -17,7 +17,6 @@ import java.util.List;
 public class OrderItemService {
 
     private OrderItemRepository orderItemRepository;
-
     private ShopMenuService shopMenuService;
 
     public OrderItemService(OrderItemRepository orderItemRepository, ShopMenuService shopMenuService) {
