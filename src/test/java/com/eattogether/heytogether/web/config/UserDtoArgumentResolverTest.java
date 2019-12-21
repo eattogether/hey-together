@@ -43,12 +43,12 @@ class UserDtoArgumentResolverTest {
     }
 
     @Test
-    @DisplayName("파라미터가 UserDto인 경우 테스트")
+    @DisplayName("userDto 정상 생성 테스트")
     void resolverTest2() throws Exception {
         UserDtoArgumentResolver userDtoArgumentResolver = new UserDtoArgumentResolver();
         MethodParameter methodParameter = getMethodParameter();
         given(webRequest.getNativeRequest()).willReturn(httpServletRequest);
-        given(httpServletRequest.getHeader(JWT_TOKEN_HEADER)).willReturn(JWT_HTTP + JWT_TOKEN);
+        given(httpServletRequest.getHeader(JWT_TOKEN_HEADER)).willReturn(BEARER + JWT_TOKEN);
 
         UserDto userDto = (UserDto) userDtoArgumentResolver.resolveArgument(methodParameter, modelAndViewContainer, webRequest, webDataBinderFactory);
         assertThat(userDto.getUserId()).isEqualTo(USER_NAME);
