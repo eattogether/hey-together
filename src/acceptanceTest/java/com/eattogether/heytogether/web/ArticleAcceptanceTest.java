@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
+import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleInfosDto;
 import com.eattogether.heytogether.service.dto.ItemCreateDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,5 +53,15 @@ class ArticleAcceptanceTest {
                 .jsonPath("$.title").isEqualTo("같이묵자")
                 .jsonPath("$.deadLine").isNotEmpty()
                 .jsonPath("$.place").isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("게시 목록 조회")
+    void read_article_list() {
+        webTestClient.get()
+                .uri("/api/articles")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange().expectStatus().isOk()
+                .expectBody(ArticleInfosDto.class);
     }
 }
