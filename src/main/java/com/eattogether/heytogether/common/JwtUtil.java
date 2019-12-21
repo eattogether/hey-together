@@ -22,9 +22,14 @@ public class JwtUtil {
 
         return JWT.create()
                 .withIssuer(userDto.getUserId())
-                .withClaim(EXPIRE, nowTime.plusDays(EXPIRE_DATE).toString())
+                .withClaim(EXPIRE, nowTime.plusYears(EXPIRE_DATE).toString())
                 .withClaim(JWT_SECRET_KEY, nowTime.toString())
                 .sign(algorithm);
+    }
+
+    public static void main(String[] args) {
+        String as = JwtUtil.createToken(new UserDto(1L, "as"));
+        System.out.println("as = " + as);
     }
 
     public static void validate(String token) throws JwtTokenException {
