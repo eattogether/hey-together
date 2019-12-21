@@ -23,14 +23,14 @@ public class ArticleService {
     private ShopService shopService;
     private OrderItemService orderItemService;
     private OrderService orderService;
-
     private UserService userService;
 
-    public ArticleService(ArticleRepository articleRepository, ShopService shopService, OrderItemService orderItemService, OrderService orderService) {
+    public ArticleService(final ArticleRepository articleRepository, final ShopService shopService, final OrderItemService orderItemService, final OrderService orderService, final UserService userService) {
         this.articleRepository = articleRepository;
         this.shopService = shopService;
         this.orderItemService = orderItemService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     public ArticleInfoDto saveArticle(ArticleCreateDto articleCreateDto) {

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 import static com.eattogether.TestConstant.*;
-import static com.eattogether.heytogether.web.config.LoginInterceptor.JWT_TOKEN_HEADER;
+import static com.eattogether.heytogether.common.JwtUtil.JWT_TOKEN_HEADER;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.BDDMockito.given;
 
