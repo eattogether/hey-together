@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.web;
 
-import com.eattogether.heytogether.domain.Place;
+import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
 import com.eattogether.heytogether.service.dto.ItemCreateDto;

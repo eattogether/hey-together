@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.domain;
+package com.eattogether.heytogether.domain.vo;
 
 import java.util.Objects;
 import javax.persistence.Column;

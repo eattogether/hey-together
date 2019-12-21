@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.service.dto;
 
-import com.eattogether.heytogether.domain.Place;
+import com.eattogether.heytogether.domain.vo.Place;
 
 import java.time.LocalDateTime;
 import java.util.List;

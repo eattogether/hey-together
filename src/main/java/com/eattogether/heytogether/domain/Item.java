@@ -1,5 +1,7 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Money;
+
 import javax.persistence.*;
 import java.util.Objects;
 
