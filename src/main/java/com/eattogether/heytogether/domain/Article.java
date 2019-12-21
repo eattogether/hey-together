@@ -1,5 +1,6 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Money;
 import com.eattogether.heytogether.domain.vo.Place;
 
 import javax.persistence.Entity;
@@ -22,6 +23,8 @@ public class Article {
 
     private Place place;
 
+    private Money totalPrice;
+
     public Article() {
     }
 
@@ -29,6 +32,11 @@ public class Article {
         this.title = title;
         this.deadLine = deadLine;
         this.place = place;
+        this.totalPrice = Money.ZERO;
+    }
+
+    public void addPrice(int amount) {
+        totalPrice.plus(amount);
     }
 
     public Long getId() {

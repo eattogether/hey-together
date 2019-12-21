@@ -8,14 +8,16 @@ public class ShopCreateDto {
     private Money deliveryTip;
     private Money minimumOrderPrice;
     private Place place;
+    private String name;
 
     public ShopCreateDto() {
     }
 
-    public ShopCreateDto(Money deliveryTip, Money minimumOrderPrice, Place place) {
+    public ShopCreateDto(final Money deliveryTip, final Money minimumOrderPrice, final Place place, final String name) {
         this.deliveryTip = deliveryTip;
         this.minimumOrderPrice = minimumOrderPrice;
         this.place = place;
+        this.name = name;
     }
 
     public Money getDeliveryTip() {
@@ -28,5 +30,9 @@ public class ShopCreateDto {
 
     public Place getPlace() {
         return place;
+    }
+
+    public String getName() {
+        return name;
     }
 }

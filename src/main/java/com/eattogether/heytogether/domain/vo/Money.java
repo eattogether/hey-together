@@ -7,6 +7,8 @@ import java.util.Objects;
 @Embeddable
 public class Money {
 
+    public static Money ZERO = new Money(0);
+
     @Column
     private int value;
 
@@ -15,6 +17,10 @@ public class Money {
 
     public Money(int value) {
         this.value = value;
+    }
+
+    public Money plus(int value) {
+        return new Money(this.value + value);
     }
 
     public int getValue() {

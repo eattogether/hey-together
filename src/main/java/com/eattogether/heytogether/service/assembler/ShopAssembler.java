@@ -7,12 +7,20 @@ import com.eattogether.heytogether.service.dto.ShopInfoDto;
 public class ShopAssembler {
 
     public static Shop toEntity(ShopCreateDto shopCreateDto) {
-        return new Shop(shopCreateDto.getDeliveryTip(), shopCreateDto.getMinimumOrderPrice(),
-                shopCreateDto.getPlace());
+        return new Shop(
+                shopCreateDto.getDeliveryTip(),
+                shopCreateDto.getMinimumOrderPrice(),
+                shopCreateDto.getPlace(),
+                shopCreateDto.getName()
+        );
     }
 
     public static ShopInfoDto toDto(Shop shop) {
-        return new ShopInfoDto(shop.getId(), shop.getDeliveryTip(),
-                shop.getMinimumOrderPrice(), shop.getPlace());
+        return new ShopInfoDto(
+                shop.getId(),
+                shop.getDeliveryTip(),
+                shop.getMinimumOrderPrice(),
+                shop.getPlace()
+        );
     }
 }

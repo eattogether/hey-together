@@ -3,6 +3,7 @@ package com.eattogether.heytogether.web.controller;
 import com.eattogether.heytogether.service.ArticleService;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleParticipateDto;
 import com.eattogether.heytogether.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class ArticleController {
     }
 
     @PostMapping("/api/articles/{id}")
-    public ResponseEntity participate(@PathVariable Long id, @RequestBody UserDto userDto) {
-        articleService.participate(id, userDto);
+    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, @RequestBody ArticleParticipateDto articleParticipateDto) {
+        articleService.participate(id, userDto, articleParticipateDto);
         return ResponseEntity.ok().build();
     }
 }

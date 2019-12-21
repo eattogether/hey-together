@@ -7,7 +7,7 @@ import java.util.Objects;
 
 // 특정 가게의 특정 메뉴
 @Entity
-public class Menu {
+public class ShopMenu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,10 +24,10 @@ public class Menu {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    public Menu() {
+    public ShopMenu() {
     }
 
-    public Menu(String name, Money price, Shop shop) {
+    public ShopMenu(String name, Money price, Shop shop) {
         this.name = name;
         this.price = price;
         this.shop = shop;
@@ -45,6 +45,10 @@ public class Menu {
         return price;
     }
 
+    public int getPriceValue() {
+        return price.getValue();
+    }
+
     public Shop getShop() {
         return shop;
     }
@@ -54,11 +58,11 @@ public class Menu {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Menu)) {
+        if (!(o instanceof ShopMenu)) {
             return false;
         }
-        final Menu menu = (Menu) o;
-        return Objects.equals(getId(), menu.getId());
+        final ShopMenu shopMenu = (ShopMenu) o;
+        return Objects.equals(getId(), shopMenu.getId());
     }
 
     @Override

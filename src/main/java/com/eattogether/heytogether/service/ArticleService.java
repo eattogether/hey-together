@@ -7,6 +7,7 @@ import com.eattogether.heytogether.domain.repository.ArticleRepository;
 import com.eattogether.heytogether.service.assembler.ArticleAssembler;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleParticipateDto;
 import com.eattogether.heytogether.service.dto.UserDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +19,17 @@ import javax.persistence.EntityNotFoundException;
 public class ArticleService {
 
     private ArticleRepository articleRepository;
-
     private ShopService shopService;
-    private ItemService itemService;
+    private OrderItemService orderItemService;
     private OrderService orderService;
+    private UserService userService;
 
-    public ArticleService(ArticleRepository articleRepository, ShopService shopService, ItemService itemService, OrderService orderService) {
+    public ArticleService(final ArticleRepository articleRepository, final ShopService shopService, final OrderItemService orderItemService, final OrderService orderService, final UserService userService) {
         this.articleRepository = articleRepository;
         this.shopService = shopService;
-        this.itemService = itemService;
+        this.orderItemService = orderItemService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     public ArticleInfoDto saveArticle(ArticleCreateDto articleCreateDto) {
@@ -36,7 +38,7 @@ public class ArticleService {
         Shop shop = shopService.findEntityBy(articleCreateDto.getShopId());
         Order order = orderService.save(shop, article);
 
-        articleCreateDto.getItems().forEach(itemCreateDto -> itemService.save(itemCreateDto, order));
+        articleCreateDto.getItems().forEach(itemCreateDto -> orderItemService.save(itemCreateDto, order));
 
         return ArticleAssembler.toDto(article);
     }
@@ -48,7 +50,13 @@ public class ArticleService {
         return ArticleAssembler.toDto(article);
     }
 
-    public void participate(final Long id, final UserDto userDto) {
+    public void participate(final Long articleId, final UserDto userDto, final ArticleParticipateDto articleParticipateDto) {
+        Shop shop = shopService.findShopBy(articleParticipateDto.getShopName());
+        Article article = articleRepository.getOne(articleId);
 
+        Order order = orderService.save(shop, article);
+        orderService.addOrderItem(articleParticipateDto.getItems(), order);
+
+        userService.participate(articleParticipateDto.getTotalAmount(), userDto);
     }
 }
