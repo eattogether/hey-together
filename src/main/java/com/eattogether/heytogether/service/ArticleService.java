@@ -19,13 +19,13 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     private ShopService shopService;
-    private ItemService itemService;
+    private OrderItemService orderItemService;
     private OrderService orderService;
 
-    public ArticleService(ArticleRepository articleRepository, ShopService shopService, ItemService itemService, OrderService orderService) {
+    public ArticleService(ArticleRepository articleRepository, ShopService shopService, OrderItemService orderItemService, OrderService orderService) {
         this.articleRepository = articleRepository;
         this.shopService = shopService;
-        this.itemService = itemService;
+        this.orderItemService = orderItemService;
         this.orderService = orderService;
     }
 
@@ -35,7 +35,7 @@ public class ArticleService {
         Shop shop = shopService.findEntityBy(articleCreateDto.getShopId());
         Order order = orderService.save(shop, article);
 
-        articleCreateDto.getItems().forEach(itemCreateDto -> itemService.save(itemCreateDto, order));
+        articleCreateDto.getItems().forEach(itemCreateDto -> orderItemService.save(itemCreateDto, order));
 
         return ArticleAssembler.toDto(article);
     }

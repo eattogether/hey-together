@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.service.assembler;
 
-import com.eattogether.heytogether.domain.Item;
+import com.eattogether.heytogether.domain.OrderItem;
 import com.eattogether.heytogether.domain.Order;
 import com.eattogether.heytogether.service.dto.OrderDetailInfoDto;
 import com.eattogether.heytogether.service.dto.OrderInfoDto;
@@ -17,8 +17,8 @@ public class OrderAssembler {
                 .collect(toList());
     }
 
-    public static OrderDetailInfoDto toDto(Order order, List<Item> items) {
-        int totalPrice = items.stream()
+    public static OrderDetailInfoDto toDto(Order order, List<OrderItem> orderItems) {
+        int totalPrice = orderItems.stream()
                 .mapToInt(item -> item.getPrice().getValue())
                 .sum();
         return new OrderDetailInfoDto(
