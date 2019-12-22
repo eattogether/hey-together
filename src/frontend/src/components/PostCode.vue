@@ -9,11 +9,8 @@
         components: {
             VueDaumPostcode
         },
-        data: () => ({
-            address: null,
-        }),
         methods: {
-            handleAddress: function(data) {
+            handleAddress: function (data) {
                 let fullAddress = data.address;
                 let extraAddress = '';
                 if (data.addressType === 'R') {
@@ -27,7 +24,11 @@
                 }
 
                 console.log(fullAddress);
-                this.address = fullAddress;
+                const postCodeData = {
+                    modal: false,
+                    address: fullAddress
+                };
+                this.$emit("passPostCodeData", postCodeData);
             }
         }
     };

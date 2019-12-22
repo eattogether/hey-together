@@ -41,9 +41,12 @@
                         <v-card class="mx-auto mb-5" max-width="90%" outlined>
                             <v-dialog v-model="postCodeDialog" persistent max-width="600px">
                                 <template v-slot:activator="{ on }">
-                                    <v-btn large width="100%" color="primary" dark v-on="on">위치 검색</v-btn>
+                                    <v-btn v-if="address" large width="100%" v-on="on">{{ address }}</v-btn>
+                                    <v-btn v-else large width="100%" color="primary" dark v-on="on">위치 검색</v-btn>
                                 </template>
-                                <PostCodeModal/>
+                                <PostCodeModal
+                                        v-on:passPostCodeData="getPostCode"
+                                />
                             </v-dialog>
                         </v-card>
                     </v-col>
@@ -113,6 +116,7 @@
             articles: [{id: 1}, {id: 2}, {id: 3}],
             loginDialog: false,
             postCodeDialog: false,
+            address: '',
             writeDialog: false,
         }),
         methods: {
@@ -122,6 +126,12 @@
             getLoginInfo: function(user) {
                 // 로그인 요청 보내기
                 console.log('home: ', user);
+            },
+            getPostCode: function(data) {
+                this.postCodeDialog = data.modal;
+                this.address = data.address;
+                // 위치로 필터해서 게시글 보여주기
+                console.log(data);
             },
             closeWriteModal: function () {
                 this.writeDialog = false;
