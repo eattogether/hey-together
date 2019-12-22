@@ -15,20 +15,19 @@
                         <v-icon>mdi-account</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-dialog>
+                        <v-dialog v-model="loginDialog" persistent max-width="600px">
                             <template v-slot:activator="{ on }">
                                 <v-btn color="primary" dark v-on="on">Login</v-btn>
                             </template>
-                            <Modal></Modal>
+                            <LoginModal v-on:closeLoginModal="closeLoginModal"></LoginModal>
                         </v-dialog>
-                        <!--                            <router-link to="/login" exact>Login</router-link>-->
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
 
         <v-app-bar app color="teal" dark>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
         </v-app-bar>
 
@@ -37,20 +36,26 @@
             <v-container>
                 <v-row align="center">
                     <v-col>
-<!--                        <v-card class="mx-auto mb-5" max-width="90%" outlined>-->
-                            <!--                            <v-btn large width="100%" color="primary" dark>위치 선택</v-btn>-->
-<!--                        </v-card>-->
-                        <VueDaumPostcode style="height: 200px; overflow: scroll;" />
-
+                        <v-card class="mx-auto mb-5" max-width="90%" outlined>
+                            <v-dialog v-model="postCodeDialog" persistent max-width="600px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn large width="100%" color="primary" dark v-on="on">위치 검색</v-btn>
+                                </template>
+                                <VueDaumPostcode @complete=handleAddress />
+                            </v-dialog>
+                        </v-card>
                     </v-col>
                 </v-row>
 
                 <v-row align="center">
                     <v-col>
                         <v-card class="mx-auto mb-5" max-width="90%" outlined>
-                            <router-link to="/write" exact>
-                                <v-btn large width="100%" color="primary" dark>같이 묵자 등록하기</v-btn>
-                            </router-link>
+                            <v-dialog v-model="writeDialog" persistent max-width="600px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn large width="100%" color="primary" dark v-on="on">같이 묵자 등록하기</v-btn>
+                                </template>
+                                <WriteModal v-on:closeWriteModal="closeWriteModal"></WriteModal>
+                            </v-dialog>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -89,10 +94,14 @@
 <script>
     // {} 하지 않으면 오류
     import {VueDaumPostcode} from 'vue-daum-postcode';
+    import LoginModal from '../components/Login.vue';
+    import WriteModal from '../components/ArticleForm';
 
     export default {
         components: {
             VueDaumPostcode,
+            LoginModal,
+            WriteModal,
         },
         props: {
             source: String,
@@ -100,8 +109,35 @@
         data: () => ({
             drawer: null,
             categories: ["치킨", "피자", "떡볶이", "중식"],
-            articles: [{ id: 1 }, { id: 2 }, { id: 3 }],
-            dialog: false,
+            articles: [{id: 1}, {id: 2}, {id: 3}],
+            loginDialog: false,
+            postCodeDialog: false,
+            writeDialog: false,
+            address: null,
         }),
+        methods: {
+            closeLoginModal: function () {
+                this.loginDialog = false;
+            },
+            closeWriteModal: function () {
+                this.writeDialog = false;
+            },
+            handleAddress: function(data) {
+                let fullAddress = data.address;
+                let extraAddress = '';
+                if (data.addressType === 'R') {
+                    if (data.bname !== '') {
+                        extraAddress += data.bname;
+                    }
+                    if (data.buildingName !== '') {
+                        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+                    }
+                    fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+                }
+
+                console.log(fullAddress);
+                this.address = fullAddress;
+            }
+        }
     };
 </script>
