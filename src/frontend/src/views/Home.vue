@@ -19,7 +19,10 @@
                             <template v-slot:activator="{ on }">
                                 <v-btn color="primary" dark v-on="on">Login</v-btn>
                             </template>
-                            <LoginModal v-on:closeLoginModal="closeLoginModal"></LoginModal>
+                            <LoginModal
+                                    v-on:closeLoginModal="closeLoginModal"
+                                    v-on:passLoginInfo="getLoginInfo"
+                            />
                         </v-dialog>
                     </v-list-item-content>
                 </v-list-item>
@@ -30,7 +33,6 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
         </v-app-bar>
-
 
         <v-content>
             <v-container>
@@ -54,7 +56,7 @@
                                 <template v-slot:activator="{ on }">
                                     <v-btn large width="100%" color="primary" dark v-on="on">같이 묵자 등록하기</v-btn>
                                 </template>
-                                <WriteModal v-on:closeWriteModal="closeWriteModal"></WriteModal>
+                                <WriteModal v-on:closeWriteModal="closeWriteModal"/>
                             </v-dialog>
                         </v-card>
                     </v-col>
@@ -118,6 +120,10 @@
         methods: {
             closeLoginModal: function () {
                 this.loginDialog = false;
+            },
+            getLoginInfo: function(user) {
+                // 로그인 요청 보내기
+                console.log('home: ', user);
             },
             closeWriteModal: function () {
                 this.writeDialog = false;
