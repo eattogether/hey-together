@@ -43,7 +43,7 @@
                                 <template v-slot:activator="{ on }">
                                     <v-btn large width="100%" color="primary" dark v-on="on">위치 검색</v-btn>
                                 </template>
-                                <VueDaumPostcode @complete=handleAddress />
+                                <PostCodeModal/>
                             </v-dialog>
                         </v-card>
                     </v-col>
@@ -94,15 +94,14 @@
 </template>
 
 <script>
-    // {} 하지 않으면 오류
-    import {VueDaumPostcode} from 'vue-daum-postcode';
     import LoginModal from '../components/Login.vue';
+    import PostCodeModal from '../components/PostCode.vue';
     import WriteModal from '../components/ArticleForm';
 
     export default {
         components: {
-            VueDaumPostcode,
             LoginModal,
+            PostCodeModal,
             WriteModal,
         },
         props: {
@@ -115,7 +114,6 @@
             loginDialog: false,
             postCodeDialog: false,
             writeDialog: false,
-            address: null,
         }),
         methods: {
             closeLoginModal: function () {
@@ -128,22 +126,6 @@
             closeWriteModal: function () {
                 this.writeDialog = false;
             },
-            handleAddress: function(data) {
-                let fullAddress = data.address;
-                let extraAddress = '';
-                if (data.addressType === 'R') {
-                    if (data.bname !== '') {
-                        extraAddress += data.bname;
-                    }
-                    if (data.buildingName !== '') {
-                        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-                    }
-                    fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-                }
-
-                console.log(fullAddress);
-                this.address = fullAddress;
-            }
         }
     };
 </script>
