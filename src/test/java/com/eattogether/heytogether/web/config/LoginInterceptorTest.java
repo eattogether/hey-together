@@ -51,4 +51,10 @@ class LoginInterceptorTest {
 
         assertThrows(JwtTokenException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
     }
+
+    @Test
+    @DisplayName("토큰이 없는 경우")
+    void requestTokenValidation4() throws Exception {
+        assertThrows(JwtTokenException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
+    }
 }

@@ -10,6 +10,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 
 public class JwtUtil {
 
@@ -48,6 +49,10 @@ public class JwtUtil {
 
     public static String getJwtTokenFrom(HttpServletRequest httpServletRequest) {
         String header = httpServletRequest.getHeader(JWT_TOKEN_HEADER);
+        if (Objects.isNull(header)) {
+            throw new JwtTokenException("토큰이 없습니다.");
+        }
+
         return header.split(HEADER_SPLITTER)[1];
     }
 

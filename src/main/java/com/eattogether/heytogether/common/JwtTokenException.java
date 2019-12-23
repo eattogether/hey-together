@@ -5,4 +5,8 @@ public class JwtTokenException extends RuntimeException {
     public JwtTokenException(final RuntimeException e) {
         super(e);
     }
+
+    public JwtTokenException(final String message) {
+        super(message);
+    }
 }
