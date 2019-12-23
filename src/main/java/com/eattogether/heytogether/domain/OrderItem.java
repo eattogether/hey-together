@@ -18,7 +18,7 @@ public class OrderItem {
     private int count;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "orders_id")
     private Order order;
 
     public OrderItem() {
