@@ -32,6 +32,12 @@
         <v-app-bar app color="teal" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <v-btn icon>
+                <v-icon>mdi-bell-outline</v-icon>
+            </v-btn>
         </v-app-bar>
 
         <v-content>
@@ -75,14 +81,16 @@
                                 outlined
                         >
                             <v-list dense>
-                                <v-list-item link>
-                                    <v-list-item-action>
-                                        <v-icon>mdi-food-fork-drink</v-icon>
-                                    </v-list-item-action>
-                                    <v-list-item-content>
-                                        <v-list-item-title>같이 묵자 {{ article.id }}...</v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                                <router-link tag="div" to="/waiting">
+                                    <v-list-item link>
+                                        <v-list-item-action>
+                                            <v-icon>mdi-food-fork-drink</v-icon>
+                                        </v-list-item-action>
+                                        <v-list-item-content>
+                                            <v-list-item-title>같이 묵자 {{ article.id }}...</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </router-link>
                             </v-list>
                         </v-card>
                     </v-col>
@@ -112,7 +120,6 @@
         },
         data: () => ({
             drawer: null,
-            categories: ["치킨", "피자", "떡볶이", "중식"],
             articles: [{id: 1}, {id: 2}, {id: 3}],
             loginDialog: false,
             postCodeDialog: false,
@@ -123,11 +130,11 @@
             closeLoginModal: function () {
                 this.loginDialog = false;
             },
-            getLoginInfo: function(user) {
+            getLoginInfo: function (user) {
                 // 로그인 요청 보내기
                 console.log('home: ', user);
             },
-            getPostCode: function(data) {
+            getPostCode: function (data) {
                 this.postCodeDialog = data.modal;
                 this.address = data.address;
                 // 위치로 필터해서 게시글 보여주기
