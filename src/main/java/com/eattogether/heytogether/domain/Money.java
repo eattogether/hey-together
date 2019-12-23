@@ -17,6 +17,10 @@ public class Money {
         this.value = value;
     }
 
+    public Money multiply(int count) {
+        return new Money(value * count);
+    }
+
     public int getValue() {
         return value;
     }

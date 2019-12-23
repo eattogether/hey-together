@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.domain;
 
-import java.util.Objects;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Item {
@@ -42,6 +42,10 @@ public class Item {
 
     public Order getOrder() {
         return order;
+    }
+
+    public Money getPrice() {
+        return menu.getPrice(count);
     }
 
     @Override
