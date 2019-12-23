@@ -1,7 +1,5 @@
 package com.eattogether.heytogether.service;
 
-import javax.persistence.EntityNotFoundException;
-
 import com.eattogether.heytogether.domain.Article;
 import com.eattogether.heytogether.domain.ArticleStatus;
 import com.eattogether.heytogether.domain.Order;
@@ -10,13 +8,14 @@ import com.eattogether.heytogether.domain.repository.ArticleRepository;
 import com.eattogether.heytogether.service.assembler.ArticleAssembler;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 @Transactional
