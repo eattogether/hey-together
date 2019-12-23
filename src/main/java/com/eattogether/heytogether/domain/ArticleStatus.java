@@ -1,6 +1,6 @@
 package com.eattogether.heytogether.domain;
 
-public enum  ArticleStatus {
+public enum ArticleStatus {
     ACTIVE("Active"),
     END("End");
 

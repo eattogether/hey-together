@@ -1,7 +1,6 @@
 package com.eattogether.heytogether.domain.repository;
 
 import com.eattogether.heytogether.domain.Article;
-
 import com.eattogether.heytogether.domain.ArticleStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

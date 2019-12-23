@@ -1,9 +1,7 @@
 package com.eattogether.heytogether.service;
 
-import javax.persistence.EntityNotFoundException;
-
-import com.eattogether.heytogether.domain.Money;
-import com.eattogether.heytogether.domain.repository.MenuRepository;
+import com.eattogether.heytogether.domain.repository.ShopMenuRepository;
+import com.eattogether.heytogether.domain.vo.Money;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,13 +19,13 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-class MenuServiceTest {
+class ShopMenuServiceTest {
 
     @InjectMocks
-    private MenuService menuService;
+    private ShopMenuService shopMenuService;
 
     @Mock
-    private MenuRepository menuRepository;
+    private ShopMenuRepository shopMenuRepository;
 
     @Mock
     private ShopService shopService;
@@ -38,8 +35,8 @@ class MenuServiceTest {
     void save_menu() {
         MenuCreateDto menuCreateDto = new MenuCreateDto("pizza", new Money(23000));
 
-        menuService.save(1L, menuCreateDto);
-        verify(menuRepository, Mockito.times(1)).save(any());
+        shopMenuService.save(1L, menuCreateDto);
+        verify(shopMenuRepository, Mockito.times(1)).save(any());
     }
 
     @Test
@@ -48,6 +45,6 @@ class MenuServiceTest {
         MenuCreateDto menuCreateDto = new MenuCreateDto("pizza", new Money(23000));
         given(shopService.findEntityBy(-1L)).willThrow(EntityNotFoundException.class);
 
-        assertThrows(EntityNotFoundException.class, () -> menuService.save(-1L, menuCreateDto));
+        assertThrows(EntityNotFoundException.class, () -> shopMenuService.save(-1L, menuCreateDto));
     }
 }

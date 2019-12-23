@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class OrderService {
 
     private OrderRepository orderRepository;
-    private ItemService itemService;
+    private OrderItemService orderItemService;
 
-    public OrderService(OrderRepository orderRepository, ItemService itemService) {
+    public OrderService(OrderRepository orderRepository, OrderItemService orderItemService) {
         this.orderRepository = orderRepository;
-        this.itemService = itemService;
+        this.orderItemService = orderItemService;
     }
 
     public Order save(Shop shop, Article article) {
@@ -32,7 +32,7 @@ public class OrderService {
         List<Order> orders = orderRepository.findAllByArticleId(articleId);
 
         return orders.stream()
-                .map(order -> OrderAssembler.toDto(order, itemService.findByOrderId(order.getId())))
+                .map(order -> OrderAssembler.toDto(order, orderItemService.findByOrderId(order.getId())))
                 .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.web;
 
-import com.eattogether.heytogether.domain.Money;
-import com.eattogether.heytogether.domain.Place;
+import com.eattogether.heytogether.domain.vo.Money;
+import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import org.junit.jupiter.api.DisplayName;

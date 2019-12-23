@@ -1,12 +1,7 @@
 package com.eattogether.heytogether.web;
 
-import com.eattogether.heytogether.domain.Place;
-import com.eattogether.heytogether.service.dto.ArticleCreateDto;
-import com.eattogether.heytogether.service.dto.ArticleInfoDto;
-import com.eattogether.heytogether.service.dto.ArticleInfoDto;
-import com.eattogether.heytogether.service.dto.ArticleInfosDto;
-import com.eattogether.heytogether.service.dto.ItemCreateDto;
-import com.eattogether.heytogether.service.dto.OrderDetailInfoDto;
+import com.eattogether.heytogether.domain.vo.Place;
+import com.eattogether.heytogether.service.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -80,8 +75,6 @@ class ArticleAcceptanceTest {
     @Test
     @DisplayName("주문 정보 조회 성공")
     void read_orders_by_article() {
-        // add Article_1 by data.sql
-
         OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 55000);
         webTestClient.get().uri("/api/articles/1/orders")
                 .exchange().expectStatus().isOk()

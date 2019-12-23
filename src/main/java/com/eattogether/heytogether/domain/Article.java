@@ -1,8 +1,10 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Place;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.*;
 
 @Entity
 public class Article {
@@ -12,9 +14,7 @@ public class Article {
     private Long id;
 
     private String title;
-
     private LocalDateTime deadLine;
-
     private Place place;
 
     @Enumerated(EnumType.STRING)

@@ -16,7 +16,7 @@ class JwtUtilTest {
     @Test
     @DisplayName("토큰 정상 생성")
     void createToken() {
-        assertDoesNotThrow(() -> JwtUtil.createToken(new UserDto(1L, USER_NAME)));
+        assertDoesNotThrow(() -> JwtUtil.createToken(new UserDto(USER_NAME)));
     }
 
     @Test

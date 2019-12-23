@@ -5,6 +5,7 @@ import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
 
 public class ArticleAssembler {
+
     public static Article toEntity(ArticleCreateDto articleCreateDto) {
         return new Article(
                 articleCreateDto.getTitle(),

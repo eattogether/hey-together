@@ -1,4 +1,4 @@
-package com.eattogether.heytogether.domain;
+package com.eattogether.heytogether.domain.vo;
 
 import java.util.Objects;
 import javax.persistence.Embeddable;
@@ -7,7 +7,6 @@ import javax.persistence.Embeddable;
 public class Place {
 
     private double longitude;
-
     private double latitude;
 
     public Place() {
