@@ -1,5 +1,6 @@
 package com.eattogether.heytogether.service;
 
+import com.eattogether.heytogether.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

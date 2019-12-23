@@ -1,19 +1,16 @@
 package com.eattogether.heytogether.service.dto;
 
+import com.eattogether.heytogether.domain.vo.Place;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.eattogether.heytogether.domain.Place;
-
 public class ArticleCreateDto {
+
     private String title;
-
     private LocalDateTime deadLine;
-
     private Long shopId;
-
     private Place place;
-
     private List<ItemCreateDto> items;
 
     public ArticleCreateDto() {

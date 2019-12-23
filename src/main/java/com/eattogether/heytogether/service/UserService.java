@@ -1,10 +1,10 @@
 package com.eattogether.heytogether.service;
 
+import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.domain.repository.UserRepository;
 import com.eattogether.heytogether.service.assembler.UserAssembler;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import com.eattogether.heytogether.service.dto.UserDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +30,9 @@ public class UserService {
 
     private boolean isNotSamePassword(final LoginDto loginDto, final User user) {
         return !user.checkPassword(loginDto.getPassword());
+    }
+
+    public User findUserBy(final UserDto userDto) {
+        return userRepository.findByUserId(userDto.getUserId()).orElseThrow(IllegalArgumentException::new);
     }
 }

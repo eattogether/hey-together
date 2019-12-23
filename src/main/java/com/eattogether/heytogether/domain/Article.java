@@ -1,11 +1,10 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Place;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 public class Article {
@@ -15,10 +14,11 @@ public class Article {
     private Long id;
 
     private String title;
-
     private LocalDateTime deadLine;
-
     private Place place;
+
+    @Enumerated(EnumType.STRING)
+    private ArticleStatus articleStatus;
 
     public Article() {
     }
@@ -27,6 +27,7 @@ public class Article {
         this.title = title;
         this.deadLine = deadLine;
         this.place = place;
+        this.articleStatus = ArticleStatus.ACTIVE;
     }
 
     public Long getId() {
@@ -69,6 +70,7 @@ public class Article {
                 ", title='" + title + '\'' +
                 ", deadLine=" + deadLine +
                 ", place=" + place +
+                ", articleStatus=" + articleStatus +
                 '}';
     }
 }

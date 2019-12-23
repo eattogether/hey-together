@@ -1,9 +1,9 @@
 package com.eattogether.heytogether.common;
 
-import java.util.Arrays;
-import java.util.Objects;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class ControllerCookieHelper {
 
@@ -28,7 +28,8 @@ public class ControllerCookieHelper {
     public static Cookie createDefaultCookie(final String name, final String value) {
         Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(DEFAULT_COOKIE_EXPIRY_TIME);
-        cookie.setHttpOnly(true);
+//        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(false);
         cookie.setPath("/");
         return cookie;
     }

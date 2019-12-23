@@ -1,17 +1,19 @@
 package com.eattogether.heytogether.domain;
 
+import com.eattogether.heytogether.domain.vo.Money;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Item {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private ShopMenu menu;
+    private ShopMenu shopMenu;
 
     private int count;
 
@@ -19,11 +21,11 @@ public class Item {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    public Item() {
+    public OrderItem() {
     }
 
-    public Item(ShopMenu menu, int count, Order order) {
-        this.menu = menu;
+    public OrderItem(ShopMenu shopMenu, int count, Order order) {
+        this.shopMenu = shopMenu;
         this.count = count;
         this.order = order;
     }
@@ -32,8 +34,8 @@ public class Item {
         return id;
     }
 
-    public ShopMenu getMenu() {
-        return menu;
+    public ShopMenu getShopMenu() {
+        return shopMenu;
     }
 
     public int getCount() {
@@ -44,16 +46,20 @@ public class Item {
         return order;
     }
 
+    public Money getPrice() {
+        return shopMenu.getPrice(count);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Item)) {
+        if (!(o instanceof OrderItem)) {
             return false;
         }
-        final Item item = (Item) o;
-        return Objects.equals(getId(), item.getId());
+        final OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(getId(), orderItem.getId());
     }
 
     @Override
@@ -65,7 +71,7 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", menu=" + menu +
+                ", menu=" + shopMenu +
                 ", count=" + count +
                 ", order=" + order +
                 '}';

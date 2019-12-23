@@ -5,3 +5,8 @@ insert into menu(menu_name, price, shop_id) values ('떡볶이', 15000, 1);
 insert into menu(menu_name, price, shop_id) values ('직화', 25000, 1);
 
 insert into article(dead_line, latitude, longitude, title) values (now(), 1.1, 2.2, '같이묵자');
+
+insert into `order`(article_id, shop_id) values (1, 1);
+
+insert into item(count, menu_id, order_id) values (2, 1, 1);
+insert into item(count, menu_id, order_id) values (1, 2, 1);

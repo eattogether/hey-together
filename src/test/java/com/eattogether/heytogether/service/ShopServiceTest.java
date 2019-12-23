@@ -1,12 +1,9 @@
 package com.eattogether.heytogether.service;
 
-import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
-
-import com.eattogether.heytogether.domain.Money;
-import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ShopRepository;
+import com.eattogether.heytogether.domain.vo.Money;
+import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +12,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
