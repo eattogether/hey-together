@@ -18,14 +18,14 @@ public class Money {
         this.value = value;
     }
 
+    public Money multiply(int count) {
+        return new Money(value * count);
+    }
+
     private void validate(final int value) {
         if (value < 0) {
             throw new IllegalArgumentException("금액은 음수가 될 수 없습니다.");
         }
-    }
-
-    public Money multiply(int count) {
-        return new Money(value * count);
     }
 
     public int getValue() {

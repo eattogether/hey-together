@@ -39,12 +39,6 @@ class LoginInterceptorTest {
     }
 
     @Test
-    @DisplayName("토큰이 없는 경우")
-    void requestTokenValidation2() throws Exception {
-        assertThrows(NullPointerException.class, () -> loginInterceptor.preHandle(httpServletRequest, httpServletResponse, mockHandler));
-    }
-
-    @Test
     @DisplayName("토큰이 변조된 경우")
     void requestTokenValidation3() throws Exception {
         httpServletRequest.addHeader(JWT_HTTP_HEADER, BEARER + JWT_TOKEN + "a");

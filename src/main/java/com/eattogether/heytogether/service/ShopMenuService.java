@@ -1,7 +1,7 @@
 package com.eattogether.heytogether.service;
 
-import com.eattogether.heytogether.domain.ShopMenu;
 import com.eattogether.heytogether.domain.Shop;
+import com.eattogether.heytogether.domain.ShopMenu;
 import com.eattogether.heytogether.domain.repository.ShopMenuRepository;
 import com.eattogether.heytogether.service.assembler.MenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;

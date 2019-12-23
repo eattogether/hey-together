@@ -1,9 +1,6 @@
 package com.eattogether.heytogether.service;
 
-import com.eattogether.heytogether.domain.Article;
-import com.eattogether.heytogether.domain.Order;
-import com.eattogether.heytogether.domain.Shop;
-import com.eattogether.heytogether.domain.User;
+import com.eattogether.heytogether.domain.*;
 import com.eattogether.heytogether.domain.repository.ArticleRepository;
 import com.eattogether.heytogether.service.assembler.ArticleAssembler;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
@@ -14,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,6 +49,14 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("id가 " + articleId + "인 메뉴를 조회할 수 없습니다."));
 
         return ArticleAssembler.toDto(article);
+    }
+
+    public List<ArticleInfoDto> findByActiveArticle() {
+        List<Article> activeArticles = articleRepository.findByArticleStatus(ArticleStatus.ACTIVE);
+
+        return Collections.unmodifiableList(activeArticles.stream()
+                .map(article -> ArticleAssembler.toDto(article))
+                .collect(Collectors.toList()));
     }
 
     public void participate(final Long id, final UserDto userDto, final ArticleParticipateDto articleParticipateDro) {

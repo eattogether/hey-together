@@ -36,6 +36,11 @@ public class ArticleController {
         return ResponseEntity.ok(orderDetailInfoDtos);
     }
 
+    @GetMapping("/api/articles")
+    public ResponseEntity<ArticleInfosDto> searchArticle() {
+        return ResponseEntity.ok(new ArticleInfosDto(articleService.findByActiveArticle()));
+    }
+
     @PostMapping("/api/articles/{id}")
     public ResponseEntity participate(@PathVariable Long id, UserDto userDto, ArticleParticipateDto articleParticipateDro) {
         articleService.participate(id, userDto, articleParticipateDro);
