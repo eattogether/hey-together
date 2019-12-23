@@ -16,6 +16,11 @@ const routes = [
     component: () => import('../views/WaitingRoom.vue')
   },
   {
+    path: '/articles',
+    name: 'articleInfo',
+    component: () => import('../views/ShowArticle.vue')
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import('../views/404.vue')

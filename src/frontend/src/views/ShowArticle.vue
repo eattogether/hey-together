@@ -134,6 +134,18 @@
                     </v-col>
                 </v-row>
 
+                <v-row align="center">
+                    <v-col>
+                        <v-card class="mx-auto mb-5" max-width="90%" outlined>
+                            <v-dialog v-model="joiningRoomDialog" persistent max-width="600px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn large width="100%" color="primary" dark v-on="on">참여하기</v-btn>
+                                </template>
+                                <JoiningRoomModal v-on:closeJoiningRoomModal="closeJoiningRoomModal"/>
+                            </v-dialog>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-container>
 
         </v-content>
@@ -145,10 +157,12 @@
 
 <script>
     import LoginModal from '../components/Login.vue';
+    import JoiningRoomModal from '../components/JoiningRoom.vue';
 
     export default {
         components: {
             LoginModal,
+            JoiningRoomModal,
         },
         props: {
             source: String,
@@ -158,6 +172,7 @@
             fontSize: 40,
             drawer: null,
             loginDialog: false,
+            joiningRoomDialog: false,
         }),
         methods: {
             closeLoginModal: function () {
@@ -166,6 +181,9 @@
             getLoginInfo: function (user) {
                 // 로그인 요청 보내기
                 console.log('home: ', user);
+            },
+            closeJoiningRoomModal: function () {
+                this.joiningRoomDialog = false;
             },
         }
     };

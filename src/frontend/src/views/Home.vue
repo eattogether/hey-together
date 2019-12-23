@@ -81,7 +81,7 @@
                                 outlined
                         >
                             <v-list dense>
-                                <router-link tag="div" to="/waiting">
+                                <router-link tag="div" to="/articles">
                                     <v-list-item link>
                                         <v-list-item-action>
                                             <v-icon>mdi-food-fork-drink</v-icon>
