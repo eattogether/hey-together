@@ -49,6 +49,7 @@
         }),
         methods: {
             loginEvent: function () {
+                const loginVue = this;
                 const loginUser = {
                     userId: this.username,
                     password: this.password
@@ -63,11 +64,11 @@
                     // loginResults = {
                     //     jwt:
                     // }
+                    loginVue.$emit("passLoginInfo", loginUser);
                 }).catch(function(error) {
                     console.log(error);
-                });
 
-                this.$emit("passLoginInfo", loginUser);
+                });
             },
             closeEvent: function () {
                 this.$emit('closeLoginModal');

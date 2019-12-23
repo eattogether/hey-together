@@ -17,7 +17,8 @@
                     <v-list-item-content>
                         <v-dialog v-model="loginDialog" persistent max-width="600px">
                             <template v-slot:activator="{ on }">
-                                <v-btn color="primary" dark v-on="on">Login</v-btn>
+                                <v-btn v-if="loginUser === null" color="primary" dark v-on="on">Login</v-btn>
+                                <v-btn v-else color="primary" dark> {{ loginUser.userId }}</v-btn>
                             </template>
                             <LoginModal
                                     v-on:closeLoginModal="closeLoginModal"
@@ -125,6 +126,7 @@
             postCodeDialog: false,
             address: '',
             writeDialog: false,
+            loginUser: null,
         }),
         methods: {
             closeLoginModal: function () {
@@ -133,6 +135,10 @@
             getLoginInfo: function (user) {
                 // 로그인 요청 보내기
                 console.log('home: ', user);
+                this.loginUser = user;
+                if (this.loginUser !== null) {
+                    this.loginDialog = false;
+                }
             },
             getPostCode: function (data) {
                 this.postCodeDialog = data.modal;
