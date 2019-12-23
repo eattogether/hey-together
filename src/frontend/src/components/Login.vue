@@ -31,12 +31,14 @@
         <v-card-actions>
             <v-spacer/>
             <v-btn color="teal" v-on:click="closeEvent">Close</v-btn>
-            <v-btn color="teal" v-on:click="passEvent">Login</v-btn>
+            <v-btn color="teal" v-on:click="loginEvent">Login</v-btn>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         props: {
             source: String
@@ -46,12 +48,25 @@
             password: '',
         }),
         methods: {
-            passEvent: function () {
+            loginEvent: function () {
                 const loginUser = {
-                    username: this.username,
+                    userId: this.username,
                     password: this.password
                 };
                 console.log(loginUser);
+
+                // let loginResults;
+                axios.post("/login", loginUser)
+                .then(function(response) {
+                    console.log(response);
+                    console.log(response.headers['Set-Cookie']);
+                    // loginResults = {
+                    //     jwt:
+                    // }
+                }).catch(function(error) {
+                    console.log(error);
+                });
+
                 this.$emit("passLoginInfo", loginUser);
             },
             closeEvent: function () {
