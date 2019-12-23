@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.eattogether.TestConstant.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
@@ -50,6 +51,7 @@ class ArticleAcceptanceTest {
 
         webTestClient.post()
                 .uri("/api/articles")
+                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(articleCreateDto), ArticleCreateDto.class)
                 .exchange().expectStatus().isOk();
@@ -60,6 +62,7 @@ class ArticleAcceptanceTest {
     void read_article() {
         webTestClient.get()
                 .uri("/api/articles/1")
+                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange().expectStatus().isOk()
                 .expectBody(ArticleInfoDto.class)
@@ -77,6 +80,7 @@ class ArticleAcceptanceTest {
     void read_orders_by_article() {
         OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 55000);
         webTestClient.get().uri("/api/articles/1/orders")
+                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .exchange().expectStatus().isOk()
                 .expectBodyList(OrderDetailInfoDto.class).hasSize(1).contains(expected)
                 .consumeWith(document("articles-orders/get",
@@ -90,8 +94,8 @@ class ArticleAcceptanceTest {
     @Test
     @DisplayName("게시 목록 조회")
     void read_article_list() {
-        webTestClient.get()
-                .uri("/api/articles")
+        webTestClient.get().uri("/api/articles")
+                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange().expectStatus().isOk()
                 .expectBody(ArticleInfosDto.class);
