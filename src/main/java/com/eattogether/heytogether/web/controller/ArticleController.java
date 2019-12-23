@@ -4,6 +4,9 @@ import com.eattogether.heytogether.service.ArticleService;
 import com.eattogether.heytogether.service.OrderService;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+
+import com.eattogether.heytogether.service.dto.ArticleInfosDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.eattogether.heytogether.service.dto.OrderDetailInfoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +39,10 @@ public class ArticleController {
     public ResponseEntity<List<OrderDetailInfoDto>> readOrders(@PathVariable Long id) {
         List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findByArticleId(id);
         return ResponseEntity.ok(orderDetailInfoDtos);
+    }
+
+    @GetMapping("/api/articles")
+    public ResponseEntity<ArticleInfosDto> searchArticle() {
+        return ResponseEntity.ok(new ArticleInfosDto(articleService.findByActiveArticle()));
     }
 }

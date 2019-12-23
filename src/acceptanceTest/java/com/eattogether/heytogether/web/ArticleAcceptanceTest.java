@@ -3,6 +3,8 @@ package com.eattogether.heytogether.web;
 import com.eattogether.heytogether.domain.Place;
 import com.eattogether.heytogether.service.dto.ArticleCreateDto;
 import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleInfoDto;
+import com.eattogether.heytogether.service.dto.ArticleInfosDto;
 import com.eattogether.heytogether.service.dto.ItemCreateDto;
 import com.eattogether.heytogether.service.dto.OrderDetailInfoDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -90,5 +92,15 @@ class ArticleAcceptanceTest {
                                 fieldWithPath("[0].minimumOrderPrice").description("최소 주문 금액"),
                                 fieldWithPath("[0].totalPrice").description("최종 주문 금액")
                         )));
+    }
+
+    @Test
+    @DisplayName("게시 목록 조회")
+    void read_article_list() {
+        webTestClient.get()
+                .uri("/api/articles")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange().expectStatus().isOk()
+                .expectBody(ArticleInfosDto.class);
     }
 }
