@@ -33,13 +33,13 @@ public class ArticleService {
         this.userService = userService;
     }
 
-    public ArticleInfoDto saveArticle(ArticleCreateDto articleCreateDto) {
-        Article article = articleRepository.save(ArticleAssembler.toEntity(articleCreateDto));
+    public ArticleInfoDto saveArticle(ArticleCreateDto articleCreateDto, UserDto userDto) {
+        User user = userService.findUserBy(userDto);
+        Article article = articleRepository.save(ArticleAssembler.toEntity(articleCreateDto, user));
 
         Shop shop = shopService.findEntityBy(articleCreateDto.getShopId());
-        Order order = orderService.save(shop, article);
-
-        articleCreateDto.getItems().forEach(itemCreateDto -> orderItemService.save(itemCreateDto, order));
+        Order order = orderService.save(shop, article, user);
+        orderItemService.saveItems(articleCreateDto.getItems(), order);
 
         return ArticleAssembler.toDto(article);
     }
@@ -51,6 +51,11 @@ public class ArticleService {
         return ArticleAssembler.toDto(article);
     }
 
+    public Article findArticleById(Long articleId) {
+        return articleRepository.findById(articleId)
+                .orElseThrow(() -> new EntityNotFoundException("id가 " + articleId + "인 메뉴를 조회할 수 없습니다."));
+    }
+
     public List<ArticleInfoDto> findByActiveArticle() {
         List<Article> activeArticles = articleRepository.findByArticleStatus(ArticleStatus.ACTIVE);
 
@@ -59,14 +64,14 @@ public class ArticleService {
                 .collect(Collectors.toList()));
     }
 
-    public void participate(final Long id, final UserDto userDto, final ArticleParticipateDto articleParticipateDro) {
+    public void participate(final Long id, final UserDto userDto, final ArticleParticipateDto articleParticipateDto) {
         Article article = articleRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-        Shop shop = shopService.findEntityBy(articleParticipateDro.getShopId());
-
-        Order order = orderService.save(shop, article);
-        articleParticipateDro.getItems().forEach(itemCreateDto -> orderItemService.save(itemCreateDto, order));
-
+        Shop shop = shopService.findEntityBy(articleParticipateDto.getShopId());
         User user = userService.findUserBy(userDto);
-        user.participate(articleParticipateDro.getTotalPrice());
+
+        Order order = orderService.save(shop, article, user);
+        orderItemService.saveItems(articleParticipateDto.getItems(), order);
+
+        user.participate(articleParticipateDto.getTotalPrice());
     }
 }

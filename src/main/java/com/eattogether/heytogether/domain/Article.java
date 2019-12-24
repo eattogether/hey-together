@@ -20,14 +20,23 @@ public class Article {
     @Enumerated(EnumType.STRING)
     private ArticleStatus articleStatus;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User author;
+
     public Article() {
     }
 
-    public Article(String title, LocalDateTime deadLine, Place place) {
+    public Article(String title, LocalDateTime deadLine, Place place, User author) {
         this.title = title;
         this.deadLine = deadLine;
         this.place = place;
         this.articleStatus = ArticleStatus.ACTIVE;
+        this.author = author;
+    }
+
+    public boolean isAuthor(User user) {
+        return author.equals(user);
     }
 
     public Long getId() {
@@ -44,6 +53,14 @@ public class Article {
 
     public Place getPlace() {
         return place;
+    }
+
+    public ArticleStatus getArticleStatus() {
+        return articleStatus;
+    }
+
+    public User getAuthor() {
+        return author;
     }
 
     @Override
@@ -71,6 +88,7 @@ public class Article {
                 ", deadLine=" + deadLine +
                 ", place=" + place +
                 ", articleStatus=" + articleStatus +
+                ", user=" + author +
                 '}';
     }
 }
