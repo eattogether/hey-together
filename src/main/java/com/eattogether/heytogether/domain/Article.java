@@ -42,6 +42,10 @@ public class Article {
         return deadLine;
     }
 
+    public boolean isEnded(LocalDateTime time) {
+        return deadLine.isBefore(time);
+    }
+
     public Place getPlace() {
         return place;
     }
@@ -72,5 +76,9 @@ public class Article {
                 ", place=" + place +
                 ", articleStatus=" + articleStatus +
                 '}';
+    }
+
+    public ArticleStatus getArticleStatus() {
+        return articleStatus;
     }
 }

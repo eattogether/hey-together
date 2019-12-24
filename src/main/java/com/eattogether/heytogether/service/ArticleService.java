@@ -59,6 +59,10 @@ public class ArticleService {
                 .collect(Collectors.toList()));
     }
 
+    public List<Article> findByActiveArticle2() {
+        return articleRepository.findByArticleStatus(ArticleStatus.ACTIVE);
+    }
+
     public void participate(final Long id, final UserDto userDto, final ArticleParticipateDto articleParticipateDro) {
         Article article = articleRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         Shop shop = shopService.findEntityBy(articleParticipateDro.getShopId());

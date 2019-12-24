@@ -4,7 +4,7 @@ insert into shop(delivery_tip, minimum_order_price, latitude, longitude) values 
 insert into shop_menu(menu_name, price, shop_id) values ('떡볶이', 15000, 1);
 insert into shop_menu(menu_name, price, shop_id) values ('직화', 25000, 1);
 
-insert into article(dead_line, latitude, longitude, title) values (now(), 1.1, 2.2, '같이묵자');
+insert into article(dead_line, latitude, longitude, title) values (now(), 1.1, 2.2, '같이묵자','ACTIVE');
 
 insert into orders(article_id, shop_id) values (1, 1);
 
