@@ -30,6 +30,13 @@ public class Article {
         this.articleStatus = ArticleStatus.ACTIVE;
     }
 
+    public Article(String title, LocalDateTime deadLine, Place place, ArticleStatus articleStatus) {
+        this.title = title;
+        this.deadLine = deadLine;
+        this.place = place;
+        this.articleStatus = articleStatus;
+    }
+
     public Long getId() {
         return id;
     }
