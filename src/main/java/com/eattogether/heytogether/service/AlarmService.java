@@ -4,7 +4,6 @@ import com.eattogether.heytogether.domain.Article;
 import com.eattogether.heytogether.domain.Order;
 import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.service.dto.UserDto;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -47,6 +46,10 @@ public class AlarmService {
                 messages.put(orderUserId, "배달이 도착했습니다.");
             }
         }
+    }
+
+    public void sendEmitterArticleEnded(UserDto userDto) {
+        messages.put(userDto.getUserId(), " 주문이 완료되었습니다.");
     }
 
     public void remove(String userId) {

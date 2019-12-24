@@ -56,11 +56,15 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("id가 " + articleId + "인 메뉴를 조회할 수 없습니다."));
     }
 
+    public List<Article> findByActiveArticleEntity() {
+        return articleRepository.findByArticleStatus(ArticleStatus.ACTIVE);
+    }
+
     public List<ArticleInfoDto> findByActiveArticle() {
         List<Article> activeArticles = articleRepository.findByArticleStatus(ArticleStatus.ACTIVE);
 
         return Collections.unmodifiableList(activeArticles.stream()
-                .map(article -> ArticleAssembler.toDto(article))
+                .map(ArticleAssembler::toDto)
                 .collect(Collectors.toList()));
     }
 

@@ -39,6 +39,10 @@ public class Article {
         return author.equals(user);
     }
 
+    public boolean isEnded(final LocalDateTime nowTime) {
+        return deadLine.isBefore(nowTime);
+    }
+
     public Long getId() {
         return id;
     }
