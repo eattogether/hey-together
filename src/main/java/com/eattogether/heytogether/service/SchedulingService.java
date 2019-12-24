@@ -28,6 +28,6 @@ public class SchedulingService {
                 .filter(article -> article.isEnded(nowTime))
                 .map(article -> article.getAuthor())
                 .map(user -> UserAssembler.toDto(user))
-                .forEach(userDto -> alarmService.sendEmitterArticleEnded(userDto));
+                .forEach(userDto -> alarmService.sendArticleEndedEmitter(userDto));
     }
 }
