@@ -31,6 +31,12 @@ public class ShopService {
                 .orElseThrow(shopNotFoundExceptionWith(id));
     }
 
+    public ShopInfoDto findDtoBy(String shopName) {
+        return shopRepository.findByName(shopName)
+                .map(ShopAssembler::toDto)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
     public Shop findEntityBy(Long id) {
         return shopRepository.findById(id)
                 .orElseThrow(shopNotFoundExceptionWith(id));

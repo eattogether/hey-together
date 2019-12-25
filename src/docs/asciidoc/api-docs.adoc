@@ -15,3 +15,10 @@ include::{snippets}/articles-orders/get/response-fields.adoc\[]
 include::{snippets}/articles-orders/get/http-response.adoc\[]
 === Example request
 include::{snippets}/articles-orders/get/curl-request.adoc[]
+
+== Read Menus by Shop
+=== Request Structure
+include::{snippets}/shop-menus/get/response-fields.adoc\[]
+include::{snippets}/shop-menus/get/http-response.adoc\[]
+=== Example request
+include::{snippets}/shop-menus/get/curl-request.adoc[]
