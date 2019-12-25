@@ -27,12 +27,16 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, LocalDateTime deadLine, Place place, User author) {
+    public Article(final String title, final LocalDateTime deadLine, final Place place, final ArticleStatus articleStatus, final User author) {
         this.title = title;
         this.deadLine = deadLine;
         this.place = place;
-        this.articleStatus = ArticleStatus.ACTIVE;
+        this.articleStatus = articleStatus;
         this.author = author;
+    }
+
+    public Article(String title, LocalDateTime deadLine, Place place, User author) {
+        this(title, deadLine, place, ArticleStatus.ACTIVE, author);
     }
 
     public boolean isAuthor(User user) {
@@ -41,13 +45,6 @@ public class Article {
 
     public boolean isEnded(final LocalDateTime nowTime) {
         return deadLine.isBefore(nowTime);
-    }
-
-    public Article(String title, LocalDateTime deadLine, Place place, ArticleStatus articleStatus) {
-        this.title = title;
-        this.deadLine = deadLine;
-        this.place = place;
-        this.articleStatus = articleStatus;
     }
 
     public Long getId() {

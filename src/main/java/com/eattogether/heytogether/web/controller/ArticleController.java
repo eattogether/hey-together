@@ -20,9 +20,8 @@ public class ArticleController {
     }
 
     @PostMapping("/api/articles")
-    public ResponseEntity saveArticle(@RequestBody ArticleCreateDto articleCreateDto, UserDto userDto) {
-        articleService.saveArticle(articleCreateDto, userDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ArticleInfoDto> saveArticle(@RequestBody ArticleCreateDto articleCreateDto, UserDto userDto) {
+        return ResponseEntity.ok(articleService.saveArticle(articleCreateDto, userDto));
     }
 
     @GetMapping("/api/articles/{id}")
