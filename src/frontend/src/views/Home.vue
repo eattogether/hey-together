@@ -30,9 +30,15 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
+<!--            <v-img-->
+<!--                    :src="require('../assets/logo.svg')"-->
+<!--                    class="my-lg-5"-->
+<!--                    contain-->
+<!--                    height="200"-->
+<!--            />-->
         </v-navigation-drawer>
 
-        <v-app-bar app color="teal" dark>
+        <v-app-bar app color="#85BECA" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
 
@@ -117,7 +123,7 @@
             </v-container>
 
         </v-content>
-        <v-footer color="teal" app>
+        <v-footer color="#85BECA" app>
             <span class="white--text">&copy; 2019</span>
         </v-footer>
     </v-app>
@@ -186,18 +192,19 @@
             closeWriteModal: function () {
                 this.writeDialog = false;
             },
-            requestArticle: function (data) {
-                console.log(data);
+            requestArticle: function (currentArticle) {
+                console.log(currentArticle);
                 const homeVue = this;
-                const uri = '/api/articles/' + data.id + '/orders';
+                const uri = '/api/articles/' + currentArticle.id + '/orders';
                 axios.get(uri)
                     .then(function (response) {
                         const order = response.data[0];
                         console.log(order);
                         homeVue.article = {
-                            id: data.id,
-                            title: data.title,
-                            deadLine: data.deadLine,
+                            id: currentArticle.id,
+                            title: currentArticle.title,
+                            deadLine: currentArticle.deadLine,
+                            shopId: currentArticle.shopId,
                             deliveryTip: order.deliveryTip,
                             minimumOrderPrice: order.minimumOrderPrice,
                             totalPrice: order.totalPrice
@@ -234,3 +241,13 @@
         }
     };
 </script>
+
+<style lang="scss">
+    #inspire {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        background-image: url('../assets/background.png');
+    }
+</style>

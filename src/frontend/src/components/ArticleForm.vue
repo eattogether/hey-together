@@ -108,7 +108,7 @@
                 // data: minimumOrderPrice, deliveryTip, List<menu(메뉴 이름, 가격)>
                 console.log(this.shopName);
                 const articleFormVue = this;
-                axios.get('/api/shops/' + this.shopName)
+                axios.get('/api/shops/' + this.shopName + '/menus')
                     .then(function(response) {
                         articleFormVue.deliveryTip = response.data.deliveryTip;
                         articleFormVue.minimumOrderPrice = response.data.minimumOrderPrice;

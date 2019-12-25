@@ -30,7 +30,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app color="teal" dark>
+        <v-app-bar app color="#85BECA" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
 
@@ -136,7 +136,7 @@
             </v-container>
 
         </v-content>
-        <v-footer color="teal" app>
+        <v-footer color="#85BECA" app>
             <span class="white--text">&copy; 2019</span>
         </v-footer>
     </v-app>
