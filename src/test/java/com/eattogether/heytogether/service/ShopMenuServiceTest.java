@@ -90,7 +90,7 @@ class ShopMenuServiceTest {
         ShopMenu shopMenu1 = new ShopMenu("떡볶이", new Money(1000), shop);
         ReflectionTestUtils.setField(shopMenu1, "id", 1L);
 
-        ShopMenu shopMenu2 = new ShopMenu("떡볶이", new Money(1000), shop);
+        ShopMenu shopMenu2 = new ShopMenu("피자", new Money(2000), shop);
         ReflectionTestUtils.setField(shopMenu2, "id", 2L);
 
         given(shopService.findDtoBy(1L)).willReturn(shopInfoDto);
