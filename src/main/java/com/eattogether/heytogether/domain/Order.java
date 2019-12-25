@@ -19,12 +19,22 @@ public class Order {
     @JoinColumn(name = "article_id")
     private Article article;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Order() {
     }
 
     public Order(Shop shop, Article article) {
         this.shop = shop;
         this.article = article;
+    }
+
+    public Order(Shop shop, Article article, User user) {
+        this.shop = shop;
+        this.article = article;
+        this.user = user;
     }
 
     public Long getId() {
@@ -37,6 +47,10 @@ public class Order {
 
     public Article getArticle() {
         return article;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override
@@ -62,6 +76,7 @@ public class Order {
                 "id=" + id +
                 ", shop=" + shop +
                 ", article=" + article +
+                ", user=" + user +
                 '}';
     }
 }

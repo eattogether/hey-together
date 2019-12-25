@@ -1,11 +1,10 @@
 package com.eattogether.heytogether.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     private static final int DEFAULT_POINT = 0;
@@ -49,5 +48,18 @@ public class User {
 
     public String getUserId() {
         return userId;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

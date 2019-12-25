@@ -20,19 +20,18 @@ public class ArticleController {
     }
 
     @PostMapping("/api/articles")
-    public ResponseEntity saveArticle(@RequestBody ArticleCreateDto articleCreateDto) {
-        articleService.saveArticle(articleCreateDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ArticleInfoDto> saveArticle(@RequestBody ArticleCreateDto articleCreateDto, UserDto userDto) {
+        return ResponseEntity.ok(articleService.saveArticle(articleCreateDto, userDto));
     }
 
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleInfoDtoWithShopId> readArticle(@PathVariable Long id) {
-        return ResponseEntity.ok(articleService.findDtoById(id));
+    public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.findById(id));
     }
 
     @GetMapping("/api/articles/{id}/orders")
     public ResponseEntity<List<OrderDetailInfoDto>> readOrders(@PathVariable Long id) {
-        List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findAllDtoByArticleId(id);
+        List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findByArticleId(id);
         return ResponseEntity.ok(orderDetailInfoDtos);
     }
 

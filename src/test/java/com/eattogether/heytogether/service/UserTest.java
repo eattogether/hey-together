@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.eattogether.TestConstant.USER_NAME;
 import static com.eattogether.TestConstant.USER_PASSWORD;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
 
@@ -31,4 +32,10 @@ class UserTest {
         assertThat(user.checkPassword("234")).isFalse();
     }
 
+    @Test
+    @DisplayName("유저 마일리지가 부족할 때 에러발생 테스")
+    void participateTest() {
+        User user = new User(USER_NAME, USER_PASSWORD);
+        assertThrows(IllegalArgumentException.class, () -> user.participate(10_000));
+    }
 }
