@@ -28,11 +28,15 @@ public class OrderService {
         return orderRepository.save(new Order(shop, article));
     }
 
-    public List<OrderDetailInfoDto> findByArticleId(Long articleId) {
+    public List<OrderDetailInfoDto> findAllDtoByArticleId(Long articleId) {
         List<Order> orders = orderRepository.findAllByArticleId(articleId);
 
         return orders.stream()
                 .map(order -> OrderAssembler.toDto(order, orderItemService.findByOrderId(order.getId())))
                 .collect(Collectors.toList());
+    }
+
+    public List<Order> findAllEntityByArticleId(Long articleId) {
+        return orderRepository.findAllByArticleId(articleId);
     }
 }

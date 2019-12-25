@@ -26,13 +26,13 @@ public class ArticleController {
     }
 
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
-        return ResponseEntity.ok(articleService.findById(id));
+    public ResponseEntity<ArticleInfoDtoWithShopId> readArticle(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.findDtoById(id));
     }
 
     @GetMapping("/api/articles/{id}/orders")
     public ResponseEntity<List<OrderDetailInfoDto>> readOrders(@PathVariable Long id) {
-        List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findByArticleId(id);
+        List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findAllDtoByArticleId(id);
         return ResponseEntity.ok(orderDetailInfoDtos);
     }
 
