@@ -43,6 +43,13 @@ public class Article {
         return deadLine.isBefore(nowTime);
     }
 
+    public Article(String title, LocalDateTime deadLine, Place place, ArticleStatus articleStatus) {
+        this.title = title;
+        this.deadLine = deadLine;
+        this.place = place;
+        this.articleStatus = articleStatus;
+    }
+
     public Long getId() {
         return id;
     }
