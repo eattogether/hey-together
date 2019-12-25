@@ -40,6 +40,10 @@ public class ShopMenu {
         return name;
     }
 
+    public Money getPrice() {
+        return price;
+    }
+
     public Money getPrice(int count) {
         return price.multiply(count);
     }
