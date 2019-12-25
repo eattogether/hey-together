@@ -11,14 +11,15 @@ const routes = [
     component: Home
   },
   {
-    path: '/waiting',
+    path: '/articles/:articleId/waiting',
     name: 'waitingRoom',
     component: () => import('../views/WaitingRoom.vue')
   },
   {
-    path: '/articles',
+    path: '/article/:articleId',
     name: 'articleInfo',
-    component: () => import('../views/ShowArticle.vue')
+    component: () => import('../views/ShowArticle.vue'),
+    props: true
   },
   {
     path: '/404',

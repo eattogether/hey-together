@@ -30,14 +30,15 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer/>
-            <v-btn color="teal" v-on:click="closeEvent">Close</v-btn>
-            <v-btn color="teal" v-on:click="loginEvent">Login</v-btn>
+            <v-btn color="teal" v-on:click="closeEvent">닫기</v-btn>
+            <v-btn color="teal" v-on:click="loginEvent">로그인</v-btn>
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
     import axios from 'axios';
+    import cookie from 'vue-cookies';
 
     export default {
         props: {
@@ -54,20 +55,19 @@
                     userId: this.username,
                     password: this.password
                 };
-                console.log(loginUser);
-
-                // let loginResults;
                 axios.post("/login", loginUser)
                 .then(function(response) {
                     console.log(response);
-                    console.log(response.headers['Set-Cookie']);
-                    // loginResults = {
-                    //     jwt:
-                    // }
-                    loginVue.$emit("passLoginInfo", loginUser);
+                    //token
+                    const jwtToken = cookie.get('remember_me');
+                    console.log(jwtToken);
+                    const user = {
+                        userId: loginUser.userId,
+                        token: jwtToken
+                    };
+                    loginVue.$emit("passLoginInfo", user);
                 }).catch(function(error) {
                     console.log(error);
-
                 });
             },
             closeEvent: function () {

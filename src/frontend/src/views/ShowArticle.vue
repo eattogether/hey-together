@@ -47,7 +47,7 @@
                         <v-card class="mx-auto mb-5" max-width="90%" outlined>
                             <div class="text-center"
                                  v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
-                                게시글 타이틀
+                                {{ articleTitle }}
                             </div>
                         </v-card>
                     </v-col>
@@ -125,7 +125,7 @@
                                             <v-list-item-title>시간 제한</v-list-item-title>
                                         </v-list-item-content>
                                         <v-list-item-content>
-                                            TEXT
+                                            {{ article.deadLine }}
                                         </v-list-item-content>
                                     </v-list-item>
                                 </router-link>
@@ -156,6 +156,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import LoginModal from '../components/Login.vue';
     import JoiningRoomModal from '../components/JoiningRoom.vue';
 
@@ -164,16 +165,30 @@
             LoginModal,
             JoiningRoomModal,
         },
-        props: {
-            source: String,
-        },
+        props: ['articleId'],
         data: () => ({
+            article: null,
             activeColor: 'black',
             fontSize: 40,
             drawer: null,
             loginDialog: false,
             joiningRoomDialog: false,
         }),
+        created() {
+            console.log(this.articleId);
+            const showArticleVue = this;
+            const getArticleUri = '/api/articles/' + this.articleId;
+            axios.get(getArticleUri)
+                .then(function(response) {
+                    showArticleVue.aticle = response.data;
+                    console.log(response.data);
+                    console.log(showArticleVue.aticle);
+                    console.log(showArticleVue.aticle.title);
+                })
+                .catch(function(error){
+                    console.log(error);
+                });
+        },
         methods: {
             closeLoginModal: function () {
                 this.loginDialog = false;
@@ -185,6 +200,9 @@
             closeJoiningRoomModal: function () {
                 this.joiningRoomDialog = false;
             },
+            articleTitle: function() {
+                return this.article.title;
+            }
         }
     };
 </script>

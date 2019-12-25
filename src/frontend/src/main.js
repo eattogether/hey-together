@@ -3,7 +3,12 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 
+import moment from 'moment';
+import VueMoment from 'vue-momentjs';
+
 Vue.config.productionTip = false
+
+Vue.use(VueMoment, moment);
 
 new Vue({
   router,

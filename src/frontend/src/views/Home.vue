@@ -7,7 +7,9 @@
                         <v-icon>mdi-home</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <router-link to="/" exact>Home</router-link>
+                        <router-link to="/">
+                            <v-btn min-width="167px" color="primary" dark>Home</v-btn>
+                        </router-link>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
@@ -18,7 +20,7 @@
                         <v-dialog v-model="loginDialog" persistent max-width="600px">
                             <template v-slot:activator="{ on }">
                                 <v-btn v-if="loginUser === null" color="primary" dark v-on="on">Login</v-btn>
-                                <v-btn v-else color="primary" dark> {{ loginUser.userId }}</v-btn>
+                                <v-btn v-else color="teal" dark>{{ loginUser.userId }}</v-btn>
                             </template>
                             <LoginModal
                                     v-on:closeLoginModal="closeLoginModal"
@@ -34,7 +36,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
 
-            <v-spacer></v-spacer>
+            <v-spacer/>
 
             <v-btn icon>
                 <v-icon>mdi-bell-outline</v-icon>
@@ -64,9 +66,15 @@
                         <v-card class="mx-auto mb-5" max-width="90%" outlined>
                             <v-dialog v-model="writeDialog" persistent max-width="600px">
                                 <template v-slot:activator="{ on }">
-                                    <v-btn large width="100%" color="primary" dark v-on="on">같이 묵자 등록하기</v-btn>
+                                    <v-btn large width="100%"
+                                           color="primary"
+                                           dark
+                                           v-on="on"
+                                    >같이 묵자 등록하기
+                                    </v-btn>
                                 </template>
-                                <WriteModal v-on:closeWriteModal="closeWriteModal"/>
+                                <WriteModal v-on:closeWriteModal="closeWriteModal"
+                                            v-on:passSaveArticle="requestSaveArticle"/>
                             </v-dialog>
                         </v-card>
                     </v-col>
@@ -82,18 +90,28 @@
                                 outlined
                         >
                             <v-list dense>
-                                <router-link tag="div" to="/articles">
-                                    <v-list-item link>
-                                        <v-list-item-action>
-                                            <v-icon>mdi-food-fork-drink</v-icon>
-                                        </v-list-item-action>
-                                        <v-list-item-content>
-                                            <v-list-item-title>같이 묵자 {{ article.id }}...</v-list-item-title>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                </router-link>
+                                <v-list-item link @click.stop="articleInfoDialog = true"
+                                             v-on:click="requestArticle(article)">
+                                    <v-list-item-action>
+                                        <v-icon>mdi-food-fork-drink</v-icon>
+                                    </v-list-item-action>
+                                    <v-list-item-content>
+                                        <v-list-item-title>
+                                            {{ article.title }}
+                                            <v-spacer/>
+                                            {{ article.title }}
+                                        </v-list-item-title>
+                                    </v-list-item-content>
+                                </v-list-item>
                             </v-list>
                         </v-card>
+                        <v-dialog
+                                v-model="articleInfoDialog"
+                                max-width="90%"
+                                outlined
+                        >
+                            <ArticleInfo v-bind:articleInfo="article"/>
+                        </v-dialog>
                     </v-col>
                 </v-row>
             </v-container>
@@ -106,28 +124,46 @@
 </template>
 
 <script>
+    import axios from 'axios';
+    // import cookie from 'vue-cookies';
     import LoginModal from '../components/Login.vue';
     import PostCodeModal from '../components/PostCode.vue';
-    import WriteModal from '../components/ArticleForm';
+    import WriteModal from '../components/ArticleForm.vue';
+    import ArticleInfo from '../components/ArticleInfo.vue';
 
     export default {
         components: {
             LoginModal,
             PostCodeModal,
             WriteModal,
+            ArticleInfo,
         },
         props: {
             source: String,
         },
         data: () => ({
             drawer: null,
-            articles: [{id: 1}, {id: 2}, {id: 3}],
+            // articles: [{id: 1, title: 'title1'}, {id: 2, title: 'title2'}, {id: 3, title: 'title3'},
+            //     {id: 4, title: 'title4'}, {id: 5, title: 'title5'}, {id: 6, title: 'title6'}],
+            articles: [],
+            article: null,
             loginDialog: false,
             postCodeDialog: false,
             address: '',
             writeDialog: false,
+            articleInfoDialog: false,
             loginUser: null,
         }),
+        created() {
+            const homeVue = this;
+            axios.get("/api/articles")
+                .then(function (response) {
+                    homeVue.articles = response.data.articleInfosDtoList;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         methods: {
             closeLoginModal: function () {
                 this.loginDialog = false;
@@ -137,6 +173,7 @@
                 console.log('home: ', user);
                 this.loginUser = user;
                 if (this.loginUser !== null) {
+                    // cookie.set("remember_me", this.loginUser.token, "expiring time");
                     this.loginDialog = false;
                 }
             },
@@ -149,6 +186,51 @@
             closeWriteModal: function () {
                 this.writeDialog = false;
             },
+            requestArticle: function (data) {
+                console.log(data);
+                const homeVue = this;
+                const uri = '/api/articles/' + data.id + '/orders';
+                axios.get(uri)
+                    .then(function (response) {
+                        const order = response.data[0];
+                        console.log(order);
+                        homeVue.article = {
+                            id: data.id,
+                            title: data.title,
+                            deadLine: data.deadLine,
+                            deliveryTip: order.deliveryTip,
+                            minimumOrderPrice: order.minimumOrderPrice,
+                            totalPrice: order.totalPrice
+                        };
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            // requestShop: function() {
+            //     const homeVue = this;
+            //     const uri = '/api/shops';
+            //     axios.get(uri)
+            //         .then(function(response) {
+            //             homeVue.shops = response.data;
+            //         })
+            //         .catch(function(error){
+            //             console.log(error);
+            //         });
+            // },
+            requestSaveArticle: function (article) {
+                const homeVue = this;
+                axios.post('/api/articles', article)
+                    .then(function (response) {
+                        console.log(response);
+                        homeVue.writeDialog = false;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        homeVue.$router.push('/articles/' + 1 + '/waiting');
+                    });
+
+            }
         }
     };
 </script>
