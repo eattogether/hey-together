@@ -1,10 +1,15 @@
 package com.eattogether.heytogether.service;
 
+import java.util.List;
+
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.ShopMenu;
 import com.eattogether.heytogether.domain.repository.ShopMenuRepository;
-import com.eattogether.heytogether.service.assembler.MenuAssembler;
+import com.eattogether.heytogether.service.assembler.ShopMenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
+import com.eattogether.heytogether.service.dto.ShopInfoDto;
+import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +29,18 @@ public class ShopMenuService {
 
     public void save(Long shopId, MenuCreateDto menuCreateDto) {
         Shop shop = shopService.findEntityBy(shopId);
-        shopMenuRepository.save(MenuAssembler.toEntity(menuCreateDto, shop));
+        shopMenuRepository.save(ShopMenuAssembler.toEntity(menuCreateDto, shop));
     }
 
     public ShopMenu findById(Long menuId) {
         return shopMenuRepository.findById(menuId)
                 .orElseThrow(() -> new EntityNotFoundException("id가 " + menuId + "인 메뉴를 조회할 수 없습니다."));
+    }
+
+    public ShopMenuDetailInfoDto findShopMenuByShopId(Long shopId) {
+        ShopInfoDto shopInfoDto = shopService.findDtoBy(shopId);
+        List<ShopMenu> shopMenus = shopMenuRepository.findAllByShopId(shopId);
+
+        return ShopMenuAssembler.toDto(shopInfoDto, shopMenus);
     }
 }
