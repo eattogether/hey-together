@@ -1,9 +1,9 @@
 package com.eattogether.heytogether.service;
 
-import com.eattogether.heytogether.domain.vo.Money;
-import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.repository.ShopRepository;
+import com.eattogether.heytogether.domain.vo.Money;
+import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +37,7 @@ class ShopServiceTest {
     @DisplayName("가게 등록 성공")
     void save_shop() {
         ShopCreateDto shopCreateDto = new ShopCreateDto(new Money(2000),
-                new Money(15000), new Place(1.1, 2.2));
+                new Money(15000), new Place(1.1, 2.2), "BHC");
 
         shopService.save(shopCreateDto);
         verify(shopRepository, Mockito.times(1)).save(any());
@@ -46,7 +46,7 @@ class ShopServiceTest {
     @Test
     @DisplayName("가게 id를 통해 가게 정보 dto 반환")
     void find_dto_by() {
-        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3));
+        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3), "BHC");
         ReflectionTestUtils.setField(shop, "id", 1L);
         given(shopRepository.findById(1L)).willReturn(Optional.of(shop));
 
@@ -56,7 +56,7 @@ class ShopServiceTest {
     @Test
     @DisplayName("가게 id를 통해 가게 정보 entity 반환")
     void find_entity_by() {
-        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3));
+        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3), "BHC");
         ReflectionTestUtils.setField(shop, "id", 1L);
         given(shopRepository.findById(1L)).willReturn(Optional.of(shop));
 

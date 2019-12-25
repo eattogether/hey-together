@@ -1,9 +1,5 @@
 package com.eattogether.heytogether.service;
 
-import java.util.Arrays;
-import java.util.Optional;
-import javax.persistence.EntityNotFoundException;
-
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.ShopMenu;
 import com.eattogether.heytogether.domain.repository.ShopMenuRepository;
@@ -19,9 +15,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -62,7 +61,7 @@ class ShopMenuServiceTest {
     @Test
     @DisplayName("메뉴 조회 성공")
     void find_menu() {
-        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3));
+        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3), "BHC");
         ReflectionTestUtils.setField(shop, "id", 1L);
 
         ShopMenu menu = new ShopMenu("떡볶이", new Money(1000), shop);
@@ -82,7 +81,7 @@ class ShopMenuServiceTest {
     @Test
     @DisplayName("가게 번호로 메뉴 조회 성공")
     void find_menu_with_shop_id() {
-        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3));
+        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3), "BHC");
         ReflectionTestUtils.setField(shop, "id", 1L);
 
         ShopInfoDto shopInfoDto = ShopAssembler.toDto(shop);
@@ -97,5 +96,25 @@ class ShopMenuServiceTest {
         given(shopMenuRepository.findAllByShopId(1L)).willReturn(Arrays.asList(shopMenu1, shopMenu2));
 
         assertThat(shopMenuService.findShopMenuByShopId(1L)).isInstanceOf(ShopMenuDetailInfoDto.class);
+    }
+
+    @Test
+    @DisplayName("가게 이름으로로 메뉴 조회 성공")
+    void find_menu_with_shop_name() {
+        Shop shop = new Shop(new Money(2000), new Money(15000), new Place(1.1, 3.3), "BHC");
+        ReflectionTestUtils.setField(shop, "id", 1L);
+
+        ShopInfoDto shopInfoDto = ShopAssembler.toDto(shop);
+
+        ShopMenu shopMenu1 = new ShopMenu("떡볶이", new Money(1000), shop);
+        ReflectionTestUtils.setField(shopMenu1, "id", 1L);
+
+        ShopMenu shopMenu2 = new ShopMenu("피자", new Money(2000), shop);
+        ReflectionTestUtils.setField(shopMenu2, "id", 2L);
+
+        given(shopService.findDtoBy("BHC")).willReturn(shopInfoDto);
+        given(shopMenuRepository.findAllByShopName("BHC")).willReturn(Arrays.asList(shopMenu1, shopMenu2));
+
+        assertThat(shopMenuService.findShopMenuByShopName("BHC")).isInstanceOf(ShopMenuDetailInfoDto.class);
     }
 }

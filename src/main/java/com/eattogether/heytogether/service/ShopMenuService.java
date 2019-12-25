@@ -1,7 +1,5 @@
 package com.eattogether.heytogether.service;
 
-import java.util.List;
-
 import com.eattogether.heytogether.domain.Shop;
 import com.eattogether.heytogether.domain.ShopMenu;
 import com.eattogether.heytogether.domain.repository.ShopMenuRepository;
@@ -9,11 +7,11 @@ import com.eattogether.heytogether.service.assembler.ShopMenuAssembler;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 @Transactional
@@ -40,6 +38,13 @@ public class ShopMenuService {
     public ShopMenuDetailInfoDto findShopMenuByShopId(Long shopId) {
         ShopInfoDto shopInfoDto = shopService.findDtoBy(shopId);
         List<ShopMenu> shopMenus = shopMenuRepository.findAllByShopId(shopId);
+
+        return ShopMenuAssembler.toDto(shopInfoDto, shopMenus);
+    }
+
+    public ShopMenuDetailInfoDto findShopMenuByShopName(final String shopName) {
+        ShopInfoDto shopInfoDto = shopService.findDtoBy(shopName);
+        List<ShopMenu> shopMenus = shopMenuRepository.findAllByShopName(shopName);
 
         return ShopMenuAssembler.toDto(shopInfoDto, shopMenus);
     }

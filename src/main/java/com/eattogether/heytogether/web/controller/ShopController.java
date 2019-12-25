@@ -6,7 +6,6 @@ import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
 import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +40,10 @@ public class ShopController {
     @GetMapping("/api/shops/{id}/menus")
     public ResponseEntity<ShopMenuDetailInfoDto> readMenus(@PathVariable Long id) {
         return ResponseEntity.ok(shopMenuService.findShopMenuByShopId(id));
+    }
+
+    @GetMapping("/api/shops/{shopName}")
+    public ResponseEntity<ShopMenuDetailInfoDto> readMenusByShopName(@PathVariable String shopName) {
+        return ResponseEntity.ok(shopMenuService.findShopMenuByShopName(shopName));
     }
 }

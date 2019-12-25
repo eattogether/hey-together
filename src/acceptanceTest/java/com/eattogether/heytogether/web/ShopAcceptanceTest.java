@@ -9,8 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import reactor.core.publisher.Mono;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
@@ -20,6 +18,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import static com.eattogether.TestConstant.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -49,7 +48,7 @@ class ShopAcceptanceTest {
     @DisplayName("가게 등록 성공")
     void save_shop() {
         ShopCreateDto shopCreateDto = new ShopCreateDto(new Money(2000), new Money(14000),
-                new Place(1.1, 2.2));
+                new Place(1.1, 2.2), "BHC");
         webTestClient.post().uri("/api/shops")
                 .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .accept(MediaType.APPLICATION_JSON)

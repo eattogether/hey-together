@@ -24,13 +24,16 @@ public class Shop {
     @Embedded
     private Place place;
 
+    private String name;
+
     public Shop() {
     }
 
-    public Shop(Money deliveryTip, Money minimumOrderPrice, Place place) {
+    public Shop(final Money deliveryTip, final Money minimumOrderPrice, final Place place, final String name) {
         this.deliveryTip = deliveryTip;
         this.minimumOrderPrice = minimumOrderPrice;
         this.place = place;
+        this.name = name;
     }
 
     public Long getId() {
@@ -47,6 +50,10 @@ public class Shop {
 
     public Money getMinimumOrderPrice() {
         return minimumOrderPrice;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
