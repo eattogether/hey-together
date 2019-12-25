@@ -39,10 +39,6 @@ public class Article {
         this(title, deadLine, place, ArticleStatus.ACTIVE, author);
     }
 
-    public Article(String title, LocalDateTime deadLine, Place place, ArticleStatus articleStatus) {
-        this(title, deadLine, place, articleStatus, null);
-    }
-
     public boolean isAuthor(User user) {
         return author.equals(user);
     }
