@@ -32,4 +32,8 @@ public class OrderItemService {
     public List<OrderItem> findByOrderId(Long orderId) {
         return orderItemRepository.findAllByOrderId(orderId);
     }
+
+    public void saveItems(List<ItemCreateDto> items, Order order) {
+        items.forEach(itemCreateDto -> save(itemCreateDto, order));
+    }
 }

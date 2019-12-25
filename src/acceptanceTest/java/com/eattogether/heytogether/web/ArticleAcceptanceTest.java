@@ -25,21 +25,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebTestClient
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "docs.api.com")
-class ArticleAcceptanceTest {
 
-    private WebTestClient webTestClient;
-
-    @BeforeEach
-    public void setUp(RestDocumentationContextProvider restDocumentation) {
-        webTestClient = WebTestClient.bindToServer()
-                .baseUrl("http://localhost:8080")
-                .filter(documentationConfiguration(restDocumentation))
-                .build();
-    }
+class ArticleAcceptanceTest extends LoggedClient {
 
     @Test
     @DisplayName("게시글 등록 성공")
@@ -51,7 +38,7 @@ class ArticleAcceptanceTest {
 
         webTestClient.post()
                 .uri("/api/articles")
-                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
+                .header(JWT_HTTP_HEADER, loginHeader())
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(articleCreateDto), ArticleCreateDto.class)
                 .exchange().expectStatus().isOk();
@@ -62,7 +49,7 @@ class ArticleAcceptanceTest {
     void read_article() {
         webTestClient.get()
                 .uri("/api/articles/1")
-                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
+                .header(JWT_HTTP_HEADER, loginHeader())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange().expectStatus().isOk()
                 .expectBody(ArticleInfoDto.class)
@@ -71,7 +58,8 @@ class ArticleAcceptanceTest {
                                 fieldWithPath("id").description("배달 팁"),
                                 fieldWithPath("title").description("최소 주문 금액"),
                                 fieldWithPath("deadLine").description("최종 주문 금액"),
-                                subsectionWithPath("place").description("최종 주문 금액")
+                                subsectionWithPath("place").description("최종 주문 금액"),
+                                fieldWithPath("articleStatus").description("게시글 상태")
                         )));
     }
 
@@ -80,7 +68,7 @@ class ArticleAcceptanceTest {
     void read_orders_by_article() {
         OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 55000);
         webTestClient.get().uri("/api/articles/1/orders")
-                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
+                .header(JWT_HTTP_HEADER, loginHeader())
                 .exchange().expectStatus().isOk()
                 .expectBodyList(OrderDetailInfoDto.class).hasSize(1).contains(expected)
                 .consumeWith(document("articles-orders/get",
@@ -95,7 +83,7 @@ class ArticleAcceptanceTest {
     @DisplayName("게시 목록 조회")
     void read_article_list() {
         webTestClient.get().uri("/api/articles")
-                .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
+                .header(JWT_HTTP_HEADER, loginHeader())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange().expectStatus().isOk()
                 .expectBody(ArticleInfosDto.class);
