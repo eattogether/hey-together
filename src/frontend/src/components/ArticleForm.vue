@@ -49,7 +49,7 @@
                 <v-row>
                     <v-icon class="mr-2 ml-1">mdi-silverware-variant</v-icon>
                     <v-overflow-btn
-                            :items="menu"
+                            :items="menus"
                             v-model="selectedMenu"
                             label="메뉴 선택"
                             hide-details
@@ -60,7 +60,7 @@
                     <v-icon class="mr-2 ml-1">mdi-timer</v-icon>
                     <v-overflow-btn
                             v-on:click="calculateTime"
-                            :items="time"
+                            :items="times"
                             v-model="selectedTime"
                             label="제한 시간 선택"
                             hide-details
@@ -89,14 +89,9 @@
             minimumOrderPrice: '-',
             title: '',
             shopName: '',
-            menu: [
-                {text: 'BBQ'},
-                {text: '교촌치킨'},
-                {text: 'BHC'},
-                {text: '네네치'},
-            ],
+            menus: [],
             selectedMenu: '',
-            time: [],
+            times: [],
             selectedTime: '',
         }),
         methods: {
@@ -106,27 +101,27 @@
             registerShop: function () {
                 // 해당 shop 메뉴(가격), 배달팁, 최소 금액 가져오기
                 // data: minimumOrderPrice, deliveryTip, List<menu(메뉴 이름, 가격)>
-                console.log(this.shopName);
                 const articleFormVue = this;
                 axios.get('/api/shops/' + this.shopName + '/menus')
                     .then(function(response) {
+                        console.log(response.data);
                         articleFormVue.deliveryTip = response.data.deliveryTip;
                         articleFormVue.minimumOrderPrice = response.data.minimumOrderPrice;
-                        articleFormVue.menu = response.data.menu;
+                        articleFormVue.menus = response.data.menus;
                     })
                     .catch(function(error){
                         console.log(error);
                     });
             },
             calculateTime: function() {
-                this.time = [];
+                this.times = [];
                 let currentTime = this.$moment(new Date()).add(10, 'minutes');
                 const startMinutes = Math.floor((currentTime.minutes()) / 10) * 10;
                 currentTime.minutes(startMinutes);
                 const limitTime = this.$moment(currentTime).add(2, 'hours');
                 while (!limitTime.isSame(currentTime, 'hour')
                     || !limitTime.isSame(currentTime, 'minute')) {
-                    this.time.push(currentTime.format('HH:mm'));
+                    this.times.push(currentTime.format('HH:mm'));
                     // console.log(currentTime.format('YYYYMMDDTHHmm'));
                     currentTime = this.$moment(currentTime).add(10, 'minutes');
                 }
