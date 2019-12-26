@@ -35,7 +35,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.auth0:java-jwt:3.8.3'
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.springframework.boot:spring-boot-starter-webflux'
