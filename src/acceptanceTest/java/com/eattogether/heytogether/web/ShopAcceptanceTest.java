@@ -4,6 +4,7 @@ import com.eattogether.heytogether.domain.vo.Money;
 import com.eattogether.heytogether.domain.vo.Place;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
+import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,8 +22,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import static com.eattogether.TestConstant.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
@@ -62,11 +62,13 @@ class ShopAcceptanceTest {
         webTestClient.get().uri("/api/shops/2")
                 .header(JWT_HTTP_HEADER, BEARER + JWT_TOKEN)
                 .exchange().expectStatus().isOk()
-                .expectBody()
-                .jsonPath("$.id").isEqualTo(2)
-                .jsonPath("$.deliveryTip").isNotEmpty()
-                .jsonPath("$.minimumOrderPrice").isNotEmpty()
-                .jsonPath("$.place").isNotEmpty();
+                .expectBody(ShopInfoDto.class)
+                .consumeWith(document("shops/get",
+                        responseFields(
+                                fieldWithPath("id").description("가게의 아이디"),
+                                subsectionWithPath("deliveryTip").description("배달 팁"),
+                                subsectionWithPath("minimumOrderPrice").description("최소 주문 금액"),
+                                subsectionWithPath("place").description("가게 위치"))));
     }
 
     @Test

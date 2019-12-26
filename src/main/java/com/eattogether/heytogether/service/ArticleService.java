@@ -72,10 +72,10 @@ public class ArticleService {
         Article article = articleRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         Shop shop = shopService.findEntityBy(articleParticipateDto.getShopId());
         User user = userService.findUserBy(userDto);
-
+        System.out.println("여기1");
         Order order = orderService.save(shop, article, user);
         orderItemService.saveItems(articleParticipateDto.getItems(), order);
-
+        System.out.println("여기2");
         user.participate(articleParticipateDto.getTotalPrice());
     }
 }

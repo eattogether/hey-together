@@ -42,7 +42,7 @@ public class ShopController {
         return ResponseEntity.ok(shopMenuService.findShopMenuByShopId(id));
     }
 
-    @GetMapping("/api/shops/{shopName}")
+    @GetMapping("/api/shops/{shopName}/menus")
     public ResponseEntity<ShopMenuDetailInfoDto> readMenusByShopName(@PathVariable String shopName) {
         return ResponseEntity.ok(shopMenuService.findShopMenuByShopName(shopName));
     }

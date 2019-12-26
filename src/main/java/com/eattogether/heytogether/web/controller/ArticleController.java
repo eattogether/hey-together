@@ -19,29 +19,29 @@ public class ArticleController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/api/articles")
+    @PostMapping("/api/articles") //
     public ResponseEntity<ArticleInfoDto> saveArticle(@RequestBody ArticleCreateDto articleCreateDto, UserDto userDto) {
         return ResponseEntity.ok(articleService.saveArticle(articleCreateDto, userDto));
     }
 
-    @GetMapping("/api/articles/{id}")
+    @GetMapping("/api/articles/{id}") //
     public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
         return ResponseEntity.ok(articleService.findById(id));
     }
 
-    @GetMapping("/api/articles/{id}/orders")
+    @GetMapping("/api/articles/{id}/orders") //
     public ResponseEntity<List<OrderDetailInfoDto>> readOrders(@PathVariable Long id) {
         List<OrderDetailInfoDto> orderDetailInfoDtos = orderService.findByArticleId(id);
         return ResponseEntity.ok(orderDetailInfoDtos);
     }
 
-    @GetMapping("/api/articles")
+    @GetMapping("/api/articles") //
     public ResponseEntity<ArticleInfosDto> searchArticle() {
         return ResponseEntity.ok(new ArticleInfosDto(articleService.findByActiveArticle()));
     }
 
     @PostMapping("/api/articles/{id}")
-    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, ArticleParticipateDto articleParticipateDro) {
+    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, @RequestBody ArticleParticipateDto articleParticipateDro) {
         articleService.participate(id, userDto, articleParticipateDro);
         return ResponseEntity.ok().build();
     }
