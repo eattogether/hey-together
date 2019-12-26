@@ -1,6 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
-    id "org.asciidoctor.convert" version "1.5.9.2"
+    id "org.asciidoctor.convert" version "1.5.10"
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'com.palantir.docker' version '0.22.1'
@@ -54,23 +54,28 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
+
 ext {
     snippetsDir = file('build/generated-snippets')
 }
+
 test {
     useJUnitPlatform()
     outputs.dir snippetsDir
 }
+
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
 }
+
 bootJar {
     dependsOn asciidoctor
     from ("${asciidoctor.outputDir}/html5") {
         into 'static/docs'
     }
 }
+
 sourceSets {
     acceptanceTest {
         java.srcDir file('src/acceptanceTest/java')
@@ -101,5 +106,6 @@ task buildFrontEnd(type: NpmTask, dependsOn: setUp) {
     description = "Build vue.js"
     args = ['run', 'build']
 }
+
 
 processResources.dependsOn 'buildFrontEnd'
