@@ -1,6 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
-    id "org.asciidoctor.convert" version "1.5.10"
+    id 'org.asciidoctor.convert' version '1.5.10'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
     id 'com.palantir.docker' version '0.22.1'
@@ -67,6 +67,15 @@ test {
 asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
+}
+
+asciidoctor.doFirst {
+    println "=====start asciidoctor"
+    //asciidoctor 실행전 기존에 생성된 API 문서 삭제
+    delete file('src/main/resources/static/docs')
+}
+asciidoctor.doLast {
+    println "=====finish asciidoctor"
 }
 
 bootJar {
