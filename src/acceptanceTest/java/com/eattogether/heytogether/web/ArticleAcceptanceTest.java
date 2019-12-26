@@ -73,7 +73,7 @@ class ArticleAcceptanceTest extends LoggedClient {
     @Test
     @DisplayName("주문 정보 조회 성공")
     void read_orders_by_article() {
-        OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 55000);
+        OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 33000);
         webTestClient.get().uri("/api/articles/1/orders")
                 .header(JWT_HTTP_HEADER, loginHeader())
                 .exchange().expectStatus().isOk()
