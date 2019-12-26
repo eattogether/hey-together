@@ -1,0 +1,1 @@
+insert into users(user_id, password, point) values ('mamook', '1234', 500000);

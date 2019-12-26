@@ -23,6 +23,7 @@ class UserAcceptanceTest extends LoggedClient {
     void login_is_ok() {
         final WebTestClient.BodyContentSpec loginedBodyContentSpec = webTestClient.method(HttpMethod.POST)
                 .uri("/login")
+                .header(JWT_HTTP_HEADER,BEARER+JWT_TOKEN)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(new LoginDto(USER_NAME, USER_PASSWORD)), LoginDto.class)
                 .exchange()
