@@ -42,6 +42,8 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 
+    acceptanceTestImplementation 'com.google.code.gson:gson:2.8.6'
+    acceptanceTestImplementation 'com.auth0:java-jwt:3.8.3'
     acceptanceTestImplementation 'com.h2database:h2'
     acceptanceTestImplementation 'mysql:mysql-connector-java'
     acceptanceTestImplementation 'org.springframework.boot:spring-boot-starter-web'
@@ -77,15 +79,6 @@ sourceSets {
         runtimeClasspath += output + compileClasspath
     }
 }
-//task acceptanceTest(type: Test) {
-//    description = 'Runs the acceptance tests'
-//    group = 'verification'
-//    testClassesDirs = sourceSets.acceptanceTest.output
-//    classpath = sourceSets.acceptanceTest.runtimeClasspath
-//}
-//check {
-//    dependsOn(acceptanceTest)
-//}
 
 apply plugin: 'com.moowork.node'
 

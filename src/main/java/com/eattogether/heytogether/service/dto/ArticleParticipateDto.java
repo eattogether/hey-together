@@ -8,6 +8,15 @@ public class ArticleParticipateDto {
     private List<ItemCreateDto> items;
     private int totalPrice;
 
+    public ArticleParticipateDto() {
+    }
+
+    public ArticleParticipateDto(Long shopId, List<ItemCreateDto> items, int totalPrice) {
+        this.shopId = shopId;
+        this.items = items;
+        this.totalPrice = totalPrice;
+    }
+
     public List<ItemCreateDto> getItems() {
         return items;
     }
