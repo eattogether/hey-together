@@ -41,7 +41,7 @@ public class DummyDataLoader implements ApplicationRunner {
         User user1 = new User("mamook1", "1234", 10_000);
         userRepository.save(user1);
         User user2 = new User("mamook2", "1234", 20_000);
-        userRepository.save(user1);
+        userRepository.save(user2);
 
         Shop shop_1 = new Shop(new Money(5000), new Money(18_000), new Place(3.4, 5.6), "BHC");
         shopRepository.save(shop_1);

@@ -61,12 +61,18 @@
                     //token
                     const jwtToken = cookie.get('remember_me');
                     console.log(jwtToken);
+                    axios.defaults.headers.common['Authorization'] =
+                        'Bearer ' + jwtToken;
                     const user = {
                         userId: loginUser.userId,
                         token: jwtToken
                     };
                     loginVue.$emit("passLoginInfo", user);
                 }).catch(function(error) {
+                    alert('로그인 정보가 잘못되었습니다!')
+                        .then(() => {
+                            console.log("Dialog closed")
+                        });
                     console.log(error);
                 });
             },

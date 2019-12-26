@@ -30,7 +30,7 @@
                             <v-list-item-title>최소 주문 금액</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-content>
-                            {{ minimumOrderPrice }}
+                            {{ minimumOrderPrice }} 원
                         </v-list-item-content>
                     </v-list-item>
                     <v-list-item>
@@ -41,7 +41,7 @@
                             <v-list-item-title>배달 팁</v-list-item-title>
                         </v-list-item-content>
                         <v-list-item-content>
-                            {{ deliveryTip }}
+                            {{ deliveryTip }} 원
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -49,7 +49,8 @@
                 <v-row>
                     <v-icon class="mr-2 ml-1">mdi-silverware-variant</v-icon>
                     <v-overflow-btn
-                            :items="menus"
+                            v-on:click="convertMenuInfo"
+                            :items="menusInfo"
                             v-model="selectedMenu"
                             label="메뉴 선택"
                             hide-details
@@ -88,8 +89,10 @@
             deliveryTip: '-',
             minimumOrderPrice: '-',
             title: '',
+            shopId: null,
             shopName: '',
             menus: [],
+            menusInfo: [],
             selectedMenu: '',
             times: [],
             selectedTime: '',
@@ -99,12 +102,11 @@
                 this.$emit('closeWriteModal');
             },
             registerShop: function () {
-                // 해당 shop 메뉴(가격), 배달팁, 최소 금액 가져오기
-                // data: minimumOrderPrice, deliveryTip, List<menu(메뉴 이름, 가격)>
                 const articleFormVue = this;
                 axios.get('/api/shops/' + this.shopName + '/menus')
                     .then(function(response) {
                         console.log(response.data);
+                        articleFormVue.shopId = response.data.shopId;
                         articleFormVue.deliveryTip = response.data.deliveryTip;
                         articleFormVue.minimumOrderPrice = response.data.minimumOrderPrice;
                         articleFormVue.menus = response.data.menus;
@@ -112,6 +114,13 @@
                     .catch(function(error){
                         console.log(error);
                     });
+            },
+            convertMenuInfo: function() {
+                let index = 1;
+                this.menus.forEach(menu => {
+                    this.menusInfo.push(index + '. ' + menu.name + ', ' + menu.price + '원');
+                    index++;
+                });
             },
             calculateTime: function() {
                 this.times = [];
@@ -122,21 +131,25 @@
                 while (!limitTime.isSame(currentTime, 'hour')
                     || !limitTime.isSame(currentTime, 'minute')) {
                     this.times.push(currentTime.format('HH:mm'));
-                    // console.log(currentTime.format('YYYYMMDDTHHmm'));
                     currentTime = this.$moment(currentTime).add(10, 'minutes');
                 }
             },
             saveArticleEvent: function() {
-                // const serverTimeFormat = this.$moment(this.selectedTime)
+                const timeToken = this.selectedTime.toString().split(':');
+                const serverTimeFormat = this.$moment(new Date());
+                serverTimeFormat.set({'hour': timeToken[0], 'minute': timeToken[1]});
+                const menuInfoToken = this.selectedMenu.toString().split('.');
+                const menuIndex = menuInfoToken[0] - 1;
                 const saveArticle = {
                     title: this.title,
-                    deadLine: this.selectedTime,
-                    shopName: this.shopName,
+                    deadLine: serverTimeFormat.format('YYYY-MM-DD HH:mm'),
+                    shopId: this.shopId,
                     place: {latitude: 1, longitude: 1},
-                    menu: [
-                        {name: this.selectedMenu, count: 1}
+                    items: [
+                        { menuId: this.menus[menuIndex].menuId, count: 1 }
                     ]
                 };
+                console.log(saveArticle);
                 this.$emit('passSaveArticle', saveArticle);
             }
         },

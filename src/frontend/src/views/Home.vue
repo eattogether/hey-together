@@ -19,8 +19,8 @@
                     <v-list-item-content>
                         <v-dialog v-model="loginDialog" persistent max-width="600px">
                             <template v-slot:activator="{ on }">
-                                <v-btn v-if="loginUser === null" color="primary" dark v-on="on">Login</v-btn>
-                                <v-btn v-else color="teal" dark>{{ loginUser.userId }}</v-btn>
+                                <v-btn v-if="$store.state.loginUser === null" color="primary" dark v-on="on">Login</v-btn>
+                                <v-btn v-else color="teal" dark v-on:click="requestLogout">Logout</v-btn>
                             </template>
                             <LoginModal
                                     v-on:closeLoginModal="closeLoginModal"
@@ -30,12 +30,15 @@
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
-<!--            <v-img-->
-<!--                    :src="require('../assets/logo.svg')"-->
-<!--                    class="my-lg-5"-->
-<!--                    contain-->
-<!--                    height="200"-->
-<!--            />-->
+            <v-card-text v-if="$store.state.loginUser !== null" class=".title .font-weight-bold">
+                환영합니다. {{ $store.state.loginUser }} 님
+            </v-card-text>
+            <!--            <v-img-->
+            <!--                    :src="require('../assets/logo.svg')"-->
+            <!--                    class="my-lg-5"-->
+            <!--                    contain-->
+            <!--                    height="200"-->
+            <!--            />-->
         </v-navigation-drawer>
 
         <v-app-bar app color="#85BECA" dark>
@@ -104,9 +107,10 @@
                                     <v-list-item-content>
                                         <v-list-item-title>
                                             {{ article.title }}
-                                            <v-spacer/>
-                                            {{ article.title }}
                                         </v-list-item-title>
+                                        <v-list-item-content>
+                                            마감 기한: {{ convertTimeForm(article.deadLine) }} 까지!
+                                        </v-list-item-content>
                                     </v-list-item-content>
                                 </v-list-item>
                             </v-list>
@@ -131,7 +135,6 @@
 
 <script>
     import axios from 'axios';
-    // import cookie from 'vue-cookies';
     import LoginModal from '../components/Login.vue';
     import PostCodeModal from '../components/PostCode.vue';
     import WriteModal from '../components/ArticleForm.vue';
@@ -144,19 +147,19 @@
             WriteModal,
             ArticleInfo,
         },
-        props: {
+        props: [{
             source: String,
-        },
+        }],
         data: () => ({
             drawer: null,
             articles: [],
             article: null,
+            articleId: null,
             loginDialog: false,
             postCodeDialog: false,
             address: '',
             writeDialog: false,
             articleInfoDialog: false,
-            loginUser: null,
         }),
         created() {
             const homeVue = this;
@@ -175,11 +178,32 @@
             getLoginInfo: function (user) {
                 // 로그인 요청 보내기
                 console.log('home: ', user);
-                this.loginUser = user;
-                if (this.loginUser !== null) {
-                    // cookie.set("remember_me", this.loginUser.token, "expiring time");
+                const homeVue = this;
+                this.$store.state.loginUser = user.userId;
+                if (this.$store.state.loginUser !== null) {
                     this.loginDialog = false;
+                    axios.get("/api/articles")
+                        .then(function (response) {
+                            homeVue.articles = response.data.articleInfosDtoList;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
+            },
+            requestLogout: function () {
+                const homeVue = this;
+                axios.get('/logout')
+                    .then(function (response) {
+                        console.log('logout: ', response);
+                        if (response.status === 200) {
+                            homeVue.$store.state.loginUser = null;
+                            axios.defaults.headers.common['Authorization'] = '';
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             },
             getPostCode: function (data) {
                 this.postCodeDialog = data.modal;
@@ -191,51 +215,31 @@
                 this.writeDialog = false;
             },
             requestArticle: function (currentArticle) {
-                console.log(currentArticle);
+                this.article = currentArticle;
+                if (this.$store.state.loginUser === this.article.userName) {
+                    this.$router.push('/articles/' + this.article.id + '/waiting');
+                }
+            },
+            requestSaveArticle: function (article) {
+                console.log(article);
                 const homeVue = this;
-                const uri = '/api/articles/' + currentArticle.id + '/orders';
-                axios.get(uri)
+                axios.post('/api/articles', article)
                     .then(function (response) {
-                        const order = response.data[0];
-                        console.log(order);
-                        homeVue.article = {
-                            id: currentArticle.id,
-                            title: currentArticle.title,
-                            deadLine: currentArticle.deadLine,
-                            shopId: currentArticle.shopId,
-                            deliveryTip: order.deliveryTip,
-                            minimumOrderPrice: order.minimumOrderPrice,
-                            totalPrice: order.totalPrice
-                        };
+                        console.log(response);
+                        if (response.status === 200) {
+                            homeVue.writeDialog = false;
+                            homeVue.$router.push('/articles/' + response.data.id + '/waiting');
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             },
-            // requestShop: function() {
-            //     const homeVue = this;
-            //     const uri = '/api/shops';
-            //     axios.get(uri)
-            //         .then(function(response) {
-            //             homeVue.shops = response.data;
-            //         })
-            //         .catch(function(error){
-            //             console.log(error);
-            //         });
-            // },
-            requestSaveArticle: function (article) {
-                const homeVue = this;
-                axios.post('/api/articles', article)
-                    .then(function (response) {
-                        console.log(response);
-                        homeVue.writeDialog = false;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        homeVue.$router.push('/articles/' + 1 + '/waiting');
-                    });
-
-            }
+            convertTimeForm: function (deadLine) {
+                let time = deadLine.split('T');
+                let timeForm = time[1].split(':');
+                return timeForm[0] + '시' + timeForm[1] + '분';
+            },
         }
     };
 </script>

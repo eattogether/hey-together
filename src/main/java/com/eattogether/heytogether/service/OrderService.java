@@ -41,4 +41,8 @@ public class OrderService {
     public List<Order> findOrdersByArticleId(Long articleId) {
         return orderRepository.findAllByArticleId(articleId);
     }
+
+    public List<Order> findAllEntityByArticleId(Long articleId) {
+        return orderRepository.findAllByArticleId(articleId);
+    }
 }
