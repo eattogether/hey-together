@@ -6,6 +6,7 @@ import com.eattogether.heytogether.domain.vo.Place;
 public class ShopInfoDto {
 
     private Long id;
+    private String name;
     private Money deliveryTip;
     private Money minimumOrderPrice;
     private Place place;
@@ -13,8 +14,9 @@ public class ShopInfoDto {
     public ShopInfoDto() {
     }
 
-    public ShopInfoDto(Long id, Money deliveryTip, Money minimumOrderPrice, Place place) {
+    public ShopInfoDto(Long id, String name, Money deliveryTip, Money minimumOrderPrice, Place place) {
         this.id = id;
+        this.name = name;
         this.deliveryTip = deliveryTip;
         this.minimumOrderPrice = minimumOrderPrice;
         this.place = place;
@@ -22,6 +24,10 @@ public class ShopInfoDto {
 
     public Long getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Money getDeliveryTip() {

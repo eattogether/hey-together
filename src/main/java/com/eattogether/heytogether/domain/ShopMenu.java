@@ -2,8 +2,8 @@ package com.eattogether.heytogether.domain;
 
 import com.eattogether.heytogether.domain.vo.Money;
 
-import java.util.Objects;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class ShopMenu {

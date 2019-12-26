@@ -25,8 +25,8 @@ public class ArticleController {
     }
 
     @GetMapping("/api/articles/{id}")
-    public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
-        return ResponseEntity.ok(articleService.findById(id));
+    public ResponseEntity<ArticleInfoDtoWithShopId> readArticle(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.findDtoById(id));
     }
 
     @GetMapping("/api/articles/{id}/orders")
@@ -36,8 +36,8 @@ public class ArticleController {
     }
 
     @GetMapping("/api/articles")
-    public ResponseEntity<ArticleInfosDto> searchArticle() {
-        return ResponseEntity.ok(new ArticleInfosDto(articleService.findByActiveArticle()));
+    public ResponseEntity<ArticleInfosWithShopDto> searchArticle() {
+        return ResponseEntity.ok(new ArticleInfosWithShopDto(articleService.findByActiveArticle()));
     }
 
     @PostMapping("/api/articles/{id}")

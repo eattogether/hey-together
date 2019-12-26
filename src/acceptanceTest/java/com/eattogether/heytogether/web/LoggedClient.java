@@ -15,8 +15,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static com.eattogether.TestConstant.USER_NAME;
-import static com.eattogether.TestConstant.USER_PASSWORD;
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
