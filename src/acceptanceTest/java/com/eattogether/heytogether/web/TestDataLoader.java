@@ -36,11 +36,11 @@ public class TestDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        User user1 = new User("mamook", "1234", 10_000);
+        User user1 = new User("mamook", "1234", 500_000);
         userRepository.save(user1);
-        Shop shop_1 = new Shop(new Money(5000), new Money(18000), new Place(3.3, 5.5), "BHC");
+        Shop shop_1 = new Shop(new Money(5000), new Money(18000), new Place(3.3, 5.5), "BHC1");
         shopRepository.save(shop_1);
-        shopRepository.save(new Shop(new Money(3000), new Money(15000), new Place(1.1, 2.2), "BHC"));
+        shopRepository.save(new Shop(new Money(3000), new Money(15000), new Place(1.1, 2.2), "BHC2"));
 
         ShopMenu shopMenu_1 = new ShopMenu("떡볶이", new Money(15000), shop_1);
         shopMenuRepository.save(shopMenu_1);

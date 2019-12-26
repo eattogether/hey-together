@@ -7,7 +7,6 @@ import com.eattogether.heytogether.domain.User;
 import com.eattogether.heytogether.domain.repository.OrderRepository;
 import com.eattogether.heytogether.service.assembler.OrderAssembler;
 import com.eattogether.heytogether.service.dto.OrderDetailInfoDto;
-import com.eattogether.heytogether.service.dto.UserDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +39,10 @@ public class OrderService {
     }
 
     public List<Order> findOrdersByArticleId(Long articleId) {
+        return orderRepository.findAllByArticleId(articleId);
+    }
+
+    public List<Order> findAllEntityByArticleId(Long articleId) {
         return orderRepository.findAllByArticleId(articleId);
     }
 }

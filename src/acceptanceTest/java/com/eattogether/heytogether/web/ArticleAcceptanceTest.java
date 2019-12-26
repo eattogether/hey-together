@@ -1,33 +1,19 @@
 package com.eattogether.heytogether.web;
 
-import com.eattogether.heytogether.domain.vo.Place;
-import com.eattogether.heytogether.service.dto.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserters;
-
-import reactor.core.publisher.Mono;
-
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.eattogether.TestConstant.*;
+import com.eattogether.heytogether.domain.vo.Place;
+import com.eattogether.heytogether.service.dto.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import reactor.core.publisher.Mono;
+
+import org.springframework.http.MediaType;
+
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.document;
-import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
 
 class ArticleAcceptanceTest extends LoggedClient {
@@ -41,7 +27,7 @@ class ArticleAcceptanceTest extends LoggedClient {
                 new Place(1, 1), items);
 
         webTestClient.post()
-                .uri("/api/articles?userId=mamook0")
+                .uri("/api/articles?userId=mamook")
                 .header(JWT_HTTP_HEADER, loginHeader())
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(articleCreateDto), ArticleCreateDto.class)
@@ -60,7 +46,7 @@ class ArticleAcceptanceTest extends LoggedClient {
                                 fieldWithPath("title").description("최소 주문 금액"),
                                 fieldWithPath("deadLine").description("최종 주문 금액"),
                                 subsectionWithPath("place").description("최종 주문 금액"),
-                                fieldWithPath("articleStatus").description("게시글 상태")
+                                subsectionWithPath("articleStatus").description("게시글 상태")
                         )));
     }
 
@@ -75,18 +61,19 @@ class ArticleAcceptanceTest extends LoggedClient {
                 .expectBody(ArticleInfoDto.class)
                 .consumeWith(document("articles/get",
                         responseFields(
-                                fieldWithPath("id").description("배달 팁"),
+                                fieldWithPath("id").description("게시글 아이디"),
                                 fieldWithPath("title").description("최소 주문 금액"),
                                 fieldWithPath("deadLine").description("최종 주문 금액"),
                                 subsectionWithPath("place").description("최종 주문 금액"),
-                                fieldWithPath("articleStatus").description("게시글 상태")
+                                fieldWithPath("shopId").description("가게 아이디"),
+                                fieldWithPath("userName").description("유저 아이디")
                         )));
     }
 
     @Test
     @DisplayName("주문 정보 조회 성공")
     void read_orders_by_article() {
-        OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 110000);
+        OrderDetailInfoDto expected = new OrderDetailInfoDto(5000, 18000, 55000);
         webTestClient.get().uri("/api/articles/1/orders")
                 .header(JWT_HTTP_HEADER, loginHeader())
                 .exchange().expectStatus().isOk()
@@ -114,7 +101,8 @@ class ArticleAcceptanceTest extends LoggedClient {
                                 fieldWithPath("articleInfosDtoList.[0].title").description("최소 주문 금액"),
                                 fieldWithPath("articleInfosDtoList.[0].deadLine").description("최종 주문 금액"),
                                 subsectionWithPath("articleInfosDtoList.[0].place").description("최종 주문 금액"),
-                                fieldWithPath("articleInfosDtoList.[0].articleStatus").description("게시글 상태")
+                                subsectionWithPath("articleInfosDtoList.[0].shopId").description("가게 아이디"),
+                                fieldWithPath("articleInfosDtoList.[0].userName").description("사용자 아이디")
                         )));
     }
 
@@ -127,7 +115,7 @@ class ArticleAcceptanceTest extends LoggedClient {
         ArticleParticipateDto articleParticipateDro = new ArticleParticipateDto(1L, items, 10000);
 
         webTestClient.post()
-                .uri("/api/articles/1?userId=mamook0")
+                .uri("/api/articles/1?userId=mamook")
                 .header(JWT_HTTP_HEADER, loginHeader())
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(articleParticipateDro), ArticleParticipateDto.class)

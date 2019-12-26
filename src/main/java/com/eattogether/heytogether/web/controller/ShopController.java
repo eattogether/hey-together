@@ -4,7 +4,6 @@ import com.eattogether.heytogether.service.ShopMenuService;
 import com.eattogether.heytogether.service.ShopService;
 import com.eattogether.heytogether.service.dto.MenuCreateDto;
 import com.eattogether.heytogether.service.dto.ShopCreateDto;
-import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,19 +26,14 @@ public class ShopController {
     }
 
     @GetMapping("/api/shops/{id}")
-    public ResponseEntity<ShopInfoDto> readShop(@PathVariable Long id) {
-        return ResponseEntity.ok(shopService.findDtoBy(id));
+    public ResponseEntity<ShopMenuDetailInfoDto> readShop(@PathVariable Long id) {
+        return ResponseEntity.ok(shopMenuService.findShopMenuByShopId(id));
     }
 
     @PostMapping("/api/shops/{id}/menus")
     public ResponseEntity saveMenu(@PathVariable Long id, @RequestBody MenuCreateDto menuCreateDto) {
         shopMenuService.save(id, menuCreateDto);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/api/shops/{id}/menus")
-    public ResponseEntity<ShopMenuDetailInfoDto> readMenus(@PathVariable Long id) {
-        return ResponseEntity.ok(shopMenuService.findShopMenuByShopId(id));
     }
 
     @GetMapping("/api/shops/{shopName}/menus")

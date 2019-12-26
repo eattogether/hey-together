@@ -16,7 +16,7 @@ public class ShopAssembler {
     }
 
     public static ShopInfoDto toDto(Shop shop) {
-        return new ShopInfoDto(shop.getId(), shop.getDeliveryTip(),
+        return new ShopInfoDto(shop.getId(), shop.getName(), shop.getDeliveryTip(),
                 shop.getMinimumOrderPrice(), shop.getPlace());
     }
 }

@@ -25,8 +25,8 @@ public class ArticleController {
     }
 
     @GetMapping("/api/articles/{id}") //
-    public ResponseEntity<ArticleInfoDto> readArticle(@PathVariable Long id) {
-        return ResponseEntity.ok(articleService.findById(id));
+    public ResponseEntity<ArticleInfoDtoWithShopId> readArticle(@PathVariable Long id) {
+        return ResponseEntity.ok(articleService.findDtoById(id));
     }
 
     @GetMapping("/api/articles/{id}/orders") //
@@ -35,13 +35,13 @@ public class ArticleController {
         return ResponseEntity.ok(orderDetailInfoDtos);
     }
 
-    @GetMapping("/api/articles") //
-    public ResponseEntity<ArticleInfosDto> searchArticle() {
-        return ResponseEntity.ok(new ArticleInfosDto(articleService.findByActiveArticle()));
+    @GetMapping("/api/articles")
+    public ResponseEntity<ArticleInfosWithShopDto> searchArticles() {
+        return ResponseEntity.ok(new ArticleInfosWithShopDto(articleService.findByActiveArticle()));
     }
 
     @PostMapping("/api/articles/{id}")
-    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, @RequestBody ArticleParticipateDto articleParticipateDro) {
+    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, @RequestBody  ArticleParticipateDto articleParticipateDro) {
         articleService.participate(id, userDto, articleParticipateDro);
         return ResponseEntity.ok().build();
     }
