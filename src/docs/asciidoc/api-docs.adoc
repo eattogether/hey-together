@@ -1,5 +1,6 @@
 = Ma! Gachi-MoocZZa
 뚱이, 에이든, 티버, 코맥, 션
+
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -40,8 +41,6 @@ include::{snippets}/articles/get/response-fields.adoc\[]
 include::{snippets}/articles/get/response-body.adoc\[]
 
 == 게시글 주문 목록 조회
-=== Request Structure
-include::{snippets}/articles-orders/get/request-body.adoc\[]
 === Example request
 include::{snippets}/articles-orders/get/curl-request.adoc\[]
 
@@ -55,12 +54,7 @@ include::{snippets}/articles-participate/post/request-body.adoc\[]
 === Example request
 include::{snippets}/articles-participate/post/curl-request.adoc\[]
 
-=== Response Structure
-include::{snippets}/articles-participate/post/response-body.adoc\[]
-
 == 게시글 검색
-=== Request Structure
-include::{snippets}/articles-search/get/request-body.adoc\[]
 === Example request
 include::{snippets}/articles-search/get/curl-request.adoc\[]
 
@@ -68,8 +62,6 @@ include::{snippets}/articles-search/get/curl-request.adoc\[]
 include::{snippets}/articles-search/get/response-body.adoc\[]
 
 == 가게 조회
-=== Request Structure
-include::{snippets}/shops/get/request-body.adoc\[]
 === Example request
 include::{snippets}/shops/get/curl-request.adoc\[]
 
@@ -77,8 +69,6 @@ include::{snippets}/shops/get/curl-request.adoc\[]
 include::{snippets}/shops/get/response-body.adoc\[]
 
 == 가게 메뉴 조회
-=== Request Structure
-include::{snippets}/shop-menus/get/request-body.adoc\[]
 === Example request
 include::{snippets}/shop-menus/get/curl-request.adoc\[]
 
