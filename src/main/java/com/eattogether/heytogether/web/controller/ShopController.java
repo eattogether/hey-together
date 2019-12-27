@@ -36,11 +36,6 @@ public class ShopController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/api/shops/{id}/menus")
-//    public ResponseEntity<ShopMenuDetailInfoDto> readMenus(@PathVariable Long id) {
-//        return ResponseEntity.ok(shopMenuService.findShopMenuByShopId(id));
-//    }
-
     @GetMapping("/api/shops/{shopName}/menus")
     public ResponseEntity<ShopMenuDetailInfoDto> readMenusByShopName(@PathVariable String shopName) {
         return ResponseEntity.ok(shopMenuService.findShopMenuByShopName(shopName));

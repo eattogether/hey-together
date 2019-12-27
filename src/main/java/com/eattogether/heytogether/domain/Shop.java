@@ -24,6 +24,7 @@ public class Shop {
     @Embedded
     private Place place;
 
+    @Column(unique = true)
     private String name;
 
     public Shop() {
