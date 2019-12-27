@@ -54,13 +54,13 @@ public class DummyDataLoader implements ApplicationRunner {
         Shop shop_7 = new Shop(new Money(3000), new Money(14_000), new Place(1.1, 2.12), "에이든의아니근데");
         shopRepository.save(shop_7);
 
-        ShopMenu shopMenu_1 = new ShopMenu("떡볶이", new Money(15_000), shop_1);
+        ShopMenu shopMenu_1 = new ShopMenu("치즈볼", new Money(15_000), shop_1);
         shopMenuRepository.save(shopMenu_1);
-        ShopMenu shopMenu_2 = new ShopMenu("오뎅", new Money(3_000), shop_1);
+        ShopMenu shopMenu_2 = new ShopMenu("뿌링클", new Money(3_000), shop_1);
         shopMenuRepository.save(shopMenu_2);
-        shopMenuRepository.save(new ShopMenu("오징어 튀김", new Money(4_000), shop_1));
-        shopMenuRepository.save(new ShopMenu("김말이", new Money(4_000), shop_1));
-        shopMenuRepository.save(new ShopMenu("참치마요", new Money(3_000), shop_1));
+        shopMenuRepository.save(new ShopMenu("양념치킨", new Money(4_000), shop_1));
+        shopMenuRepository.save(new ShopMenu("치파오", new Money(4_000), shop_1));
+        shopMenuRepository.save(new ShopMenu("뿌링클(순살)", new Money(3_000), shop_1));
 
         shopMenuRepository.save(new ShopMenu("1인 직화", new Money(9_000), shop_2));
         shopMenuRepository.save(new ShopMenu("2인 직화", new Money(15_000), shop_2));
@@ -98,7 +98,7 @@ public class DummyDataLoader implements ApplicationRunner {
         shopMenuRepository.save(new ShopMenu("치즈볼", new Money(5_000), shop_7));
         shopMenuRepository.save(new ShopMenu("치즈스틱", new Money(4_000), shop_7));
 
-        User user = userRepository.save(new User("mamook", "1234", 30_000));
+        userRepository.save(new User("mamook", "1234", 30_000));
         User user1 = userRepository.save(new User("mamook1", "1234", 30_000));
         userRepository.save(new User("mamook2", "1234", 30_000));
         userRepository.save(new User("mamook3", "1234", 30_000));
