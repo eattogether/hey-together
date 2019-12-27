@@ -41,7 +41,7 @@ public class ArticleController {
     }
 
     @PostMapping("/api/articles/{id}")
-    public ResponseEntity participate(@PathVariable Long id, UserDto userDto, ArticleParticipateDto articleParticipateDro) {
+    public ResponseEntity participate(@PathVariable Long id, @RequestBody ArticleParticipateDto articleParticipateDro, UserDto userDto) {
         articleService.participate(id, userDto, articleParticipateDro);
         return ResponseEntity.ok().build();
     }

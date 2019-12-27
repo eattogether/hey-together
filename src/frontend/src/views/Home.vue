@@ -19,7 +19,8 @@
                     <v-list-item-content>
                         <v-dialog v-model="loginDialog" persistent max-width="600px">
                             <template v-slot:activator="{ on }">
-                                <v-btn v-if="$store.state.loginUser === null" color="primary" dark v-on="on">Login</v-btn>
+                                <v-btn v-if="$store.state.loginUser === null" color="primary" dark v-on="on">Login
+                                </v-btn>
                                 <v-btn v-else color="teal" dark v-on:click="requestLogout">Logout</v-btn>
                             </template>
                             <LoginModal
@@ -98,22 +99,22 @@
                                 max-width="90%"
                                 outlined
                         >
-                            <v-list dense>
-                                <v-list-item link @click.stop="articleInfoDialog = true"
-                                             v-on:click="requestArticle(article)">
-                                    <v-list-item-action>
-                                        <v-icon>mdi-food-fork-drink</v-icon>
-                                    </v-list-item-action>
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{ article.title }}
-                                        </v-list-item-title>
-                                        <v-list-item-content>
-                                            마감 기한: {{ convertTimeForm(article.deadLine) }} 까지!
-                                        </v-list-item-content>
+                            <v-list-item three-line link @click.stop="articleInfoDialog = true"
+                                         v-on:click="requestArticle(article)">
+                                <v-list-item-avatar
+                                        size="80"
+                                        class="mt-6"
+                                >
+                                    <v-img :src="articlesImage[article.id - 1]"/>
+                                </v-list-item-avatar>
+                                <v-list-item-content class="py-0">
+                                    <v-divider/>
+                                    <v-list-item-title>{{ article.title }}</v-list-item-title>
+                                    <v-list-item-subtitle>{{ article.userName }}</v-list-item-subtitle>
+                                    <v-list-item-content>마감 기한: {{ convertTimeForm(article.deadLine) }} 까지!
                                     </v-list-item-content>
-                                </v-list-item>
-                            </v-list>
+                                </v-list-item-content>
+                            </v-list-item>
                         </v-card>
                         <v-dialog
                                 v-model="articleInfoDialog"
@@ -127,9 +128,58 @@
             </v-container>
 
         </v-content>
-        <v-footer color="#85BECA" app>
-            <span class="white--text">&copy; 2019</span>
-        </v-footer>
+
+        <v-bottom-navigation
+                v-model="activeBtn"
+                :input-value="showNav"
+                color="indigo"
+        >
+            <v-btn v-on:click="goHome">
+                <span>Home</span>
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+
+            <v-dialog v-model="loginDialog">
+                <template v-slot:activator="{ on }">
+                    <v-btn v-if="$store.state.loginUser === null" v-on="on">
+                        <span>로그인</span>
+                        <v-icon>mdi-account</v-icon>
+                    </v-btn>
+                    <v-btn v-else v-on:click="requestLogout">
+                        <span>로그아웃</span>
+                        <v-icon>mdi-account</v-icon>
+                    </v-btn>
+                </template>
+                <LoginModal
+                        v-on:closeLoginModal="closeLoginModal"
+                        v-on:passLoginInfo="getLoginInfo"
+                />
+            </v-dialog>
+
+            <v-dialog v-model="postCodeDialog">
+                <template v-slot:activator="{ on }">
+                    <v-btn v-if="address" v-on="on">{{ address }}</v-btn>
+                    <v-btn v-else v-on="on">
+                        <span>위치 검색</span>
+                        <v-icon>mdi-map-marker</v-icon>
+                    </v-btn>
+                </template>
+                <PostCodeModal
+                        v-on:passPostCodeData="getPostCode"
+                />
+            </v-dialog>
+
+            <v-dialog v-model="writeDialog">
+                <template v-slot:activator="{ on }">
+                    <v-btn v-on="on">
+                        <span>글쓰기</span>
+                        <v-icon>mdi-map-marker</v-icon>
+                    </v-btn>
+                </template>
+                <WriteModal v-on:closeWriteModal="closeWriteModal"
+                            v-on:passSaveArticle="requestSaveArticle"/>
+            </v-dialog>
+        </v-bottom-navigation>
     </v-app>
 </template>
 
@@ -152,7 +202,10 @@
         }],
         data: () => ({
             drawer: null,
+            activeBtn: 1,
+            showNav: true,
             articles: [],
+            articlesImage: [],
             article: null,
             articleId: null,
             loginDialog: false,
@@ -166,12 +219,19 @@
             axios.get("/api/articles")
                 .then(function (response) {
                     homeVue.articles = response.data.articleInfosDtoList;
+                    for (let i = 0; i < homeVue.articles.length; ++i) {
+                        const idx = (i % 4) + 1;
+                        homeVue.articlesImage.push(require('../assets/eat' + idx + '.png'));
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
         methods: {
+            goHome: function() {
+              this.$router.push('/');
+            },
             closeLoginModal: function () {
                 this.loginDialog = false;
             },
@@ -185,6 +245,10 @@
                     axios.get("/api/articles")
                         .then(function (response) {
                             homeVue.articles = response.data.articleInfosDtoList;
+                            for (let i = 0; i < homeVue.articles.length; ++i) {
+                                const idx = (i % 4) + 1;
+                                homeVue.articlesImage.push(require('../assets/eat' + idx + '.png'));
+                            }
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -240,16 +304,12 @@
                 let timeForm = time[1].split(':');
                 return timeForm[0] + '시' + timeForm[1] + '분';
             },
-        }
+        },
     };
 </script>
 
 <style lang="scss">
     #inspire {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         background-image: url('../assets/background.png');
     }
 </style>
