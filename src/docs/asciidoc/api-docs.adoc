@@ -1,6 +1,5 @@
 = Ma! Gachi-MoocZZa
 뚱이, 에이든, 티버, 코맥, 션
-
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
