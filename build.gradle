@@ -59,6 +59,17 @@ dependencies {
     }
 }
 
+task acceptanceTest(type: Test) {
+    description = 'Runs the acceptance tests'
+    group = 'verification'
+    testClassesDirs = sourceSets.acceptanceTest.output
+    classpath = sourceSets.acceptanceTest.runtimeClasspath
+}
+
+check {
+    dependsOn(acceptanceTest)
+}
+
 test {
     useJUnitPlatform()
     outputs.dir snippetsDir
