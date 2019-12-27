@@ -147,7 +147,25 @@
                 });
             },
             participateArticle: function () {
-                this.$router.push('/articles/' + this.articleInfo.id + '/waiting');
+                const thisVue = this;
+                const menuInfoToken = this.selectedMenu.toString().split('.');
+                const menuIndex = menuInfoToken[0] - 1;
+                const participateArticle = {
+                    shopId: this.articleInfo.shopId,
+                    items: [
+                        { menuId: this.menus[menuIndex].menuId, count: 1 }
+                    ],
+                    totalPrice: this.menus[menuIndex].price
+                };
+                console.log(participateArticle);
+                axios.post('/api/articles/' + this.articleInfo.id, participateArticle)
+                    .then(function(response) {
+                        console.log(response);
+                        thisVue.$router.push('/articles/' + thisVue.articleInfo.id + '/waiting');
+                    })
+                    .catch(function(error){
+                        console.log(error);
+                    });
             }
         },
         computed: {

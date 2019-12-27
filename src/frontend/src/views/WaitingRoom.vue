@@ -1,48 +1,6 @@
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" app>
-            <v-list dense>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <router-link to="/">
-                            <v-btn min-width="167px" color="primary" dark>Home</v-btn>
-                        </router-link>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-account</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-dialog v-model="loginDialog" persistent max-width="600px">
-                            <template v-slot:activator="{ on }">
-                                <v-btn v-if="$store.state.loginUser === null" color="primary" dark v-on="on">Login</v-btn>
-                                <v-btn v-else color="teal" dark v-click="requestLogout">Logout</v-btn>
-                            </template>
-                            <LoginModal
-                                    v-on:closeLoginModal="closeLoginModal"
-                                    v-on:passLoginInfo="getLoginInfo"
-                            />
-                        </v-dialog>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-            <v-card-text v-if="$store.state.loginUser !== null" class=".title .font-weight-bold">
-                환영합니다. {{ $store.state.loginUser }} 님
-            </v-card-text>
-            <!--            <v-img-->
-            <!--                    :src="require('../assets/logo.svg')"-->
-            <!--                    class="my-lg-5"-->
-            <!--                    contain-->
-            <!--                    height="200"-->
-            <!--            />-->
-        </v-navigation-drawer>
-
         <v-app-bar app color="#85BECA" dark>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
             <v-toolbar-title>마! 같이 묵자</v-toolbar-title>
 
             <v-spacer/>
@@ -143,29 +101,35 @@
                         </v-card>
                     </v-col>
                 </v-row>
-
-<!--                <v-list dense>-->
-<!--                    <v-list-item>-->
-<!--                        <v-list-item-action>-->
-<!--                            <v-icon>mdi-food-fork-drink</v-icon>-->
-<!--                        </v-list-item-action>-->
-<!--                        <v-list-item-content>-->
-<!--                            <v-list-item-title>-->
-<!--                                {{ article.title }}-->
-<!--                            </v-list-item-title>-->
-<!--                            <v-list-item-content>-->
-<!--                                마감 기한: {{ convertTimeForm(article.deadLine) }} 까지!-->
-<!--                            </v-list-item-content>-->
-<!--                        </v-list-item-content>-->
-<!--                    </v-list-item>-->
-<!--                </v-list>-->
-
             </v-container>
 
         </v-content>
-        <v-footer color="#85BECA" app>
-            <span class="white--text">&copy; 2019</span>
-        </v-footer>
+
+        <v-bottom-navigation
+                v-model="bottomNav"
+        >
+            <v-btn v-on:click="goHome">
+                <span>Home</span>
+                <v-icon>mdi-home</v-icon>
+            </v-btn>
+
+            <v-dialog v-model="loginDialog">
+                <template v-slot:activator="{ on }">
+                    <v-btn v-if="$store.state.loginUser === null" v-on="on">
+                        <span>로그인</span>
+                        <v-icon>mdi-account-outline</v-icon>
+                    </v-btn>
+                    <v-btn v-else v-on:click="requestLogout">
+                        <span>로그아웃</span>
+                        <v-icon>mdi-account</v-icon>
+                    </v-btn>
+                </template>
+                <LoginModal
+                        v-on:closeLoginModal="closeLoginModal"
+                        v-on:passLoginInfo="getLoginInfo"
+                />
+            </v-dialog>
+        </v-bottom-navigation>
     </v-app>
 </template>
 
@@ -181,6 +145,7 @@
             source: String,
         },
         data: () => ({
+            bottomNav: 'recent',
             loading: false,
             activeColor: 'black',
             fontSize: 40,
@@ -198,6 +163,9 @@
             '$route': 'fetchData'
         },
         methods: {
+            goHome: function () {
+                this.$router.push('/');
+            },
             fetchData () {
                 this.article = this.shopName = null;
                 this.orders = [];

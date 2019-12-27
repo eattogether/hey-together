@@ -28,7 +28,6 @@ public class ControllerCookieHelper {
     public static Cookie createDefaultCookie(final String name, final String value) {
         Cookie cookie = new Cookie(name, value);
         cookie.setMaxAge(DEFAULT_COOKIE_EXPIRY_TIME);
-//        cookie.setHttpOnly(true);
         cookie.setHttpOnly(false);
         cookie.setPath("/");
         return cookie;

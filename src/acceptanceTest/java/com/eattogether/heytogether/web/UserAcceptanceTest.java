@@ -3,11 +3,10 @@ package com.eattogether.heytogether.web;
 import com.eattogether.heytogether.service.dto.LoginDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import static com.eattogether.TestConstant.JWT_TOKEN;
 import static com.eattogether.heytogether.common.ControllerCookieHelper.JWT_COOKIE_NAME;

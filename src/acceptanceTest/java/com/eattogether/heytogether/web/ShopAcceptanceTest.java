@@ -8,9 +8,8 @@ import com.eattogether.heytogether.service.dto.ShopInfoDto;
 import com.eattogether.heytogether.service.dto.ShopMenuDetailInfoDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-
 import org.springframework.http.MediaType;
+import reactor.core.publisher.Mono;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
